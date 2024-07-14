@@ -14,16 +14,16 @@ app.use(
     algorithms: ["HS256"],
   }).unless({
     path: [
-      "api/auth/login",
-      "/register",
-      "api/auth/forgot-password",
-      "api/auth/reset-password",
+      "/api/auth/login",
+      "/api/auth/register",
+      "/api/auth/forgot-password",
+      "/api/auth/reset-password",
     ],
   })
 );
 
 app.post("/api/auth/login", login);
-app.post("/register", register);
+app.post("/api/auth/register", register);
 
 app.listen(getSection("development").port, () =>
   console.log(`Server started at port ${getSection("development").port}`)

@@ -15,11 +15,11 @@ const login = async (req, res) => {
     const { email, password } = req.body;
     const account = await getAccountByEmail(email);
     if (!account) {
-      return res.status(400).send("Account not found");
+      return res.status(400).send({ error: "Account not found" });
     }
 
     if (!bcrypt.compareSync(password, account.password)) {
-      return res.status(400).send("Wrong password");
+      return res.status(400).send({ error: "Wrong password" });
     }
 
     const payload = {
@@ -29,7 +29,7 @@ const login = async (req, res) => {
     };
 
     const token = jwt.sign(payload, getSection("development").jwt_secret);
-    res.status(200).send(token);
+    res.status(200).send({ token });
   } catch (err) {
     res.status(500).send("Internal Server Error");
   }
