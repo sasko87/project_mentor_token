@@ -1,0 +1,24 @@
+header {
+  max-width: 1440px;
+  margin: auto;
+
+  max-height: 115px px;
+  padding: 32px 100px;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* .main-nav div {
+  width: 33.3%;
+} */
+
+.links {
+  display: flex;
+  gap: 38px;
+  align-items: center;
+  justify-content: center;
+}

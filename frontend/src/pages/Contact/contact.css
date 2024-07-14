@@ -1,0 +1,64 @@
+#contact {
+  background: url(../../assets/background-images/hero-background.svg);
+  background-position: center;
+  max-width: 1440px;
+  height: 746px;
+  padding: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  border-radius: 20px;
+}
+
+.contact-data {
+  /* width: 1169px; */
+  padding: 0 62px;
+  margin: auto;
+}
+
+.contact-title {
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 54px;
+}
+
+.contact-description {
+  font-size: 18px;
+  /* width: 1070px; */
+  color: #222222;
+  margin-bottom: 50px;
+}
+
+.contact-form {
+  /* max-width: 1115px; */
+  padding: 0 62px;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.full-name,
+.input-email {
+  width: 100%;
+  height: 52.84px;
+  padding: 8.81px 26.42px;
+  border-radius: 9px;
+  border: 1px solid #696cff;
+  background: transparent;
+  outline: none;
+}
+
+#contact .button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#contact .primary_button {
+  width: 219.84px;
+  height: 51px;
+  padding: 8px 24px;
+  border-radius: 9px;
+  margin: 20px 0 50px 0;
+}

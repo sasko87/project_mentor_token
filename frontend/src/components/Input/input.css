@@ -1,0 +1,16 @@
+.input {
+  width: 100%;
+}
+
+.sign-input {
+  width: 80%;
+  height: 60px;
+  border: 2px solid #d3d3ff;
+  border-radius: 9px;
+  outline: none;
+}
+
+.active {
+  border: 2px solid #696cff;
+  outline: none;
+}

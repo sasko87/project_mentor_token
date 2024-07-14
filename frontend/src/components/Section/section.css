@@ -1,0 +1,51 @@
+.component-section-lp-hero {
+  max-width: 1400px;
+  height: 829px;
+  max-height: fit-content;
+  padding: 80px;
+  border-radius: 20px;
+  background: url(../../assets/background-images/hero-background.svg);
+  display: flex;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.component-section-lp-hero h2 {
+  font-family: "Manrope", sans-serif;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 67.2px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+.component-section-lp-hero p {
+  font-family: "Manrope", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28.8px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+.component-section-partners {
+  margin: 70px auto;
+  max-width: 1400px;
+}
+
+.component-section-features {
+  max-width: 1400px;
+  height: 698px;
+  border-radius: 20px;
+  padding: 80px;
+  background: linear-gradient(to bottom right, #696cff, #9574ff);
+  margin: 100px auto 50px;
+
+  position: relative;
+}
+
+.component-section-mentorPreview {
+  width: 1400px;
+  margin: 80px auto;
+}

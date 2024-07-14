@@ -1,0 +1,70 @@
+.auth-page {
+  background: url(/src/assets/login-bg.png),
+    linear-gradient(147.1deg, #696cff 35.1%, #9574ff 77.5%);
+  max-width: 1440px;
+  margin: auto;
+  height: 1024px;
+  display: flex;
+}
+
+.auth-page-hero {
+  padding: 70px 90px;
+  color: white;
+  position: relative;
+  height: 100%;
+  width: 45%;
+}
+
+.auth-page-logo {
+  position: absolute;
+  bottom: 5%;
+}
+
+.auth-page-hero-text h1 {
+  font-family: "Manrope";
+  font-size: 88.63px;
+  font-weight: 700;
+  line-height: 89px;
+  text-align: left;
+  margin: 10px 0 0 0;
+}
+
+.auth-page-hero-text h4 {
+  font-family: "Manrope";
+  font-size: 20px;
+  font-weight: 700;
+
+  text-align: left;
+  margin-top: 18px;
+  text-transform: uppercase;
+}
+
+.auth-page-rocket {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 55%;
+  transform: rotate(-9.3deg);
+}
+
+.auth-page-logo {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-page-form {
+  background-color: white;
+  height: 100%;
+  width: 55%;
+  border-top-left-radius: 41px;
+  border-bottom-left-radius: 41px;
+  display: flex;
+  flex-direction: column;
+  padding: 60px 140px;
+}
+
+.auth-form-icon {
+  max-width: 49px;
+  height: 54.44px;
+  margin-top: 20px;
+}

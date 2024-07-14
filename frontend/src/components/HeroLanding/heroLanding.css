@@ -1,0 +1,19 @@
+.home-hero-button-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 72px;
+}
+
+.hero-left-container {
+  width: 50%;
+}
+
+.hero-computer-image {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 66.7%;
+  max-height: 699.5px;
+  border-bottom-right-radius: 20px;
+}

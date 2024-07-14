@@ -1,0 +1,45 @@
+#mentorPreview {
+  width: 1400px;
+  margin: 80px auto;
+}
+
+.mentor-preview-title {
+  font-family: Inter;
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 24px;
+
+  margin-left: 113px;
+}
+.highlighted-text {
+  font-family: Inter;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 24px;
+  color: #696cff;
+}
+.mentor-preview-images {
+  position: relative;
+  max-width: 1234px;
+  height: 886px;
+  margin: auto;
+  border-radius: 60px;
+  border: 5px solid #696cff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mentor-preview-img {
+  height: 836px;
+  max-width: 1175.62px;
+  border-radius: 57.16px;
+}
+
+.mentor-preview-second-image {
+  position: absolute;
+  top: -190px;
+  right: 28px;
+  width: 558px;
+  height: 522.91px;
+}

@@ -1,0 +1,22 @@
+.primary_button {
+  border: none;
+  max-width: 521px;
+  width: 100%;
+  border-radius: 9px;
+  background-color: #696cff;
+  padding: 16px 24px;
+  color: white;
+  cursor: pointer;
+  height: 60px;
+  border-radius: 9px;
+}
+
+.primary_button_startingIcon {
+  margin-right: 5px;
+  width: 18px;
+  height: 18px;
+}
+
+.primary_button:hover {
+  background-color: #5154fd;
+}
