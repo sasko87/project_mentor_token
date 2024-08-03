@@ -5,9 +5,39 @@ import Link from "../Link/Link";
 import "./login.css";
 
 const Login = () => {
-  const [emailValue, setEmailValue] = useState("");
-  const [passwordValue, setPassowrdValue] = useState("");
-  console.log(emailValue, passwordValue);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+    const data = {
+      email,
+      password,
+    };
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        window.localStorage.setItem("token", data.token);
+        window.location = "/dashboard";
+      } else {
+        const errorData = await res.json();
+        setError(errorData.error);
+      }
+    } catch (err) {
+      setError("An error occurred during login. Please try again later.");
+      console.error("An error occurred during login:", err);
+    }
+  };
 
   return (
     <>
@@ -16,25 +46,29 @@ const Login = () => {
           <h2>Log in to mentor token </h2>
           <p>Enter your email and pass to login.</p>
         </div>
-        <form action="" className="login-form">
+        <form onSubmit={handleLogin} className="login-form">
           <Input
             type="email"
             placeholder="E-mail"
             className="login-input"
-            onChange={(e) => setEmailValue(e.target.value)}
-            value={emailValue}
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
           <Input
             type="password"
             placeholder="Password"
             className="login-input"
-            onChange={(e) => setPassowrdValue(e.target.value)}
-            value={passwordValue}
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
+          {error && (
+            <p style={{ color: "red", textAlign: "center" }}>{error}</p>
+          )}
           <Button type="submit" label="Log in" className="login-button" />
         </form>
+
         <p className="login-register-account">
-          Don’t have account?{" "}
+          Don’t have account?
           <Link url="/register" className="login-register">
             Register
           </Link>

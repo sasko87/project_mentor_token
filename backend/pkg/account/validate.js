@@ -6,8 +6,15 @@ const AccountLogin = {
 };
 
 const AccountRegister = {
-  email: "required|string",
+  name: "required|string",
+  email: "required|email",
   password: "required|string",
+  type: "required|string|in:mentor,startup",
+  phone: "required|integer",
+  skills: "array",
+  desc: "string",
+  representative: "string",
+  address: "string",
 };
 
 const validate = async (data, schema) => {

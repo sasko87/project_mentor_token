@@ -25,6 +25,7 @@ const login = async (req, res) => {
     const payload = {
       email: account.email,
       id: account._id,
+      type: account.type,
       exp: new Date().getTime() / 1000 + 7 * 24 * 60 * 60,
     };
 

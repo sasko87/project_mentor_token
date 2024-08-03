@@ -9,39 +9,71 @@ import Contact from "./pages/Contact/Contact.jsx";
 import LandingPagesLayout from "./Layouts/LandingPagesLayout.jsx";
 import AuthPagesLayouts from "./Layouts/AuthPagesLayouts.jsx";
 import Login from "./components/Login/Login.jsx";
+import Dashboard from "./components/Dashboard/Dashboard.jsx";
 
 const router = createBrowserRouter([
+  // {
+  //   path: "/",
+  //   element: (
+  //     <LandingPagesLayout>
+  //       <Home />
+  //     </LandingPagesLayout>
+  //   ),
+  // },
+  // {
+  //   path: "/about",
+  //   element: (
+  //     <LandingPagesLayout>
+  //       <About />
+  //     </LandingPagesLayout>
+  //   ),
+  // },
+  // {
+  //   path: "/contact",
+  //   element: (
+  //     <LandingPagesLayout>
+  //       <Contact />
+  //     </LandingPagesLayout>
+  //   ),
+  // },
+  // {
+  //   path: "/login",
+  //   element: (
+  //     <AuthPagesLayouts>
+  //       <Login />
+  //     </AuthPagesLayouts>
+  //   ),
+  // },
+  // {
+  //   path: "/dashboard",
+  //   element: <Dashboard />,
+  // },
   {
-    path: "/",
-    element: (
-      <LandingPagesLayout>
-        <Home />
-      </LandingPagesLayout>
-    ),
+    element: <LandingPagesLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+    ],
   },
+
   {
-    path: "/about",
-    element: (
-      <LandingPagesLayout>
-        <About />
-      </LandingPagesLayout>
-    ),
-  },
-  {
-    path: "/contact",
-    element: (
-      <LandingPagesLayout>
-        <Contact />
-      </LandingPagesLayout>
-    ),
-  },
-  {
-    path: "/login",
-    element: (
-      <AuthPagesLayouts>
-        <Login />
-      </AuthPagesLayouts>
-    ),
+    element: <AuthPagesLayouts />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+    ],
   },
 ]);
 

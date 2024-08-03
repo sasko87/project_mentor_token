@@ -3,6 +3,13 @@ const { expressjwt: jwt } = require("express-jwt");
 
 const { getSection } = require("./pkg/config");
 const { login, register } = require("./handlers/auth");
+const {
+  createNewJob,
+  getOneCompanyJobs,
+  deleteOneJob,
+  allJobs,
+} = require("./handlers/job.js");
+
 require("./pkg/db/config");
 
 const app = express();
@@ -24,6 +31,10 @@ app.use(
 
 app.post("/api/auth/login", login);
 app.post("/api/auth/register", register);
+app.post("/api/postjob", createNewJob);
+app.get("/api/showjobs", getOneCompanyJobs);
+app.delete("/api/deletejob/:id", deleteOneJob);
+app.get("/api/alljobs", allJobs);
 
 app.listen(getSection("development").port, () =>
   console.log(`Server started at port ${getSection("development").port}`)
