@@ -21,7 +21,7 @@ const accountSchema = mongoose.Schema({
   phone: {
     type: String,
     required: function () {
-      return this.type === "startup";
+      return this.type === "mentor";
     },
   },
   skills: {

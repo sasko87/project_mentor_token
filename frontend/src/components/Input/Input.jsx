@@ -9,6 +9,8 @@ const Input = ({
   onClick,
   onChange,
   value,
+
+  id,
 }) => {
   return (
     <input
@@ -19,6 +21,7 @@ const Input = ({
       onClick={onClick}
       onChange={onChange}
       value={value}
+      id={id}
     ></input>
   );
 };

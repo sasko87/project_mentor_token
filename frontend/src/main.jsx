@@ -9,7 +9,9 @@ import Contact from "./pages/Contact/Contact.jsx";
 import LandingPagesLayout from "./Layouts/LandingPagesLayout.jsx";
 import AuthPagesLayouts from "./Layouts/AuthPagesLayouts.jsx";
 import Login from "./components/Login/Login.jsx";
-import Dashboard from "./components/Dashboard/Dashboard.jsx";
+import AdminPages from "./Layouts/AdminPages.jsx";
+import DashboardStartup from "./pages/DashboardStartup/DashboardStartup.jsx";
+import Register from "./pages/Register/Register.jsx";
 
 const router = createBrowserRouter([
   // {
@@ -72,6 +74,20 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+    ],
+  },
+
+  {
+    element: <AdminPages />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <DashboardStartup />,
       },
     ],
   },

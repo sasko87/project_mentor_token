@@ -1,0 +1,83 @@
+.admin-page {
+  height: 100vh;
+  max-width: 1440px;
+  background-color: #f5f5f9;
+  position: relative;
+  display: flex;
+}
+
+.admin-menu {
+  width: 260px;
+  height: 100%;
+  box-shadow: 0px 2px 6px 0px #435971;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  background-color: white;
+  position: relative;
+}
+
+.admin-menu.hidden {
+  transform: translateX(-250px);
+  width: 0px;
+}
+
+.admin-logo {
+  width: 90%;
+  margin: 30px auto 50px auto;
+}
+
+.admin-menu-arrow-left {
+  background-color: #696cff;
+  padding: 5px 7px;
+  border-radius: 50%;
+  width: 26px;
+  position: absolute;
+  top: 35px;
+  left: 247px;
+  cursor: pointer;
+  z-index: 10;
+  transition: left 0.3s ease-in-out;
+}
+
+.admin-menu-arrow-left.menu-hidden {
+  left: 0;
+}
+
+.admin-nav-logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #566a7f;
+  margin: 20px 0;
+  font-family: "Manrope";
+  font-size: 16px;
+  font-weight: 500;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  right: 50%;
+}
+
+.admin-nav-logout .admin-nav-link {
+  color: #696cff;
+}
+
+.admin-nav-logout img,
+.admin-nav-links img {
+  margin-right: 8px;
+}
+
+.admin-nav-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.hidden {
+  transform: translateX(-120%);
+}
+
+.admin-right-side {
+  flex: 1;
+  margin: 30px;
+}

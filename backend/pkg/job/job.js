@@ -40,6 +40,10 @@ const getAllJobs = async (companyId) => {
   return await Job.find({ companyId });
 };
 
+const getFilteredJobs = async (filters) => {
+  return await Job.find(filters);
+};
+
 const getAllCompaniesJobs = async () => {
   return await Job.find();
 };
@@ -59,4 +63,5 @@ module.exports = {
   deleteJob,
   getAllJobs,
   getAllCompaniesJobs,
+  getFilteredJobs,
 };

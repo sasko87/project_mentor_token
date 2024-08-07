@@ -1,10 +1,14 @@
 import React from "react";
 import "./button.css";
 
-const Button = ({ label, startingIcon, type, className }) => {
+const Button = ({ label, startingIcon, type, className, clickFunction }) => {
   return (
     <div className="button-container">
-      <button className={`primary_button ${className} `} type={type}>
+      <button
+        onClick={clickFunction}
+        className={`primary_button ${className} `}
+        type={type}
+      >
         {startingIcon && (
           <span className="primary_button_startingIcon">{startingIcon}</span>
         )}

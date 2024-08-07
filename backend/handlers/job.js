@@ -5,6 +5,7 @@ const {
   deleteJob,
   getAllJobs,
   getAllCompaniesJobs,
+  getFilteredJobs,
 } = require("../pkg/job/job");
 const { validate, JobValidate } = require("../pkg/job/validate");
 
@@ -75,6 +76,19 @@ const allJobs = async (req, res) => {
   }
 };
 
+//filteredJobs
+//da mozam da pratam id na kompanija i da mi gi dade spored id na taa kompanija
+
+const filteredJobs = async (req, res) => {
+  try {
+    console.log(req);
+    const jobs = await getFilteredJobs(req.query);
+    return res.status(200).send(jobs);
+  } catch (err) {
+    return res.status(err.status).send(err.error);
+  }
+};
+
 module.exports = {
   getOneCompanyJobs,
   getSingleJob,
@@ -82,4 +96,5 @@ module.exports = {
   updateOneJob,
   deleteOneJob,
   allJobs,
+  filteredJobs,
 };

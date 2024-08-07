@@ -17,8 +17,8 @@ const Header = () => {
           <Link url="/contact">Contact</Link>
         </div>
         <div className="links">
-          <Link url="Login">Login</Link>
-          <Link className="blueButton">
+          <Link url="/login">Login</Link>
+          <Link url="/register" className="blueButton">
             <GoArrowRight /> Get Started
           </Link>
         </div>

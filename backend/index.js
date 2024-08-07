@@ -8,6 +8,7 @@ const {
   getOneCompanyJobs,
   deleteOneJob,
   allJobs,
+  filteredJobs,
 } = require("./handlers/job.js");
 
 require("./pkg/db/config");
@@ -25,6 +26,8 @@ app.use(
       "/api/auth/register",
       "/api/auth/forgot-password",
       "/api/auth/reset-password",
+      "/api/alljobs",
+      "/api/filteredJobs",
     ],
   })
 );
@@ -35,6 +38,7 @@ app.post("/api/postjob", createNewJob);
 app.get("/api/showjobs", getOneCompanyJobs);
 app.delete("/api/deletejob/:id", deleteOneJob);
 app.get("/api/alljobs", allJobs);
+app.get("/api/filteredJobs", filteredJobs);
 
 app.listen(getSection("development").port, () =>
   console.log(`Server started at port ${getSection("development").port}`)

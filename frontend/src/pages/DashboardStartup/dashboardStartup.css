@@ -1,0 +1,11 @@
+.best-mentors {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-best-mentors {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+}

@@ -6,7 +6,7 @@ import Link from "../components/Link/Link";
 import "./authPagesLayout.css";
 import { Outlet } from "react-router-dom";
 
-const AuthPagesLayouts = ({ children }) => {
+const AuthPagesLayouts = () => {
   return (
     <div className="auth-page">
       <div className="auth-page-hero">

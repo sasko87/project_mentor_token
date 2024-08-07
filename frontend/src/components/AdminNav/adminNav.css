@@ -1,0 +1,28 @@
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 80%;
+}
+.admin-nav-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #566a7f;
+  margin: 20px 0;
+  font-family: "Manrope";
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.admin-nav-links img {
+  margin-right: 8px;
+}
