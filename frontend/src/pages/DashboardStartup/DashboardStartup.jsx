@@ -4,6 +4,8 @@ import Card from "../../components/Card/Card";
 import ArrowUp from "../../assets/admin-icons/arrow-up-side.png";
 import ProfileImg from "../../assets/Ellipse 3.png";
 import "./dashboardStartup.css";
+import AssignedJobs from "../../components/AssignedJobs/AssignedJobs";
+import BestMentors from "../../components/BestMentors/BestMentors";
 
 const DashboardStartup = () => {
   // const povik = async () => {
@@ -38,6 +40,7 @@ const DashboardStartup = () => {
   const [jobs, setJobs] = useState([]);
   const [mentors, setMentors] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
+
   const fetchJobs = async () => {
     try {
       const allJobs = await fetch("/api/showjobs", {
@@ -88,7 +91,7 @@ const DashboardStartup = () => {
       content: rejectedJobs,
     },
     {
-      tab: "Pending",
+      tab: "In Progress",
       content: pendingJobs,
     },
   ];
@@ -100,50 +103,27 @@ const DashboardStartup = () => {
   return (
     <>
       <StartupHeader placeholder="Search Mentor..." />
-      <div className="startup-jobs">
-        <div className="startup-jobs-tab-title">
-          {tabs.map((tab, index) => (
-            <div key={index} onClick={() => handleTabs(index)}>
-              <p>{tab.tab}</p>
-            </div>
-          ))}
+      <section
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "30px",
+          padding: "20px 0",
+        }}
+      >
+        <AssignedJobs
+          tabs={tabs}
+          onClickFunction={handleTabs}
+          selectedTab={selectedTab}
+        />
+        <div style={{ display: "flex", flexDirection: "column", width: "50%" }}>
+          <BestMentors
+            mentors={mentors}
+            profileImg={ProfileImg}
+            icon={ArrowUp}
+          />
         </div>
-
-        <div className="startupCompanyJobs">
-          {tabs[selectedTab].content.map((job) => (
-            <div key={job._id} className="startupCompanyJob">
-              <h3>{job.title}</h3>
-              <p>{job.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="best-mentors-container">
-        {mentors.slice(0, 3).map((mentor) => (
-          <div className="best-mentors-data">
-            <div style={{ width: "15%", textAlign: "center" }}>
-              <img
-                src={ProfileImg}
-                alt="Profile Image"
-                className="best-mentor-profile-image"
-              />
-            </div>
-            <div style={{ width: "40%" }}>
-              <h4 className="best-mentor-name">{mentor.name}</h4>
-            </div>
-
-            <div className="best-mentor-jobs">
-              <p className="best-mentor-completed-jobs">
-                {mentor.acceptedJobs.length}
-              </p>
-              <p className="best-mentor-archived-jobs">Archived Jobs</p>
-            </div>
-            <div style={{ width: "10%", textAlign: "right" }}>
-              <img src={ArrowUp} alt="arrow up" className="best-mentor-arrow" />
-            </div>
-          </div>
-        ))}
-      </div>
+      </section>
     </>
   );
 };
