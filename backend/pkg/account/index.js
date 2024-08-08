@@ -83,9 +83,13 @@ const removeAccount = async (id) => {
   return await Account.deleteOne({ id });
 };
 
+const allMentors = async () => {
+  return await Account.find({ type: "mentor" });
+};
 module.exports = {
   createAccount,
   getAccountByEmail,
   updateAccount,
   removeAccount,
+  allMentors,
 };

@@ -5,6 +5,7 @@ import "./header.css";
 import { GoArrowRight } from "react-icons/go";
 
 const Header = () => {
+  const token = window.localStorage.getItem("token");
   return (
     <header>
       <nav className="main-nav">
@@ -17,10 +18,18 @@ const Header = () => {
           <Link url="/contact">Contact</Link>
         </div>
         <div className="links">
-          <Link url="/login">Login</Link>
-          <Link url="/register" className="blueButton">
-            <GoArrowRight /> Get Started
-          </Link>
+          {token ? (
+            <Link url="/dashboard">Dashboard</Link>
+          ) : (
+            <Link url="/login">Login</Link>
+          )}
+          {token ? (
+            <Link url="/logout">Logout</Link>
+          ) : (
+            <Link url="/register" className="blueButton">
+              <GoArrowRight /> Get Started
+            </Link>
+          )}
         </div>
       </nav>
     </header>

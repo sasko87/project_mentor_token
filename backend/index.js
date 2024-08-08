@@ -10,6 +10,7 @@ const {
   allJobs,
   filteredJobs,
 } = require("./handlers/job.js");
+const { getAllMentors } = require("./handlers/account.js");
 
 require("./pkg/db/config");
 
@@ -39,6 +40,7 @@ app.get("/api/showjobs", getOneCompanyJobs);
 app.delete("/api/deletejob/:id", deleteOneJob);
 app.get("/api/alljobs", allJobs);
 app.get("/api/filteredJobs", filteredJobs);
+app.get("/api/getallmentors", getAllMentors);
 
 app.listen(getSection("development").port, () =>
   console.log(`Server started at port ${getSection("development").port}`)

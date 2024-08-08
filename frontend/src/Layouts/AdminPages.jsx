@@ -27,6 +27,11 @@ const AdminPages = () => {
     setIsMenuVisible(!isMenuVisible);
   };
 
+  const handleLogout = () => {
+    window.localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   const itemsStartup = [
     {
       name: "Dashboard",
@@ -79,7 +84,11 @@ const AdminPages = () => {
         <AdminNav items={items} />
 
         <div className="admin-nav-logout">
-          <Link to="/logout" className="admin-nav-link">
+          <Link
+            to="/login"
+            className="admin-nav-link"
+            onClick={() => handleLogout()}
+          >
             <img src={LogoutIcon} className="admin-nav-icon" />
             Logout
           </Link>
