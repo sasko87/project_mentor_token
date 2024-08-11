@@ -86,10 +86,15 @@ const removeAccount = async (id) => {
 const allMentors = async () => {
   return await Account.find({ type: "mentor" });
 };
+
+const accountById = async (id) => {
+  return await Account.findOne({ _id: id });
+};
 module.exports = {
   createAccount,
   getAccountByEmail,
   updateAccount,
   removeAccount,
   allMentors,
+  accountById,
 };

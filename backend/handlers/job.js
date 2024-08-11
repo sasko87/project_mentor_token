@@ -20,7 +20,7 @@ const getOneCompanyJobs = async (req, res) => {
 
 const getSingleJob = async (req, res) => {
   try {
-    const job = await getOneJob(req, auth.id, req.params.id);
+    const job = await getOneJob(req.auth.id, req.params.id);
     if (!job) {
       return res.status(404).send("Job does not exists");
     }

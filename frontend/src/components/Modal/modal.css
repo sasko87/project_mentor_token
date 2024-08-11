@@ -1,0 +1,26 @@
+.backLock {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #00000087;
+  z-index: 11;
+}
+
+.modalWindow {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  z-index: 12;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.modalWindow-closeButton {
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}

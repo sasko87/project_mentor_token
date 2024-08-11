@@ -56,4 +56,15 @@ const register = async (req, res) => {
   }
 };
 
-module.exports = { login, register };
+const refreshToken = async (req, res) => {
+  const payload = {
+    ...req.auth,
+    exp: (new Date().getTime() / 1000) * 7 * 24 * 60 * 60,
+  };
+  const token = jwt.sign(payload, getSection["development"].jwt_secret);
+  res.status(200).send({ token });
+};
+
+const changePassword = async (req, res) => {};
+
+module.exports = { login, register, refreshToken };

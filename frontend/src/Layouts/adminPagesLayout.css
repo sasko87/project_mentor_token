@@ -4,6 +4,7 @@
   background-color: #f5f5f9;
   position: relative;
   display: flex;
+  margin: auto;
 }
 
 .admin-menu {
@@ -17,8 +18,8 @@
 }
 
 .admin-menu.hidden {
-  transform: translateX(-250px);
-  width: 0px;
+  transform: translateX(-2000px);
+  width: 0;
 }
 
 .admin-logo {

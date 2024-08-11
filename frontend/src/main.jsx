@@ -10,46 +10,13 @@ import LandingPagesLayout from "./Layouts/LandingPagesLayout.jsx";
 import AuthPagesLayouts from "./Layouts/AuthPagesLayouts.jsx";
 import Login from "./components/Login/Login.jsx";
 import AdminPages from "./Layouts/AdminPages.jsx";
-import DashboardStartup from "./pages/DashboardStartup/DashboardStartup.jsx";
 import Register from "./pages/Register/Register.jsx";
+import Dashboard from "./pages/Dashboard/Dashboard.jsx";
+import ProtectedRoutes from "./routes/ProtectedRoutes.jsx";
+import Mentors from "./pages/Mentors/Mentors.jsx";
+import Jobs from "./pages/Jobs/Jobs.jsx";
 
 const router = createBrowserRouter([
-  // {
-  //   path: "/",
-  //   element: (
-  //     <LandingPagesLayout>
-  //       <Home />
-  //     </LandingPagesLayout>
-  //   ),
-  // },
-  // {
-  //   path: "/about",
-  //   element: (
-  //     <LandingPagesLayout>
-  //       <About />
-  //     </LandingPagesLayout>
-  //   ),
-  // },
-  // {
-  //   path: "/contact",
-  //   element: (
-  //     <LandingPagesLayout>
-  //       <Contact />
-  //     </LandingPagesLayout>
-  //   ),
-  // },
-  // {
-  //   path: "/login",
-  //   element: (
-  //     <AuthPagesLayouts>
-  //       <Login />
-  //     </AuthPagesLayouts>
-  //   ),
-  // },
-  // {
-  //   path: "/dashboard",
-  //   element: <Dashboard />,
-  // },
   {
     element: <LandingPagesLayout />,
     children: [
@@ -83,11 +50,24 @@ const router = createBrowserRouter([
   },
 
   {
-    element: <AdminPages />,
+    element: <ProtectedRoutes />,
     children: [
       {
-        path: "/dashboard",
-        element: <DashboardStartup />,
+        element: <AdminPages />,
+        children: [
+          {
+            path: "/dashboard",
+            element: <Dashboard />,
+          },
+          {
+            path: "/mentors",
+            element: <Mentors />,
+          },
+          {
+            path: "/jobs",
+            element: <Jobs />,
+          },
+        ],
       },
     ],
   },

@@ -11,15 +11,13 @@ import JobIcon from "../assets/admin-icons/disc.png";
 import LogoutIcon from "../assets/admin-icons/logout.png";
 import StatsIcon from "../assets/admin-icons/stats.png";
 import "./adminPagesLayout.css";
-import StartupHeader from "../components/StartupHeader/StartupHeader";
 import { jwtDecode } from "jwt-decode";
 import AdminNav from "../components/AdminNav/AdminNav";
+import Modal from "../components/Modal/Modal";
 
 const AdminPages = () => {
   const token = localStorage.getItem("token");
   const user = token ? jwtDecode(token) : null;
-  console.log("user");
-  console.log(user);
 
   const [isMenuVisible, setIsMenuVisible] = useState(true);
 

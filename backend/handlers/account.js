@@ -1,4 +1,4 @@
-const { allMentors } = require("../pkg/account/index");
+const { allMentors, accountById } = require("../pkg/account/index");
 
 const getAllMentors = async (req, res) => {
   try {
@@ -9,4 +9,13 @@ const getAllMentors = async (req, res) => {
   }
 };
 
-module.exports = { getAllMentors };
+const getAccoutData = async (req, res) => {
+  try {
+    const accountData = await accountById(req.auth.id);
+    res.status(200).send(accountData);
+  } catch (err) {
+    return res.status(err.status).send(err.error);
+  }
+};
+
+module.exports = { getAllMentors, getAccoutData };

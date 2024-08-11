@@ -1,0 +1,75 @@
+.component-section-mentors {
+  display: flex;
+}
+
+.startup-mentors-cards {
+  display: flex;
+  flex-direction: column;
+  max-width: 741px;
+  height: 160px;
+  flex: 1;
+}
+
+.startup-mentors-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 15.5px;
+  margin: 5px;
+  gap: 25px;
+  box-shadow: 10px 12px 32px 0px #cbc6d742;
+  background-color: white;
+  padding: 15px;
+}
+
+.startup-mentors-card-image {
+  width: 81px;
+  height: 81px;
+}
+
+.startup-mentors-card-name {
+  font-family: "Inter";
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 18.15px;
+  text-align: left;
+}
+
+.startup-mentors-card-rating {
+  font-family: Inter;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12.1px;
+  text-align: left;
+}
+
+.startup-mentors-card-skills {
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14.52px;
+  text-align: left;
+  color: black;
+}
+
+.startup-mentors-card-description {
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.52px;
+  text-align: left;
+}
+
+.startup-mentors-card-button {
+  width: 78.36px;
+  height: 26.57px;
+  padding: 5.79px 8.68px 5.79px 8.68px;
+  gap: 2.89px;
+  border-radius: 2.89px;
+  font-family: Noto Sans;
+  font-size: 10.13px;
+  font-weight: 400;
+  line-height: 14.47px;
+  text-align: center;
+  color: white;
+}

@@ -17,6 +17,12 @@ const AccountRegister = {
   address: "string",
 };
 
+const ChangePasswordValidate = {
+  email: "required|email",
+  oldPassword: "required|string",
+  newPassword: "required|string",
+};
+
 const validate = async (data, schema) => {
   let v = new Validator(data, schema);
   let e = v.check();
@@ -28,4 +34,9 @@ const validate = async (data, schema) => {
   }
 };
 
-module.exports = { AccountLogin, AccountRegister, validate };
+module.exports = {
+  AccountLogin,
+  AccountRegister,
+  ChangePasswordValidate,
+  validate,
+};

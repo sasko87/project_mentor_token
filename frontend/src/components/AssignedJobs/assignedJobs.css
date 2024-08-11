@@ -77,8 +77,22 @@ hr {
   text-align: center;
   text-transform: uppercase;
   padding: 5px 15px;
-  background-color: green;
   border-radius: 12px;
+}
+
+.status-penging {
+  background-color: #d3d3ff66;
+  color: #696cff;
+}
+
+.status-done {
+  background-color: #ebf6eb;
+  color: #31aa27;
+}
+
+.status-rejected {
+  background-color: #fff0f3;
+  color: #f2076a;
 }
 
 .activeTab {
