@@ -5,8 +5,14 @@ const {
   validate,
   AccountLogin,
   AccountRegister,
+  ChangePasswordValidate,
 } = require("../pkg/account/validate");
-const { createAccount, getAccountByEmail } = require("../pkg/account");
+const {
+  createAccount,
+  getAccountByEmail,
+  accountById,
+  setNewPassword,
+} = require("../pkg/account");
 const { getSection } = require("../pkg/config/index");
 
 const login = async (req, res) => {
@@ -65,6 +71,23 @@ const refreshToken = async (req, res) => {
   res.status(200).send({ token });
 };
 
-const changePassword = async (req, res) => {};
+const changePassword = async (req, res) => {
+  validate(req.body, ChangePasswordValidate);
+  const { newPassword, oldPassword } = req.body;
+  const account = await accountById(req.auth.id);
+  if (!bcrypt.compareSync(oldPassword, account.password)) {
+    return res.status(400).send("Old password is incorrect");
+  }
 
-module.exports = { login, register, refreshToken };
+  if (newPassword === oldPassword) {
+    return res
+      .status(400)
+      .send("New password cannot be the same as Old password");
+  }
+  const hashNewPassword = bcrypt.hashSync(newPassword);
+
+  await setNewPassword(account._id.toString(), hashNewPassword);
+  return res.status(200).send("Password was successfuly changed");
+};
+
+module.exports = { login, register, refreshToken, changePassword };

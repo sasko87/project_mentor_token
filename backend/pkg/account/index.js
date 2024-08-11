@@ -90,6 +90,10 @@ const allMentors = async () => {
 const accountById = async (id) => {
   return await Account.findOne({ _id: id });
 };
+
+const setNewPassword = async () => {
+  return await Account.updateOne({ _id: id, password });
+};
 module.exports = {
   createAccount,
   getAccountByEmail,
@@ -97,4 +101,5 @@ module.exports = {
   removeAccount,
   allMentors,
   accountById,
+  setNewPassword,
 };

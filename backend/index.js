@@ -2,7 +2,7 @@ const express = require("express");
 const { expressjwt: jwt } = require("express-jwt");
 
 const { getSection } = require("./pkg/config");
-const { login, register } = require("./handlers/auth");
+const { login, register, changePassword } = require("./handlers/auth");
 const {
   createNewJob,
   getOneCompanyJobs,
@@ -33,11 +33,14 @@ app.use(
 
 app.post("/api/auth/login", login);
 app.post("/api/auth/register", register);
+app.post("/api/auth/changepassword", changePassword);
+
 app.post("/api/postjob", createNewJob);
 app.get("/api/showjobs", getOneCompanyJobs);
 app.delete("/api/deletejob/:id", deleteOneJob);
 app.get("/api/alljobs", allJobs);
 app.get("/api/filteredJobs", filteredJobs);
+
 app.get("/api/getallmentors", getAllMentors);
 app.get("/api/getaccount", getAccoutData);
 

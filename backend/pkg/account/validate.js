@@ -18,7 +18,6 @@ const AccountRegister = {
 };
 
 const ChangePasswordValidate = {
-  email: "required|email",
   oldPassword: "required|string",
   newPassword: "required|string",
 };
