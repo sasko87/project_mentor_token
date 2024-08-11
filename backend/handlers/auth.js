@@ -75,6 +75,7 @@ const changePassword = async (req, res) => {
   validate(req.body, ChangePasswordValidate);
   const { newPassword, oldPassword } = req.body;
   const account = await accountById(req.auth.id);
+  console.log("tuka", account);
   if (!bcrypt.compareSync(oldPassword, account.password)) {
     return res.status(400).send("Old password is incorrect");
   }

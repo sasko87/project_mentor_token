@@ -91,8 +91,8 @@ const accountById = async (id) => {
   return await Account.findOne({ _id: id });
 };
 
-const setNewPassword = async () => {
-  return await Account.updateOne({ _id: id, password });
+const setNewPassword = async (id, password) => {
+  return await Account.updateOne({ _id: id }, { password: password });
 };
 module.exports = {
   createAccount,
