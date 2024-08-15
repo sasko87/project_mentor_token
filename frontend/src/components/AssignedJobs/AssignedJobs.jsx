@@ -4,7 +4,7 @@ import "./assignedJobs.css";
 const AssignedJobs = ({ tabs, onClickFunction, selectedTab }) => {
   return (
     <div className="startup-jobs">
-      <h2 className="assigned-jobs-title">Assigned Jobs</h2>
+      <h2 className="assigned-jobs-title">My Jobs</h2>
       <div className="startup-jobs-tab-title">
         {tabs.map((tab, index) => (
           <div key={index} onClick={() => onClickFunction(index)}>

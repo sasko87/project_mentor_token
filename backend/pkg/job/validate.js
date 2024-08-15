@@ -5,7 +5,8 @@ const JobValidate = {
   title: "required|string",
   description: "required|string",
   skillsRequired: "required|array",
-  status: "required|in:Direct, Open",
+  status: "required|in: OPEN, IN_PROGRESS, REVIEW, DONE, REJECTED, CANCELED",
+  applicationType: "required|in: OPEN_FOR_ALL, DIRECT",
 };
 
 const validate = async (data, schema) => {

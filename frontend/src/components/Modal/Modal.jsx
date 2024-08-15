@@ -1,12 +1,12 @@
 import React from "react";
 import "./modal.css";
-import { Outlet } from "react-router-dom";
+import closeIcon from "../../assets/admin-icons/plus-circle.ico";
 
 const Modal = ({ children, closeModal, width, height }) => {
   return (
     <div className="modal">
       <div
-        className="backLock"
+        className="back-lock"
         onClick={() => {
           closeModal();
         }}
@@ -17,7 +17,7 @@ const Modal = ({ children, closeModal, width, height }) => {
          isto za marginLeft: (width / 2) * -1,
       */}
       <div
-        className="modalWindow"
+        className="modal-window"
         style={{
           width: width,
           height: height,
@@ -26,12 +26,12 @@ const Modal = ({ children, closeModal, width, height }) => {
         }}
       >
         <span
-          className="modalWindow-closeButton"
+          className="modal-window-close-button"
           onClick={() => {
             closeModal();
           }}
         >
-          X
+          <img src={closeIcon} style={{ width: "24px", height: "24px" }} />
         </span>
         {children}
       </div>

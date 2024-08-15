@@ -1,57 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
 import StartupHeader from "../../components/StartupHeader/StartupHeader";
 import Section from "../../components/Section/Section";
 import Card from "../../components/Card/Card";
 import ProfileImg from "../../assets/Ellipse 3.png";
 import Button from "../../components/Button/Button";
 import "./mentors.css";
+import { useEffect } from "react";
+import QuickOverview from "../../components/QuickOverview/QuickOverview";
 
 const Mentors = () => {
-  const mentor = [
+  const token = window.localStorage.getItem("token");
+  const [accountData, setAccountData] = useState([]);
+
+  const fetchMentors = async () => {
+    try {
+      const allMentors = await fetch("/api/getAllMentors", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (allMentors.ok) {
+        const data = await allMentors.json();
+        console.log(data);
+        setAccountData(data);
+      }
+    } catch (error) {
+      console.log("An error occurred during fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMentors();
+  }, []);
+
+  const quickOverviewData = [
     {
-      name: "Aleksandar",
-      image: ProfileImg,
-      rating: "2.54 average based on KPI success rate",
-      skills: "Skills: Sales | Management | Problem-solving",
-      description:
-        "Field sales training. 5+ years in an outside sales position ",
+      title: "Total Mentors",
+      count: 150,
     },
     {
-      name: "Kiril",
-      image: ProfileImg,
-      rating: "2.54 average based on KPI success rate",
-      skills: "Skills: Sales | Management | Problem-solving",
-      description:
-        "Field sales training. 5+ years in an outside sales position ",
+      title: "Total Assigned Jobs",
+      count: 180,
     },
     {
-      name: "David",
-      image: ProfileImg,
-      rating: "2.54 average based on KPI success rate",
-      skills: "Skills: Sales | Management | Problem-solving",
-      description:
-        "Field sales training. 5+ years in an outside sales position ",
+      title: "Finished Jobs",
+      count: 50,
     },
   ];
+
   return (
     <>
-      <StartupHeader placeholder="Search Mentor..." />
       <Section className="mentors">
         <div className="startup-mentors-cards">
-          {mentor.map((mentor) => (
+          {accountData.slice(0, 3).map((mentor) => (
             <div className="startup-mentors-card">
               <div style={{ width: "10%" }}>
-                <img
-                  src={mentor.image}
-                  className="startup-mentors-card-image"
-                />
+                <img src={ProfileImg} className="startup-mentors-card-image" />
               </div>
               <div style={{ width: "80%" }}>
                 <h3 className="startup-mentors-card-name">{mentor.name}</h3>
                 <p className="startup-mentors-card-rating">{mentor.rating}</p>
-                <p className="startup-mentors-card-skills">{mentor.skills}</p>
+                <p className="startup-mentors-card-skills">
+                  Skills: {mentor.skills.join(" | ")}
+                </p>
                 <p className="startup-mentors-card-description">
-                  {mentor.description}
+                  {mentor.desc}
                 </p>
               </div>
               <Button
@@ -61,6 +76,8 @@ const Mentors = () => {
             </div>
           ))}
         </div>
+
+        <QuickOverview data={quickOverviewData} text="In the last month" />
       </Section>
     </>
   );

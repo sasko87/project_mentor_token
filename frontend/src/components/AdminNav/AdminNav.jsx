@@ -4,14 +4,23 @@ import DashboardIcon from "../../assets/admin-icons/dashboard-icon.png";
 import ProfileIcon from "../../assets/admin-icons/profile.png";
 import JobIcon from "../../assets/admin-icons/disc.png";
 import LogoutIcon from "../../assets/admin-icons/logout.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const AdminNav = ({ items }) => {
+  const location = useLocation();
   return (
     <nav className="admin-nav">
       <div className="admin-nav-links">
         {items.map((item, index) => (
-          <Link key={index} to={item.url} className="admin-nav-link">
+          <Link
+            key={index}
+            to={item.url}
+            className={`${
+              location.pathname === item.url
+                ? "admin-nav-link admin-nav-link-active"
+                : "admin-nav-link"
+            }`}
+          >
             <img src={item.icon} className="admin-nav-icon" />
             {item.name}
           </Link>

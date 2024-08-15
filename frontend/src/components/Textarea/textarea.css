@@ -5,4 +5,14 @@
   border-radius: 9px;
   border: 1px solid #696cff;
   background: transparent;
+  outline: none;
+}
+
+.textarea:focus {
+  outline: 2px solid #696cff;
+  color: rgb(22, 22, 22);
+}
+
+.textarea:focus::placeholder {
+  color: transparent;
 }

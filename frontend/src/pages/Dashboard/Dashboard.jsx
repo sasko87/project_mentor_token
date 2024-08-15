@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     try {
-      const allJobs = await fetch("/api/showjobs", {
+      const allJobs = await fetch("/api/get-one-company-jobs", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -28,6 +28,7 @@ const Dashboard = () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        query: { status: "OPEN" },
       });
       const accountData = await fetch("/api/getaccount", {
         method: "GET",
@@ -43,10 +44,12 @@ const Dashboard = () => {
 
       if (allMentors.ok) {
         const data = await allMentors.json();
+        console.log(data);
         setMentors(data);
       }
       if (accountData.ok) {
         const data = await accountData.json();
+        console.log(data);
         setAccountData(data);
       }
     } catch (error) {
@@ -88,10 +91,6 @@ const Dashboard = () => {
     <>
       {user.type === "startup" && (
         <>
-          <StartupHeader
-            placeholder="Search Mentor..."
-            name={accountData.name}
-          />
           <section
             style={{
               display: "flex",
@@ -120,7 +119,6 @@ const Dashboard = () => {
 
       {user.type === "mentor" && (
         <>
-          <StartupHeader placeholder="Search..." name={accountData} />
           <section
             style={{
               display: "flex",

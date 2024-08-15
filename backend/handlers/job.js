@@ -1,34 +1,12 @@
+const { getFilteredApplications } = require("../pkg/application/application");
 const {
   createJob,
-  getOneJob,
   updateJob,
   deleteJob,
-  getAllJobs,
-  getAllCompaniesJobs,
+  getJob,
   getFilteredJobs,
 } = require("../pkg/job/job");
 const { validate, JobValidate } = require("../pkg/job/validate");
-
-const getOneCompanyJobs = async (req, res) => {
-  try {
-    const jobs = await getAllJobs(req.auth.id);
-    return res.status(200).send(jobs);
-  } catch (err) {
-    return res.status(err.status).send(err.error);
-  }
-};
-
-const getSingleJob = async (req, res) => {
-  try {
-    const job = await getOneJob(req.auth.id, req.params.id);
-    if (!job) {
-      return res.status(404).send("Job does not exists");
-    }
-    return res.status(200).send(job);
-  } catch (error) {
-    return res.status(error.status).send(error.error);
-  }
-};
 
 const createNewJob = async (req, res) => {
   try {
@@ -40,7 +18,7 @@ const createNewJob = async (req, res) => {
     const newJob = await createJob(data);
     return res.status(200).send(newJob);
   } catch (error) {
-    return res.status(400).send("error.error");
+    return res.status(400).send({ error });
   }
 };
 
@@ -66,11 +44,35 @@ const deleteOneJob = async (req, res) => {
   }
 };
 
+const getOneJob = async (req, res) => {
+  try {
+    const job = await getJob(req.auth.id, req.params.id);
+    if (!job) {
+      return res.status(404).send("Job does not exists");
+    }
+    return res.status(200).send(job);
+  } catch (error) {
+    return res.status(error.status).send(error.error);
+  }
+};
+
+const getOneCompanyJobs = async (req, res) => {
+  try {
+    const filter = { companyId: req.auth.id };
+    const jobs = await getFilteredJobs(filter);
+
+    return res.status(200).send(jobs);
+  } catch (err) {
+    console.log(err);
+    return res.status(err.status).send(err.error);
+  }
+};
+
 const allJobs = async (req, res) => {
   try {
-    const jobs = await getAllCompaniesJobs();
-    const openJobs = jobs.filter((job) => job.status === "Open");
-    return res.status(200).send(openJobs);
+    const filter = {};
+    const jobs = await getFilteredJobs(filter);
+    return res.status(200).send(jobs);
   } catch (error) {
     return res.status(404).send("Internal Server Error");
   }
@@ -91,7 +93,6 @@ const filteredJobs = async (req, res) => {
 
 module.exports = {
   getOneCompanyJobs,
-  getSingleJob,
   createNewJob,
   updateOneJob,
   deleteOneJob,

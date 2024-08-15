@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Logo from "../assets/logos/MentorToken.svg";
 import { Link, Outlet } from "react-router-dom";
 import ArrowLeft from "../assets/admin-icons/arrow-left.png";
@@ -14,10 +14,34 @@ import "./adminPagesLayout.css";
 import { jwtDecode } from "jwt-decode";
 import AdminNav from "../components/AdminNav/AdminNav";
 import Modal from "../components/Modal/Modal";
+import StartupHeader from "../components/StartupHeader/StartupHeader";
 
 const AdminPages = () => {
   const token = localStorage.getItem("token");
   const user = token ? jwtDecode(token) : null;
+  const [accountData, setAccountData] = useState([]);
+  const fetchData = async () => {
+    try {
+      const accountData = await fetch("/api/getaccount", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (accountData.ok) {
+        const data = await accountData.json();
+        console.log(data);
+        setAccountData(data);
+      }
+    } catch (error) {
+      console.error("An error occurred during fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const [isMenuVisible, setIsMenuVisible] = useState(true);
 
@@ -93,6 +117,15 @@ const AdminPages = () => {
         </div>
       </aside>
       <div className="admin-right-side">
+        {user.type === "startup" && (
+          <StartupHeader
+            placeholder="Search Mentor..."
+            name={accountData.name}
+          />
+        )}
+        {user.type === "mentor" && (
+          <StartupHeader placeholder="Search..." name={accountData.name} />
+        )}
         <Outlet />
       </div>
     </div>

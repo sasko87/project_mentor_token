@@ -25,7 +25,6 @@
   max-width: 572px;
   gap: 0;
   height: 111px;
-  padding-right: 20px;
   box-shadow: 0px 3px 2px 0px #8c889624;
 }
 
@@ -77,7 +76,10 @@
 }
 
 .best-mentors-container .best-mentors-data:last-child {
-  background: #f9f8f9;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+}
+
+.best-mentors-data:hover {
+  background: #f9f8f9;
 }

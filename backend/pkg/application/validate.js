@@ -1,24 +1,21 @@
-import { Validator } from "node-input-validator";
+const { Validator } = require("node-input-validator");
 
-// const AccountLogin = {
-//   email: "required|string",
-//   password: "required|string",
-// };
+const ApplicationValidate = {
+  companyId: "required|ObjectId",
+  mentorId: "required|ObjectId",
+  jobId: "required|ObjectId",
+  status: "required|in: PENDING, ACCEPTED, REJECTED, CANCELED",
+};
 
-// const AccountRegister = {
-//   email: "required|string",
-//   password: "required|string",
-// };
+const validate = async (data, schema) => {
+  let v = new Validator(data, schema);
+  let e = v.check();
+  if (!e) {
+    throw {
+      code: 400,
+      error: v.errors,
+    };
+  }
+};
 
-// const validate = async (data, schema) => {
-//   let v = new Validator(data, schema);
-//   let e = v.check();
-//   if (!e) {
-//     throw {
-//       code: 400,
-//       error: v.errors,
-//     };
-//   }
-// };
-
-const ApplicationValidate = {};
+module.exports = { ApplicationValidate, validate };

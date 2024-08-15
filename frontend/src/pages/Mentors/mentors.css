@@ -1,5 +1,6 @@
 .component-section-mentors {
   display: flex;
+  margin-top: 20px;
 }
 
 .startup-mentors-cards {
@@ -72,4 +73,11 @@
   line-height: 14.47px;
   text-align: center;
   color: white;
+  margin-top: 50px;
+  margin-right: 20px;
+}
+
+.overview {
+  display: flex;
+  max-width: 296px;
 }

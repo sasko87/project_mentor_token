@@ -17,12 +17,34 @@
   align-items: center;
   text-decoration: none;
   color: #566a7f;
-  margin: 20px 0;
+  margin: 3px 0;
   font-family: "Manrope";
   font-size: 16px;
   font-weight: 500;
+  padding: 13px 50px;
+  border-radius: 4px;
+  position: relative;
 }
 
 .admin-nav-links img {
   margin-right: 8px;
+}
+
+.admin-nav-link-active {
+  color: #696cff;
+  background-color: #e7e7ff;
+}
+
+.admin-nav-link-active::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: -24px;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 100%;
+  background-color: #696cff;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
 }
