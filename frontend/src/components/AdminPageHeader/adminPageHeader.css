@@ -2,10 +2,11 @@
   display: flex;
   flex: 1;
   width: 100%;
+  max-width: 1180px;
   height: 80px;
   align-items: center;
   justify-content: space-between;
-  align-self: baseline;
+
   margin-bottom: 30px;
 }
 
@@ -14,6 +15,8 @@
   align-items: center;
   gap: 10px;
   margin: 0;
+  width: 40%;
+  justify-content: right;
 }
 
 .profile-image {
@@ -22,8 +25,6 @@
 }
 
 .account-profile p {
-  max-width: 88px;
-
   font-family: "Poppins";
   font-size: 15px;
   font-weight: 400;

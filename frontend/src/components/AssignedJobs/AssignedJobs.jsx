@@ -1,10 +1,11 @@
 import React from "react";
 import "./assignedJobs.css";
+import Title from "../Title/Title";
 
 const AssignedJobs = ({ tabs, onClickFunction, selectedTab }) => {
   return (
     <div className="startup-jobs">
-      <h2 className="assigned-jobs-title">My Jobs sdfsdfsdfsdfsdf</h2>
+      <Title>My Jobs</Title>
       <div className="startup-jobs-tab-title">
         {tabs.map((tab, index) => (
           <div key={index} onClick={() => onClickFunction(index)}>

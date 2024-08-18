@@ -7,15 +7,17 @@ const Search = ({ placeholder }) => {
   console.log(search);
   return (
     <>
-      <Input
-        type="text"
-        placeholder={`${placeholder}`}
-        className="search"
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
-        value={search}
-      />
+      <div style={{ width: "60%" }}>
+        <Input
+          type="text"
+          placeholder={`${placeholder}`}
+          className="search"
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+          value={search}
+        />
+      </div>
     </>
   );
 };

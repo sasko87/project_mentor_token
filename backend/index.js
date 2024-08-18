@@ -58,13 +58,6 @@ app.post("/api/auth/login", login);
 app.post("/api/auth/register", register);
 app.post("/api/auth/changepassword", changePassword);
 
-//ovie ke gi izbriseme
-// app.post("/api/postjob", createNewJob);
-// app.get("/api/showjobs", getOneCompanyJobs);
-// app.delete("/api/deletejob/:id", deleteOneJob);
-// app.get("/api/alljobs", allJobs);
-// app.get("/api/filteredJobs", filteredJobs);
-
 app.post("/api/create-new-job", createNewJob);
 app.get("/api/get-one-company-jobs", getOneCompanyJobs);
 app.delete("/api/delete-one-job/:id", deleteOneJob);

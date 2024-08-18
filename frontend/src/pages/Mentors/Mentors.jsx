@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 const Mentors = () => {
   const token = window.localStorage.getItem("token");
   const [accountData, setAccountData] = useState([]);
-  const [mentorData, setMentorData] = useState([]);
+
   const navigate = useNavigate();
   const fetchMentors = async () => {
     try {
@@ -37,21 +37,7 @@ const Mentors = () => {
   }, []);
 
   const handleViewMentor = async (id) => {
-    try {
-      const res = await fetch(`/api/get-account-data-by-id/${id}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setMentorData(data);
-        navigate("/mentorinfo", { state: { data: data } });
-      }
-    } catch (error) {
-      console.error("An error occurred during fetching data:", error);
-    }
+    navigate(`/mentorinfo/${id}`);
   };
 
   const quickOverviewData = [

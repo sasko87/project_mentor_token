@@ -87,7 +87,7 @@ const AdminPages = () => {
           isMenuVisible ? "" : "menu-hidden"
         }`}
         onClick={() => {
-          toggleMenuVisibility;
+          toggleMenuVisibility();
         }}
       />
       <aside className={`admin-menu ${isMenuVisible ? "" : "hidden"}`}>

@@ -1,0 +1,62 @@
+.job-details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  height: 100%;
+}
+
+.job-details-company-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.job-details-company-info p {
+  font-family: "Poppins";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+  color: #566a7f;
+}
+
+.job-details-company-info img {
+  margin: 10px 0;
+  width: 72px;
+  height: 73px;
+}
+
+.job-details-title {
+  font-size: 14.75px;
+  font-weight: 600;
+  line-height: 20.15px;
+  text-transform: capitalize;
+  color: #566a7f;
+  margin: 30px 0;
+}
+
+.job-details-description {
+  font-family: Manrope;
+  font-size: 12.75px;
+  font-weight: 400;
+  line-height: 17.42px;
+  color: #757d8a;
+}
+
+.job-details-apply-button {
+  width: 100px;
+  height: 28.74px;
+  padding: 9.2px;
+  gap: 3.11px;
+  border-radius: 6.9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.job-details-alredy-applied {
+  text-align: center;
+  color: rgba(219, 2, 2, 0.938);
+  font-weight: 500;
+}

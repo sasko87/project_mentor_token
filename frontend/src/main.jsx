@@ -19,8 +19,6 @@ import JobFeed from "./pages/JobFeed/JobFeed.jsx";
 import MyStats from "./pages/MyStats/MyStats.jsx";
 import MentorProfile from "./pages/MentorProfile/MentorProfile.jsx";
 
-console.log("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-
 const router = createBrowserRouter([
   {
     element: <LandingPagesLayout />,
@@ -81,7 +79,7 @@ const router = createBrowserRouter([
             element: <MyStats />,
           },
           {
-            path: "/mentorinfo",
+            path: "/mentorinfo/:id",
             element: <MentorProfile />,
           },
         ],

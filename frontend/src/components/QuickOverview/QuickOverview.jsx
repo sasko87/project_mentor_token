@@ -10,8 +10,8 @@ const QuickOverview = ({ text, data }) => {
         {text && <p className="quick-overview-text">{text}</p>}
       </div>
       <div>
-        {data.map((data) => (
-          <div className="quick-overview-data-cointainer">
+        {data.map((data, index) => (
+          <div key={index} className="quick-overview-data-cointainer">
             <h3 className="quick-overview-data-title">{data.title}</h3>
             <p className="quick-overview-data-count">{data.count}</p>
           </div>

@@ -54,8 +54,6 @@ const Jobs = () => {
         status: "OPEN",
         applicationType: "OPEN_FOR_ALL",
       };
-
-      console.log("dd", data);
       const res = await fetch("/api/create-new-job", {
         method: "POST",
         headers: {
@@ -175,35 +173,72 @@ const Jobs = () => {
           closeModal={() => {
             handleToggleJobDetailsModal(false);
           }}
-          width={794}
-          height={671}
+          width={470}
+          height={461}
         >
-          <h1>{selectedJob.title}</h1>
-          <p>{selectedJob.description}</p>
-          <h2>Aplikanti:</h2>
-          <div>
-            {selectedJob.applications.map((application) => {
-              return (
-                <div>
-                  <span> {application.mentorId.name}</span>
-                  <span> {application.status}</span>
-                  <button
-                    onClick={() => {
-                      handleAcceptApplication(application);
-                    }}
-                  >
-                    accept
-                  </button>
-                  <button
-                    onClick={() => {
-                      handleRejectApplication(application);
-                    }}
-                  >
-                    reject
-                  </button>
-                </div>
-              );
-            })}
+          <div className="startup-job-details-container">
+            <div className="startup-job-details">
+              <h2>{selectedJob.title}</h2>
+              <p>{selectedJob.description}</p>
+            </div>
+            <div className="startup-job-details-applicants-container">
+              {selectedJob.applications.length > 0 && (
+                <>
+                  <h2>Applicants:</h2>
+                  <div>
+                    {selectedJob.applications.map((application) => {
+                      console.log(application);
+                      return (
+                        <div className="startup-job-details-applicants">
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              width: "70%",
+                              marginRight: "10px",
+                            }}
+                          >
+                            <p> {application.mentorId.name}</p>
+                            <p> {application.status}</p>
+                          </div>
+                          <div className="startup-jobs-buttons">
+                            <Button
+                              label="Accept"
+                              className="startup-jobs-button startup-jobs-accept-button "
+                              clickFunction={() => {
+                                handleAcceptApplication(application);
+                              }}
+                            />
+
+                            <Button
+                              label="Reject"
+                              className="startup-jobs-button startup-jobs-reject-button"
+                              clickFunction={() => {
+                                handleRejectApplication(application);
+                              }}
+                            />
+                          </div>
+                          {/* <button
+                        onClick={() => {
+                          handleAcceptApplication(application);
+                        }}
+                      >
+                        accept
+                      </button>
+                      <button
+                        onClick={() => {
+                          handleRejectApplication(application);
+                        }}
+                      >
+                        reject
+                      </button> */}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </Modal>
       )}

@@ -59,3 +59,78 @@
   width: 465px;
   max-width: 465px;
 }
+
+.startup-job-details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  height: 100%;
+}
+
+.startup-job-details-container h2 {
+  font-size: 14.75px;
+  font-weight: 600;
+  line-height: 20.15px;
+  text-transform: capitalize;
+  color: #566a7f;
+  margin: 20px 0;
+}
+
+.startup-job-details p {
+  font-family: Manrope;
+  font-size: 12.75px;
+  font-weight: 400;
+  line-height: 17.42px;
+  color: #757d8a;
+}
+
+.startup-job-details-applicants-container h2 {
+  margin: 10px 0;
+}
+
+.startup-job-details-applicants-container p {
+  margin: 10px 0;
+}
+
+.startup-job-details-applicants-container {
+  height: 50%;
+}
+
+.startup-job-details-applicants {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 20.15px;
+  color: #566a7f;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.startup-jobs-buttons {
+  display: flex;
+  align-items: center;
+  gap: 2.71px;
+}
+
+.startup-jobs-button {
+  font-family: "Noto Sans";
+  font-size: 9.48px;
+  font-weight: 400;
+  line-height: 13.54px;
+  width: 55px;
+  height: 25px;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.startup-jobs-reject-button {
+  border: 1px solid #f2076a;
+  color: #f2076a;
+  background-color: white;
+}
+
+.startup-jobs-reject-button:hover {
+  background-color: white;
+  border: 2px solid #f2076a;
+}

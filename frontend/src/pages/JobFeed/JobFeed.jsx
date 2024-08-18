@@ -7,6 +7,7 @@ import FilterJobs from "../../components/FilterJobs/FilterJobs";
 import Title from "../../components/Title/Title";
 import LayoutIcon from "../../assets/admin-icons/layout-grid.png";
 import Button from "../../components/Button/Button";
+import ProfileImg from "../../assets/Ellipse 3.png";
 
 const JobFeed = () => {
   const user = window.mentorToken.user;
@@ -123,7 +124,7 @@ const JobFeed = () => {
             }}
           >
             <FilterJobs icon={true} label="Filters" />
-            <div className="filter-container">
+            <div className="filter-container" style={{ marginRight: 0 }}>
               <img src={LayoutIcon} alt="Layout" />
             </div>
           </div>
@@ -135,25 +136,44 @@ const JobFeed = () => {
             closeModal={() => {
               handleToggleJobDetailsModal(false);
             }}
-            width={794}
-            height={671}
+            width={470}
+            height={461}
           >
-            <h1>{selectedJob.title}</h1>
-            <p>{selectedJob.description}</p>
-            {selectedJob.applications.find(
-              (job) => job.mentorId._id === user.id
-            ) && <p>veke imas aplicirano</p>}
+            <div className="job-details-container">
+              <div>
+                <div className="job-details-company-info">
+                  <img src={ProfileImg} alt="" />
+                  <p>{selectedJob.companyId.name}</p>
+                </div>
+                <div>
+                  <h3 className="job-details-title">New job offer</h3>
+                  <p className="job-details-description">
+                    {selectedJob.description}
+                  </p>
+                </div>
+              </div>
+              {selectedJob.applications.find(
+                (job) => job.mentorId._id === user.id
+              ) && (
+                <div>
+                  <p className="job-details-alredy-applied">
+                    You have already applied for this job.
+                  </p>
+                </div>
+              )}
 
-            {!selectedJob.applications.find(
-              (job) => job.mentorId._id === user.id
-            ) && (
-              <Button
-                label={"apply"}
-                clickFunction={() => {
-                  handleApplyToJob();
-                }}
-              />
-            )}
+              {!selectedJob.applications.find(
+                (job) => job.mentorId._id === user.id
+              ) && (
+                <Button
+                  label={"Apply"}
+                  className="job-details-apply-button"
+                  clickFunction={() => {
+                    handleApplyToJob();
+                  }}
+                />
+              )}
+            </div>
           </Modal>
         )}
       </Section>
