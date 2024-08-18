@@ -23,8 +23,14 @@ const {
   updateOneApplication,
   deleteOneApplication,
   filteredApplications,
+  acceptApplication,
+  rejectApplication,
 } = require("./handlers/application.js");
-const { getAllMentors, getAccoutData } = require("./handlers/account.js");
+const {
+  getAllMentors,
+  getAccoutData,
+  getAccoutDataById,
+} = require("./handlers/account.js");
 const { sendMessage } = require("./handlers/mailer.js");
 
 require("./pkg/db/config");
@@ -43,6 +49,7 @@ app.use(
       "/api/auth/register",
       "/api/auth/forgotpassword",
       "/api/auth/reset-password",
+      "/api/get-account-data-by-id/:id",
     ],
   })
 );
@@ -67,10 +74,12 @@ app.get("/api/filtered-jobs", filteredJobs);
 app.post("/api/create-new-application", createNewApplication);
 app.delete("/api/delete-one-application/:id", deleteOneApplication);
 app.get("/api/filtered-applications", filteredApplications);
+app.post("/api/accept-application", acceptApplication);
+app.post("/api/reject-application", rejectApplication);
 
 app.get("/api/getallmentors", getAllMentors);
 app.get("/api/getaccount", getAccoutData);
-
+app.get("/api/get-account-data-by-id/:id", getAccoutDataById);
 app.post("/api/sendmessage", sendMessage);
 
 app.post("/api/auth/forgot-password", forgotPassword);

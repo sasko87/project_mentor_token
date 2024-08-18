@@ -4,7 +4,7 @@ import "./assignedJobs.css";
 const AssignedJobs = ({ tabs, onClickFunction, selectedTab }) => {
   return (
     <div className="startup-jobs">
-      <h2 className="assigned-jobs-title">My Jobs</h2>
+      <h2 className="assigned-jobs-title">My Jobs sdfsdfsdfsdfsdf</h2>
       <div className="startup-jobs-tab-title">
         {tabs.map((tab, index) => (
           <div key={index} onClick={() => onClickFunction(index)}>
@@ -25,14 +25,14 @@ const AssignedJobs = ({ tabs, onClickFunction, selectedTab }) => {
           let jobStatusClass = "";
 
           switch (job.status) {
-            case "Open":
+            case "DONE":
               jobStatusClass = "status-done";
               break;
-            case "Closed":
+            case "REJECTED":
               jobStatusClass = "status-rejected";
               break;
-            case "Pending":
-              jobStatusClass = "status-pending";
+            case "IN_PROGRESS":
+              jobStatusClass = "status-in-progress";
           }
           return (
             <div key={job._id} className="startup-company-job">

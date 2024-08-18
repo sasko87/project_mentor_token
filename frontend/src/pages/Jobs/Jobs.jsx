@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import StartupHeader from "../../components/StartupHeader/StartupHeader";
 import Button from "../../components/Button/Button";
 import Section from "../../components/Section/Section";
 import Modal from "../../components/Modal/Modal";
@@ -14,7 +13,7 @@ const Jobs = () => {
   const [isCreateJobModalActive, setIsCreateJobModalActive] = useState(false);
   const [jobTitle, setJobTitle] = useState("");
   const [jobDescription, setJobDescription] = useState("");
-  const [requiredSkills, setRequiredSkills] = useState([]);
+  const [skillsRequired, setSkillsRequired] = useState([]);
 
   const [selectedJob, setSelectedJob] = useState({});
 
@@ -55,6 +54,8 @@ const Jobs = () => {
         status: "OPEN",
         applicationType: "OPEN_FOR_ALL",
       };
+
+      console.log("dd", data);
       const res = await fetch("/api/create-new-job", {
         method: "POST",
         headers: {
@@ -69,7 +70,7 @@ const Jobs = () => {
         const data = await res.json();
         setJobTitle("");
         setJobDescription("");
-        setRequiredSkills([]);
+        setSkillsRequired([]);
         handleToggleCreateJobModal(false);
         fetchData();
       } else {
@@ -89,11 +90,59 @@ const Jobs = () => {
     fetchData();
   }, []);
 
+  const handleAcceptApplication = async (application) => {
+    try {
+      const res = await fetch("/api/accept-application", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+
+        body: JSON.stringify(application),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        handleToggleJobDetailsModal(false);
+        fetchData();
+      } else {
+        const errorData = await res.json();
+      }
+    } catch (error) {
+      console.error("An error occurred during fetching data:", error);
+    }
+  };
+
+  const handleRejectApplication = async (application) => {
+    try {
+      const res = await fetch("/api/reject-application", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+
+        body: JSON.stringify(application),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        application.status = "REJECTED";
+        fetchData();
+      } else {
+        const errorData = await res.json();
+      }
+    } catch (error) {
+      console.error("An error occurred during fetching data:", error);
+    }
+  };
+
   return (
     <>
       <Section>
         <div className="jobs-create-job-button-container">
-          <h1>Your Startup Jobs</h1>
+          <h2>Your Startup Jobs</h2>
           <Button
             className="create-job-btn"
             label="Create New Job"
@@ -131,6 +180,31 @@ const Jobs = () => {
         >
           <h1>{selectedJob.title}</h1>
           <p>{selectedJob.description}</p>
+          <h2>Aplikanti:</h2>
+          <div>
+            {selectedJob.applications.map((application) => {
+              return (
+                <div>
+                  <span> {application.mentorId.name}</span>
+                  <span> {application.status}</span>
+                  <button
+                    onClick={() => {
+                      handleAcceptApplication(application);
+                    }}
+                  >
+                    accept
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleRejectApplication(application);
+                    }}
+                  >
+                    reject
+                  </button>
+                </div>
+              );
+            })}
+          </div>
         </Modal>
       )}
 
@@ -157,13 +231,17 @@ const Jobs = () => {
               className="input-create-new-job"
               type="text"
               placeholder="Required Skills"
-              onChange={(e) => setRequiredSkills(e.target.value)}
-              value={requiredSkills}
+              onChange={(e) => {
+                setSkillsRequired(e.target.value);
+              }}
+              value={skillsRequired}
             />
             <Textarea
               placeholder="Job Description"
               className="input-create-new-job textarea-create-new-job"
-              onChange={(e) => setJobDescription(e.target.value)}
+              onChange={(e) => {
+                setJobDescription(e.target.value);
+              }}
               value={jobDescription}
             />
             <Button

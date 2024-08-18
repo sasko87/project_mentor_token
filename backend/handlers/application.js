@@ -8,10 +8,11 @@ const {
   validate,
   ApplicationValidate,
 } = require("../pkg/application/validate");
+const { updateJob } = require("../pkg/job/job");
 
 const createNewApplication = async (req, res) => {
   try {
-    console.log(req.body);
+    console.log("ne application", req);
 
     // await validate(req.body, ApplicationValidate);
 
@@ -22,6 +23,7 @@ const createNewApplication = async (req, res) => {
     const newApplication = await createApplication(data);
     return res.status(200).send(newApplication);
   } catch (error) {
+    // console.log("dderror", error);
     return res.status(400).send("error.error");
   }
 };
@@ -59,9 +61,58 @@ const filteredApplications = async (req, res) => {
   }
 };
 
+const acceptApplication = async (req, res) => {
+  try {
+    const acceptedApplication = {
+      ...req.body,
+      status: "ACCEPTED",
+    };
+
+    const applications = await getFilteredApplications({
+      jobId: acceptedApplication.jobId,
+    });
+
+    for (let application of applications) {
+      if (application.id !== acceptedApplication._id) {
+        await updateApplication(application._id, { status: "REJECTED" });
+      }
+    }
+
+    await updateApplication(acceptedApplication._id, { status: "ACCEPTED" });
+
+    await updateJob(acceptedApplication.jobId, {
+      mentorId: acceptedApplication.mentorId._id,
+      status: "IN_PROGRESS",
+    });
+
+    return res.status(200).send(applications);
+  } catch (err) {
+    return res.status(err.status).send(err.error);
+  }
+};
+
+const rejectApplication = async (req, res) => {
+  try {
+    const rejectedApplication = {
+      ...req.body,
+      status: "REJECTED",
+    };
+
+    console.log(rejectedApplication);
+    await updateApplication(rejectedApplication._id, { status: "REJECTED" });
+
+    return res.status(200).send(rejectedApplication);
+  } catch (err) {
+    console.log(err);
+    return res.status(err.status).send(err.error);
+  }
+};
+
 module.exports = {
   createNewApplication,
   updateOneApplication,
   deleteOneApplication,
   filteredApplications,
+  acceptApplication,
+  rejectApplication,
 };

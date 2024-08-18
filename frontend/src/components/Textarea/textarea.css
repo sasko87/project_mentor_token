@@ -6,6 +6,7 @@
   border: 1px solid #696cff;
   background: transparent;
   outline: none;
+  resize: none;
 }
 
 .textarea:focus {

@@ -1,0 +1,98 @@
+.mentor-info-container {
+  display: flex;
+  gap: 25px;
+}
+
+.mentor-info-personal-data-container {
+  width: 20%;
+  height: 280px;
+  padding: 20px;
+  border-radius: 21px;
+  background-color: #ffffff;
+}
+
+.mentor-info-edit-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.mentor-info-name {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 22px;
+  color: #566a7f;
+}
+.mentor-info-possition {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 22px;
+  color: #696cff;
+}
+
+.mentor-info-contact {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+  color: #566a7f;
+}
+
+.mentor-info-about-data-container {
+  width: 75%;
+  height: 280px;
+  border-radius: 21px;
+  background-color: #ffffff;
+  padding: 0 30px;
+  position: relative;
+}
+
+.mentor-info-about-data-container h4 {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 22px;
+  color: #696cff;
+}
+
+.mentor-info-skills {
+  font-family: "Inter";
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 18.15px;
+  text-align: left;
+  color: #000000;
+}
+
+.mentor-info-desc {
+  font-family: "Inter";
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.52px;
+  text-align: left;
+  color: #566a7f;
+}
+
+.mentor-info-textarea {
+  border: none;
+  height: 150px;
+  padding-left: 0;
+  overflow: hidden;
+  max-width: 750px;
+}
+
+.mentor-info-offer-job-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32.02px;
+  border-radius: 8.01px;
+  font-family: Noto Sans;
+  font-size: 11.83px;
+  font-weight: 400;
+  line-height: 16.9px;
+  
+  
+  
+}

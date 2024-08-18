@@ -14,34 +14,21 @@ import "./adminPagesLayout.css";
 import { jwtDecode } from "jwt-decode";
 import AdminNav from "../components/AdminNav/AdminNav";
 import Modal from "../components/Modal/Modal";
-import StartupHeader from "../components/StartupHeader/StartupHeader";
+import AdminPageHeader from "../components/AdminPageHeader/AdminPageHeader";
 
 const AdminPages = () => {
+  //token
   const token = localStorage.getItem("token");
-  const user = token ? jwtDecode(token) : null;
-  const [accountData, setAccountData] = useState([]);
-  const fetchData = async () => {
-    try {
-      const accountData = await fetch("/api/getaccount", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
 
-      if (accountData.ok) {
-        const data = await accountData.json();
-        console.log(data);
-        setAccountData(data);
-      }
-    } catch (error) {
-      console.error("An error occurred during fetching data:", error);
-    }
-  };
+  //ako nema window.mentorToken.user
+  //dekodiraj go i postavi go
+  if (!window.mentorToken) {
+    const user = token ? jwtDecode(token) : null;
+    window.mentorToken = { user };
+  }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  //postavi go user spored window objekt
+  const user = window.mentorToken.user;
 
   const [isMenuVisible, setIsMenuVisible] = useState(true);
 
@@ -99,7 +86,9 @@ const AdminPages = () => {
         className={`admin-menu-arrow-left ${
           isMenuVisible ? "" : "menu-hidden"
         }`}
-        onClick={toggleMenuVisibility}
+        onClick={() => {
+          toggleMenuVisibility;
+        }}
       />
       <aside className={`admin-menu ${isMenuVisible ? "" : "hidden"}`}>
         <img src={Logo} alt="Mentor Token Logo" className="admin-logo" />
@@ -117,15 +106,7 @@ const AdminPages = () => {
         </div>
       </aside>
       <div className="admin-right-side">
-        {user.type === "startup" && (
-          <StartupHeader
-            placeholder="Search Mentor..."
-            name={accountData.name}
-          />
-        )}
-        {user.type === "mentor" && (
-          <StartupHeader placeholder="Search..." name={accountData.name} />
-        )}
+        <AdminPageHeader user={user} />
         <Outlet />
       </div>
     </div>

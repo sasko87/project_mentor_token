@@ -29,6 +29,7 @@ const login = async (req, res) => {
       return res.status(400).send({ error: "Wrong password" });
     }
 
+    //TODO prati cel account bez pass
     const payload = {
       email: account.email,
       id: account._id,

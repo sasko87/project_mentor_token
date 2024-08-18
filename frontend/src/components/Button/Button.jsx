@@ -10,7 +10,7 @@ const Button = ({ label, startingIcon, type, className, clickFunction }) => {
         type={type}
       >
         {startingIcon && (
-          <span className="primary_button_startingIcon">{startingIcon}</span>
+          <span className="primary_button_startingIcon"><img src={startingIcon} /></span>
         )}
         {label}
       </button>

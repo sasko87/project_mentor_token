@@ -61,7 +61,25 @@ const getOneCompanyJobs = async (req, res) => {
     const filter = { companyId: req.auth.id };
     const jobs = await getFilteredJobs(filter);
 
-    return res.status(200).send(jobs);
+    let data = [];
+
+    for (const job of jobs) {
+      const applications = await getFilteredApplications({ jobId: job._id });
+      let tempJob = {
+        title: job.title,
+        companyId: job.companyId,
+        mentorId: job.mentorId,
+        description: job.description,
+        skillsRequired: job.skillsRequired,
+        _id: job._id,
+        status: job.status,
+        applicationType: job.applicationType,
+        applications: applications,
+      };
+      data.push(tempJob);
+    }
+
+    return res.status(200).send(data);
   } catch (err) {
     console.log(err);
     return res.status(err.status).send(err.error);
@@ -74,7 +92,7 @@ const allJobs = async (req, res) => {
     const jobs = await getFilteredJobs(filter);
     return res.status(200).send(jobs);
   } catch (error) {
-    return res.status(404).send("Internal Server Error");
+    return res.status(500).send("Internal Server Error");
   }
 };
 
@@ -83,9 +101,28 @@ const allJobs = async (req, res) => {
 
 const filteredJobs = async (req, res) => {
   try {
-    console.log(req);
+    console.log(req.query);
     const jobs = await getFilteredJobs(req.query);
-    return res.status(200).send(jobs);
+
+    let data = [];
+
+    for (const job of jobs) {
+      const applications = await getFilteredApplications({ jobId: job._id });
+      let tempJob = {
+        title: job.title,
+        companyId: job.companyId,
+        mentorId: job.mentorId,
+        description: job.description,
+        skillsRequired: job.skillsRequired,
+        _id: job._id,
+        status: job.status,
+        applicationType: job.applicationType,
+        applications: applications,
+      };
+      data.push(tempJob);
+    }
+
+    return res.status(200).send(data);
   } catch (err) {
     return res.status(err.status).send(err.error);
   }

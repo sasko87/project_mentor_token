@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import StartupHeader from "../../components/StartupHeader/StartupHeader";
+
 import Section from "../../components/Section/Section";
 import Card from "../../components/Card/Card";
 import ProfileImg from "../../assets/Ellipse 3.png";
@@ -7,11 +7,13 @@ import Button from "../../components/Button/Button";
 import "./mentors.css";
 import { useEffect } from "react";
 import QuickOverview from "../../components/QuickOverview/QuickOverview";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Mentors = () => {
   const token = window.localStorage.getItem("token");
   const [accountData, setAccountData] = useState([]);
-
+  const [mentorData, setMentorData] = useState([]);
+  const navigate = useNavigate();
   const fetchMentors = async () => {
     try {
       const allMentors = await fetch("/api/getAllMentors", {
@@ -23,7 +25,6 @@ const Mentors = () => {
 
       if (allMentors.ok) {
         const data = await allMentors.json();
-        console.log(data);
         setAccountData(data);
       }
     } catch (error) {
@@ -34,6 +35,24 @@ const Mentors = () => {
   useEffect(() => {
     fetchMentors();
   }, []);
+
+  const handleViewMentor = async (id) => {
+    try {
+      const res = await fetch(`/api/get-account-data-by-id/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setMentorData(data);
+        navigate("/mentorinfo", { state: { data: data } });
+      }
+    } catch (error) {
+      console.error("An error occurred during fetching data:", error);
+    }
+  };
 
   const quickOverviewData = [
     {
@@ -54,8 +73,8 @@ const Mentors = () => {
     <>
       <Section className="mentors">
         <div className="startup-mentors-cards">
-          {accountData.slice(0, 3).map((mentor) => (
-            <div className="startup-mentors-card">
+          {accountData.slice(0, 3).map((mentor, index) => (
+            <div key={index} className="startup-mentors-card">
               <div style={{ width: "10%" }}>
                 <img src={ProfileImg} className="startup-mentors-card-image" />
               </div>
@@ -72,6 +91,7 @@ const Mentors = () => {
               <Button
                 label="View Mentor"
                 className="startup-mentors-card-button"
+                clickFunction={() => handleViewMentor(mentor._id)}
               />
             </div>
           ))}

@@ -16,6 +16,10 @@ import ProtectedRoutes from "./routes/ProtectedRoutes.jsx";
 import Mentors from "./pages/Mentors/Mentors.jsx";
 import Jobs from "./pages/Jobs/Jobs.jsx";
 import JobFeed from "./pages/JobFeed/JobFeed.jsx";
+import MyStats from "./pages/MyStats/MyStats.jsx";
+import MentorProfile from "./pages/MentorProfile/MentorProfile.jsx";
+
+console.log("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
 const router = createBrowserRouter([
   {
@@ -71,6 +75,14 @@ const router = createBrowserRouter([
           {
             path: "/jobFeed",
             element: <JobFeed />,
+          },
+          {
+            path: "/mystats",
+            element: <MyStats />,
+          },
+          {
+            path: "/mentorinfo",
+            element: <MentorProfile />,
           },
         ],
       },

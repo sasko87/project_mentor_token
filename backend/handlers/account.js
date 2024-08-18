@@ -11,6 +11,7 @@ const getAllMentors = async (req, res) => {
 
 const getAccoutData = async (req, res) => {
   try {
+    //TODO: trgni go passwordot od tuka
     const accountData = await accountById(req.auth.id);
     res.status(200).send(accountData);
   } catch (err) {
@@ -18,4 +19,13 @@ const getAccoutData = async (req, res) => {
   }
 };
 
-module.exports = { getAllMentors, getAccoutData };
+const getAccoutDataById = async (req, res) => {
+  try {
+    const accountData = await accountById(req.params.id);
+    res.status(200).send(accountData);
+  } catch (err) {
+    return res.status(400).send(err.error);
+  }
+};
+
+module.exports = { getAllMentors, getAccoutData, getAccoutDataById };
