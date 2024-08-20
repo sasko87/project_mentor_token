@@ -1,4 +1,7 @@
-const { getFilteredApplications } = require("../pkg/application/application");
+const {
+  getFilteredApplications,
+  createApplication,
+} = require("../pkg/application/application");
 const {
   createJob,
   updateJob,
@@ -16,6 +19,33 @@ const createNewJob = async (req, res) => {
       companyId: req.auth.id,
     };
     const newJob = await createJob(data);
+    return res.status(200).send(newJob);
+  } catch (error) {
+    return res.status(400).send({ error });
+  }
+};
+
+const createDirectJob = async (req, res) => {
+  try {
+    await validate(req.body, JobValidate);
+    const data = {
+      companyId: req.auth.id,
+      title: req.body.title,
+      description: req.body.description,
+      skillsRequired: req.body.skillsRequired,
+      status: "OPEN",
+      applicationType: "DIRECT",
+    };
+    const newJob = await createJob(data);
+
+    const applicationData = {
+      companyId: req.auth.id,
+      mentorId: req.body.mentorId,
+      jobId: newJob._id,
+      status: "PENDING",
+    };
+
+    const newApplication = await createApplication(applicationData);
     return res.status(200).send(newJob);
   } catch (error) {
     return res.status(400).send({ error });
@@ -135,4 +165,5 @@ module.exports = {
   deleteOneJob,
   allJobs,
   filteredJobs,
+  createDirectJob,
 };

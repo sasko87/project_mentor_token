@@ -54,7 +54,7 @@ const MentorProfile = () => {
   return (
     <>
       <Section>
-        <MentorInfo data={mentorData} />
+        <MentorInfo mentorData={mentorData} />
         <div>
           <div>
             {/* <AssignedJobs tabs={tabs} />

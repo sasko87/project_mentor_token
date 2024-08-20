@@ -36,8 +36,8 @@ const Mentors = () => {
     fetchMentors();
   }, []);
 
-  const handleViewMentor = async (id) => {
-    navigate(`/mentorinfo/${id}`);
+  const handleViewMentor = (id) => {
+    navigate(`/mentors/${id}`);
   };
 
   const quickOverviewData = [

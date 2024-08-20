@@ -16,6 +16,7 @@ const {
   deleteOneJob,
   allJobs,
   filteredJobs,
+  createDirectJob,
 } = require("./handlers/job.js");
 
 const {
@@ -25,6 +26,10 @@ const {
   filteredApplications,
   acceptApplication,
   rejectApplication,
+  acceptDirectApplication,
+  getMentorDirectApplications,
+  rejectDirectApplication,
+  getApplicationsSentByMentor,
 } = require("./handlers/application.js");
 const {
   getAllMentors,
@@ -63,12 +68,17 @@ app.get("/api/get-one-company-jobs", getOneCompanyJobs);
 app.delete("/api/delete-one-job/:id", deleteOneJob);
 app.get("/api/all-jobs", allJobs);
 app.get("/api/filtered-jobs", filteredJobs);
+app.post("/api/create-direct-job", createDirectJob);
 
 app.post("/api/create-new-application", createNewApplication);
 app.delete("/api/delete-one-application/:id", deleteOneApplication);
 app.get("/api/filtered-applications", filteredApplications);
 app.post("/api/accept-application", acceptApplication);
 app.post("/api/reject-application", rejectApplication);
+app.get("/api/get-mentor-direct-applications", getMentorDirectApplications);
+app.post("/api/accept-direct-application", acceptDirectApplication);
+app.post("/api/reject-direct-application", rejectDirectApplication);
+app.get("/api/get-applications-sent-by-mentor", getApplicationsSentByMentor);
 
 app.get("/api/getallmentors", getAllMentors);
 app.get("/api/getaccount", getAccoutData);

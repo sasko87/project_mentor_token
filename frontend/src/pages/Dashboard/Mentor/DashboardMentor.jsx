@@ -8,7 +8,9 @@ const DashboardMentor = () => {
   const user = window.mentorToken.user;
 
   const [jobs, setJobs] = useState([]);
-
+  const [mentorPendingDirectApplications, setMentorPendingDirectApplications] =
+    useState([]);
+  const [sentApplicationsByMentor, setSentApplicationsByMentor] = useState();
   const [selectedTab, setSelectedTab] = useState(0);
 
   const fetchData = async () => {
@@ -16,8 +18,24 @@ const DashboardMentor = () => {
       let payload = {
         mentorId: user.id,
       };
+
       const allJobs = await fetch(
         "/api/filtered-jobs?" + new URLSearchParams(payload).toString(),
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const pendingJobs = await fetch("/api/get-mentor-direct-applications", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const sentApplications = await fetch(
+        "/api/get-applications-sent-by-mentor",
         {
           method: "GET",
           headers: {
@@ -30,8 +48,19 @@ const DashboardMentor = () => {
         const data = await allJobs.json();
         setJobs(data);
       }
+
+      if (pendingJobs.ok) {
+        const data = await pendingJobs.json();
+        setMentorPendingDirectApplications(data);
+      }
+
+      if (sentApplications.ok) {
+        const data = await sentApplications.json();
+        setSentApplicationsByMentor(data);
+        console.log(data);
+      }
     } catch (error) {
-      console.error("An error occurred during fetching data:", error);
+      console.log("An error occurred during fetching data:", error);
     }
   };
 
@@ -39,8 +68,60 @@ const DashboardMentor = () => {
     fetchData();
   }, []);
 
+  const handleAcceptDirectApplication = async (application) => {
+    try {
+      const res = await fetch("/api/accept-direct-application", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+
+        body: JSON.stringify(application),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        fetchData();
+      } else {
+        const errorData = await res.json();
+      }
+    } catch (error) {
+      console.error("An error occurred during fetching data:", error);
+    }
+  };
+
+  const handleRejectDirectApplication = async (application) => {
+    try {
+      const res = await fetch("/api/reject-direct-application", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+
+        body: JSON.stringify(application),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        application.status = "REJECTED";
+        application.jobId.status = "REJECTED";
+        fetchData();
+      } else {
+        const errorData = await res.json();
+      }
+    } catch (error) {
+      console.error("An error occurred during fetching data:", error);
+    }
+  };
+
+  // const mentorSentApplications = sentApplications.filter(
+  //   (application) => application.status === "PENDING"
+  // );
+
   const doneJobs = jobs.filter((job) => job.status === "DONE");
-  const inProgressJobs = jobs.filter((job) => job.status === "IN_PROGRES");
+  const inProgressJobs = jobs.filter((job) => job.status === "IN_PROGRESS");
   const rejectedJobs = jobs.filter((job) => job.status === "REJECTED");
 
   const tabs = [
@@ -66,18 +147,6 @@ const DashboardMentor = () => {
     setSelectedTab(index);
   };
 
-  const mentorPendingJobs = [
-    {
-      title: "Revenue per rate",
-    },
-    {
-      title: "ARPU (Average revenue per use)",
-    },
-    {
-      title: "CAC (Custom Aqusition Cost)",
-    },
-  ];
-
   return (
     <>
       <section
@@ -95,14 +164,16 @@ const DashboardMentor = () => {
         />
         <div style={{ display: "flex", flexDirection: "column", width: "50%" }}>
           <MentorJobs
-            jobs={mentorPendingJobs}
+            jobs={mentorPendingDirectApplications}
             title="Pending Jobs"
             description="Jobs offered from your startup"
             firstButtonLabel="Accept"
             secondButtonLabel="Reject"
+            firstButtonClickFunction={handleAcceptDirectApplication}
+            secondButtonClickFunction={handleRejectDirectApplication}
           />
           <MentorJobs
-            jobs={mentorPendingJobs}
+            jobs={sentApplicationsByMentor}
             title="Applications sent "
             description="Jobs you have applied to"
             icon="true"

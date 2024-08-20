@@ -1,0 +1,58 @@
+.create-new-job-title {
+    font-family: Manrope;
+    font-size: 34px;
+    font-weight: 700;
+    color: #566a7f;
+    width: 454px;
+    max-width: 454px;
+    margin: 20px auto;
+  }
+  
+  .jobs-create-job-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 50px auto;
+  }
+  
+  .create-job-btn {
+    width: 180px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .input-create-new-job {
+    width: 454px;
+    max-width: 454px;
+    height: 60px;
+    border: 2px solid #d3d3ff;
+    border-radius: 9px;
+    outline: none;
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 89px;
+    color: #aab4bf;
+    margin: 10px;
+    padding-left: 15px;
+  }
+  
+  .create-new-job-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .textarea-create-new-job {
+    height: 196px;
+    margin-bottom: 45px;
+    line-height: 20px;
+  }
+  
+  .button-submit-new-job {
+    width: 465px;
+    max-width: 465px;
+  }

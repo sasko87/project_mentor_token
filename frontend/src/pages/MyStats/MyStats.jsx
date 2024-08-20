@@ -7,7 +7,7 @@ import "./myStats.css";
 import Title from "../../components/Title/Title";
 
 const MyStats = () => {
-  const [mentorInfo, setMentorInfo] = useState({});
+  const [mentorData, setMentorData] = useState({});
   const token = window.localStorage.getItem("token");
   const user = token ? jwtDecode(token) : null;
   const fetchMentorInfo = async () => {
@@ -22,7 +22,7 @@ const MyStats = () => {
       if (res.ok) {
         const data = await res.json();
         console.log(data);
-        setMentorInfo(data);
+        setMentorData(data);
       }
     } catch (error) {
       console.error("An error occurred during fetching data:", error);
@@ -52,7 +52,7 @@ const MyStats = () => {
   ];
   return (
     <>
-      <MentorInfo data={mentorInfo} />
+      <MentorInfo mentorData={mentorData} />
       <div className="my-stats-info-container">
         <div>
           <Title>Performance Over Time</Title>

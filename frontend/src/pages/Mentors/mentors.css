@@ -6,7 +6,8 @@
 .startup-mentors-cards {
   display: flex;
   flex-direction: column;
-  max-width: 741px;
+  width: 741px;
+  max-width: 62%;
   height: 160px;
   flex: 1;
 }

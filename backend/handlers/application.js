@@ -61,6 +61,23 @@ const filteredApplications = async (req, res) => {
   }
 };
 
+const getMentorDirectApplications = async (req, res) => {
+  try {
+    const applications = await getFilteredApplications({
+      mentorId: req.auth.id,
+      status: "PENDING",
+    });
+    const directApplications = applications.filter(
+      (application) =>
+        application.jobId.applicationType === "DIRECT" &&
+        application.jobId.status === "OPEN"
+    );
+    res.status(200).send(directApplications);
+  } catch (err) {
+    return res.status(err.status).send(err.error);
+  }
+};
+
 const acceptApplication = async (req, res) => {
   try {
     const acceptedApplication = {
@@ -108,6 +125,67 @@ const rejectApplication = async (req, res) => {
   }
 };
 
+const acceptDirectApplication = async (req, res) => {
+  try {
+    const acceptedApplication = {
+      ...req.body,
+      status: "ACCEPTED",
+    };
+
+    const applications = await getFilteredApplications({
+      jobId: acceptedApplication.jobId,
+    });
+
+    await updateApplication(acceptedApplication._id, { status: "ACCEPTED" });
+
+    await updateJob(acceptedApplication.jobId, {
+      status: "IN_PROGRESS",
+    });
+
+    return res.status(200).send(applications);
+  } catch (err) {
+    return res.status(err.status).send(err.error);
+  }
+};
+
+const rejectDirectApplication = async (req, res) => {
+  try {
+    const rejectedApplication = {
+      ...req.body,
+      status: "REJECTED",
+    };
+
+    await updateApplication(rejectedApplication._id, { status: "REJECTED" });
+
+    await updateJob(rejectedApplication.jobId._id, {
+      status: "REJECTED",
+    });
+
+    return res.status(200).send(rejectedApplication);
+  } catch (err) {
+    console.log(err);
+    return res.status(err.status).send(err.error);
+  }
+};
+
+const getApplicationsSentByMentor = async (req, res) => {
+  try {
+    const applications = await getFilteredApplications({
+      mentorId: req.auth.id,
+      status: "PENDING",
+    });
+    console.log(applications);
+    const sentApplications = applications.filter(
+      (application) =>
+        application.jobId.applicationType === "OPEN_FOR_ALL" &&
+        application.status === "PENDING"
+    );
+    res.status(200).send(sentApplications);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   createNewApplication,
   updateOneApplication,
@@ -115,4 +193,8 @@ module.exports = {
   filteredApplications,
   acceptApplication,
   rejectApplication,
+  getMentorDirectApplications,
+  acceptDirectApplication,
+  rejectDirectApplication,
+  getApplicationsSentByMentor,
 };

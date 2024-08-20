@@ -79,7 +79,7 @@ const router = createBrowserRouter([
             element: <MyStats />,
           },
           {
-            path: "/mentorinfo/:id",
+            path: "/mentors/:id",
             element: <MentorProfile />,
           },
         ],

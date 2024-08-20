@@ -6,6 +6,8 @@ import Input from "../../components/Input/Input";
 import JobsCard from "../../components/JobsCard/JobsCard";
 import "./jobs.css";
 import Textarea from "../../components/Textarea/Textarea";
+import Title from "../../components/Title/Title";
+import NewJob from "../../components/NewJob/NewJob";
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -140,7 +142,7 @@ const Jobs = () => {
     <>
       <Section>
         <div className="jobs-create-job-button-container">
-          <h2>Your Startup Jobs</h2>
+          <Title>Your Startup Jobs</Title>
           <Button
             className="create-job-btn"
             label="Create New Job"
@@ -251,9 +253,9 @@ const Jobs = () => {
           width={553.04}
           height={666.71}
         >
-          <div className="create-new-job-container">
-            <h2>Create New Job</h2>
-          </div>
+          {/* <div>
+          <h2 className="create-new-job-title">Create New Job</h2>
+          
           <form action="" className="create-new-job-form">
             <Input
               className="input-create-new-job"
@@ -285,6 +287,21 @@ const Jobs = () => {
               clickFunction={(e) => handleCreateNewJobSubmit(e)}
             />
           </form>
+          </div> */}
+          <NewJob
+            title="Create New Job"
+            jobTitle={jobTitle}
+            setJobTitle={(e) => setJobTitle(e.target.value)}
+            jobDescription={jobDescription}
+            setJobDescription={(e) => {
+              setJobDescription(e.target.value);
+            }}
+            skillsRequired={skillsRequired}
+            setSkillsRequired={(e) => {
+              setSkillsRequired(e.target.value);
+            }}
+            clickFunction={(e) => handleCreateNewJobSubmit(e)}
+          />
         </Modal>
       )}
     </>

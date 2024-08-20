@@ -15,20 +15,29 @@ import { jwtDecode } from "jwt-decode";
 import AdminNav from "../components/AdminNav/AdminNav";
 import Modal from "../components/Modal/Modal";
 import AdminPageHeader from "../components/AdminPageHeader/AdminPageHeader";
+import { useNavigate } from "react-router-dom";
 
 const AdminPages = () => {
   //token
   const token = localStorage.getItem("token");
-
+  const navigate = useNavigate();
   //ako nema window.mentorToken.user
   //dekodiraj go i postavi go
   if (!window.mentorToken) {
     const user = token ? jwtDecode(token) : null;
     window.mentorToken = { user };
   }
-
   //postavi go user spored window objekt
   const user = window.mentorToken.user;
+
+  if (user.exp <= new Date().getTime()) {
+    window.localStorage.removeItem("token");
+    setTimeout(() => {
+      navigate("/login");
+    }, 0);
+  }
+
+  console.log(new Date().getDate().toLocaleString());
 
   const [isMenuVisible, setIsMenuVisible] = useState(true);
 

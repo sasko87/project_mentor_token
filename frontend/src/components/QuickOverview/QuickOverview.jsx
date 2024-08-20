@@ -1,12 +1,14 @@
 import React from "react";
 
 import "./quickOverview.css";
+import Title from "../Title/Title";
 
 const QuickOverview = ({ text, data }) => {
   return (
     <div className="quick-overview">
       <div className="quick-overview-title-container">
-        <h2 className="quick-overview-title">Quick Overview</h2>
+        <Title>Quick Overview</Title>
+
         {text && <p className="quick-overview-text">{text}</p>}
       </div>
       <div>

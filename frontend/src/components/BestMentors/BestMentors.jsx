@@ -1,13 +1,23 @@
 import React from "react";
 import "./bestMentors.css";
+import Title from "../Title/Title";
+import { useNavigate } from "react-router-dom";
 
 const BestMentors = ({ mentors, profileImg, icon }) => {
+  const navigate = useNavigate();
+  const handleViewMentor = (id) => {
+    navigate(`/mentors/${id}`);
+  };
+
   return (
     <>
-      <h2 className="best-mentors-title">Best Performing Mentors</h2>
+      <Title>Best Performing Mentors</Title>
       <div className="best-mentors-container">
         {mentors.slice(0, 3).map((mentor) => (
-          <div className="best-mentors-data">
+          <div
+            className="best-mentors-data"
+            onClick={() => handleViewMentor(mentor._id)}
+          >
             <div style={{ width: "15%", textAlign: "center" }}>
               <img
                 src={profileImg}

@@ -16,7 +16,7 @@ const AdminNav = ({ items }) => {
             key={index}
             to={item.url}
             className={`${
-              location.pathname === item.url
+              location.pathname.startsWith(item.url)
                 ? "admin-nav-link admin-nav-link-active"
                 : "admin-nav-link"
             }`}

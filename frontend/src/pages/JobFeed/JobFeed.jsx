@@ -14,14 +14,19 @@ const JobFeed = () => {
   const [allJobs, setAllJobs] = useState([]);
   const [isViewJobModalActive, setIsViewJobModalActive] = useState(false);
   const [selectedJob, setSelectedJob] = useState({});
+  const [skillsFilter, setSkillsFilter] = useState();
   const token = window.localStorage.getItem("token");
   const fetchData = async () => {
     try {
+      let payload = {
+        status: "OPEN",
+        applicationType: "OPEN_FOR_ALL",
+      };
+      if (skillsFilter) {
+        payload.skillsRequired = skillsFilter;
+      }
       const allJobs = await fetch(
-        "/api/filtered-jobs?" +
-          new URLSearchParams({
-            status: "OPEN",
-          }).toString(),
+        "/api/filtered-jobs?" + new URLSearchParams(payload).toString(),
         {
           method: "GET",
           headers: {
@@ -40,7 +45,7 @@ const JobFeed = () => {
   };
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [skillsFilter]);
 
   const handleToggleJobDetailsModal = (isVisible, job) => {
     setIsViewJobModalActive(isVisible);
@@ -65,11 +70,15 @@ const JobFeed = () => {
   const category = [
     {
       title: "All Categories",
-      value: "allCategories",
+      value: "",
     },
     {
       title: "HTML",
       value: "HTML",
+    },
+    {
+      title: "Some Skills",
+      value: "Some Skills",
     },
   ];
 
@@ -101,6 +110,9 @@ const JobFeed = () => {
       console.error("An error occurred during fetching data:", error);
     }
   };
+
+  // const sortNewestJobs = allJobs["createdAt"].sort((a, b) => a - b);
+  console.log(allJobs);
   return (
     <>
       <Section>
@@ -114,7 +126,12 @@ const JobFeed = () => {
         >
           <div style={{ display: "flex", alignItems: "center" }}>
             <FilterJobs label="Sort By" filter={sort} />
-            <FilterJobs label="Category" filter={category} />
+            <FilterJobs
+              label="Category"
+              selecetdFilterValue={skillsFilter}
+              setSkillsFilter={setSkillsFilter}
+              filter={category}
+            />
           </div>
           <div
             style={{

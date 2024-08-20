@@ -1,11 +1,8 @@
-.create-new-job-container {
+/* .create-new-job-title {
   font-family: Manrope;
   font-size: 34px;
   font-weight: 700;
   color: #566a7f;
-}
-
-.create-new-job-container h2 {
   width: 454px;
   max-width: 454px;
   margin: 20px auto;
@@ -58,7 +55,7 @@
 .button-submit-new-job {
   width: 465px;
   max-width: 465px;
-}
+} */
 
 .startup-job-details-container {
   display: flex;

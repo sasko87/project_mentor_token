@@ -56,7 +56,7 @@ const getApplication = async (id) => {
 };
 
 const getFilteredApplications = async (filters) => {
-  return await Application.find(filters).populate("mentorId");
+  return await Application.find(filters).populate("mentorId").populate("jobId");
 };
 
 module.exports = {

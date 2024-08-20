@@ -1,19 +1,20 @@
 .admin-page {
-  height: fit-content;
+  display: flex;
   width: 100%;
+  height: fit-content;
+  min-height: 100vh;
   background-color: #f5f5f9;
   position: relative;
-  display: flex;
 }
 
 .admin-menu {
   width: 260px;
-  height: 100vh;
+  height: 100%;
   box-shadow: 0px 2px 6px 0px #435971;
   text-align: center;
-  transition: all 0.3s ease-in-out;
   background-color: white;
-  position: relative;
+  position: fixed;
+  transition: all 0.3s ease-in-out;
 }
 
 .admin-menu.hidden {
@@ -31,7 +32,7 @@
   padding: 5px 7px;
   border-radius: 50%;
   width: 26px;
-  position: absolute;
+  position: fixed;
   top: 35px;
   left: 247px;
   cursor: pointer;
@@ -78,7 +79,12 @@
 }
 
 .admin-right-side {
-  flex: 1;
-  margin: 30px 70px;
-  /* max-width: 1180px; */
+  margin-left: 260px;
+  flex-grow: 1;
+  padding: 30px 70px;
+  transition: 0.3s;
+}
+
+.admin-menu.hidden + .admin-right-side {
+  margin: 0 120px;
 }
