@@ -4,7 +4,6 @@ import Logo from "../assets/logos/MentorToken.svg";
 import { Link, Outlet } from "react-router-dom";
 import ArrowLeft from "../assets/admin-icons/arrow-left.png";
 import ArrowRight from "../assets/admin-icons/arrow-right.png";
-
 import DashboardIcon from "../assets/admin-icons/dashboard-icon.png";
 import ProfileIcon from "../assets/admin-icons/profile.png";
 import JobIcon from "../assets/admin-icons/disc.png";
@@ -30,7 +29,7 @@ const AdminPages = () => {
   //postavi go user spored window objekt
   const user = window.mentorToken.user;
 
-  if (user.exp <= new Date().getTime()) {
+  if (user.exp > new Date().getTime()) {
     window.localStorage.removeItem("token");
     setTimeout(() => {
       navigate("/login");

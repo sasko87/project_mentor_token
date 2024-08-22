@@ -1,6 +1,7 @@
 const {
   getFilteredApplications,
   createApplication,
+  updateApplication,
 } = require("../pkg/application/application");
 const {
   createJob,
@@ -131,7 +132,7 @@ const allJobs = async (req, res) => {
 
 const filteredJobs = async (req, res) => {
   try {
-    console.log(req.query);
+    // console.log(req.query);
     const jobs = await getFilteredJobs(req.query);
 
     let data = [];
@@ -158,6 +159,53 @@ const filteredJobs = async (req, res) => {
   }
 };
 
+const cancelJobOffer = async (req, res) => {
+  try {
+    const canceledJob = {
+      ...req.body,
+      status: "CANCELED",
+    };
+
+    const applications = await getFilteredApplications({
+      jobId: canceledJob._id,
+    });
+
+    for (let application of applications) {
+      if (application.status === "PENDING") {
+        await updateApplication(application._id, { status: "CANCELED" });
+      }
+    }
+
+    await updateJob(canceledJob._id, { status: "CANCELED" });
+
+    // await updateJob(rejectedApplication.jobId._id, {
+    //   status: "REJECTED",
+    // });
+    // await
+
+    return res.status(200).send(canceledJob);
+  } catch (err) {
+    console.log(err);
+    return res.status(err.status).send(err.error);
+  }
+};
+
+const doneJob = async (req, res) => {
+  try {
+    const canceledJob = {
+      ...req.body,
+      status: "DONE",
+    };
+
+    await updateJob(canceledJob._id, { status: "DONE" });
+
+    return res.status(200).send(canceledJob);
+  } catch (err) {
+    console.log(err);
+    return res.status(err.status).send(err.error);
+  }
+};
+
 module.exports = {
   getOneCompanyJobs,
   createNewJob,
@@ -166,4 +214,6 @@ module.exports = {
   allJobs,
   filteredJobs,
   createDirectJob,
+  cancelJobOffer,
+  doneJob,
 };

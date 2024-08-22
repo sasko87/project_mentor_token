@@ -12,7 +12,7 @@ const { updateJob } = require("../pkg/job/job");
 
 const createNewApplication = async (req, res) => {
   try {
-    console.log("ne application", req);
+    // console.log("ne application", req);
 
     // await validate(req.body, ApplicationValidate);
 
@@ -53,7 +53,7 @@ const deleteOneApplication = async (req, res) => {
 
 const filteredApplications = async (req, res) => {
   try {
-    console.log(req);
+    // console.log(req);
     const applications = await getFilteredApplications(req.query);
     return res.status(200).send(applications);
   } catch (err) {
@@ -115,7 +115,7 @@ const rejectApplication = async (req, res) => {
       status: "REJECTED",
     };
 
-    console.log(rejectedApplication);
+    // console.log(rejectedApplication);
     await updateApplication(rejectedApplication._id, { status: "REJECTED" });
 
     return res.status(200).send(rejectedApplication);
@@ -140,6 +140,7 @@ const acceptDirectApplication = async (req, res) => {
 
     await updateJob(acceptedApplication.jobId, {
       status: "IN_PROGRESS",
+      mentorId: acceptedApplication.mentorId._id,
     });
 
     return res.status(200).send(applications);
@@ -174,7 +175,7 @@ const getApplicationsSentByMentor = async (req, res) => {
       mentorId: req.auth.id,
       status: "PENDING",
     });
-    console.log(applications);
+    // console.log(applications);
     const sentApplications = applications.filter(
       (application) =>
         application.jobId.applicationType === "OPEN_FOR_ALL" &&

@@ -138,11 +138,62 @@ const Jobs = () => {
     }
   };
 
+  const handleCancelJob = async (job) => {
+    try {
+      const res = await fetch("/api/cancel-job", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+
+        body: JSON.stringify(job),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        job.status = "CANCELED";
+        handleToggleJobDetailsModal(false);
+        fetchData();
+      } else {
+        const errorData = await res.json();
+      }
+    } catch (error) {
+      console.error("An error occurred during fetching data:", error);
+    }
+  };
+
+  const handleMarkAsDoneJob = async (job) => {
+    try {
+      const res = await fetch("/api/done-job", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+
+        body: JSON.stringify(job),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        job.status = "DONE";
+        handleToggleJobDetailsModal(false);
+        fetchData();
+      } else {
+        const errorData = await res.json();
+      }
+    } catch (error) {
+      console.error("An error occurred during fetching data:", error);
+    }
+  };
+
   return (
     <>
       <Section>
         <div className="jobs-create-job-button-container">
           <Title>Your Startup Jobs</Title>
+
           <Button
             className="create-job-btn"
             label="Create New Job"
@@ -151,7 +202,13 @@ const Jobs = () => {
             }}
           />
         </div>
-
+        <h1>dodaj filtri tuka</h1>
+        <p>
+          by default neka ima setiran filter na open jobs na moi mozat da mu
+          apliciraat mentor
+        </p>
+        <p>prv ddl filter : open, in progress, [site statusi so gi imame] </p>
+        <p>vtor ddl filter: direct, open for all</p>
         <JobsCard jobs={jobs} modalFunction={handleToggleJobDetailsModal} />
 
         {/* <div>
@@ -184,6 +241,10 @@ const Jobs = () => {
               <p>{selectedJob.description}</p>
             </div>
             <div className="startup-job-details-applicants-container">
+              {selectedJob.applicationType === "DIRECT" && (
+                <h1>this is a direct job</h1>
+              )}
+              {selectedJob.applications.length === 0 && <>no data found</>}
               {selectedJob.applications.length > 0 && (
                 <>
                   <h2>Applicants:</h2>
@@ -203,22 +264,28 @@ const Jobs = () => {
                             <p> {application.mentorId.name}</p>
                             <p> {application.status}</p>
                           </div>
-                          <div className="startup-jobs-buttons">
-                            <Button
-                              label="Accept"
-                              className="startup-jobs-button startup-jobs-accept-button "
-                              clickFunction={() => {
-                                handleAcceptApplication(application);
-                              }}
-                            />
 
-                            <Button
-                              label="Reject"
-                              className="startup-jobs-button startup-jobs-reject-button"
-                              clickFunction={() => {
-                                handleRejectApplication(application);
-                              }}
-                            />
+                          <div className="startup-jobs-buttons">
+                            {selectedJob.applicationType !== "DIRECT" &&
+                              selectedJob.status === "OPEN" && (
+                                <>
+                                  <Button
+                                    label="Accept"
+                                    className="startup-jobs-button startup-jobs-accept-button "
+                                    clickFunction={() => {
+                                      handleAcceptApplication(application);
+                                    }}
+                                  />
+
+                                  <Button
+                                    label="Reject"
+                                    className="startup-jobs-button startup-jobs-reject-button"
+                                    clickFunction={() => {
+                                      handleRejectApplication(application);
+                                    }}
+                                  />
+                                </>
+                              )}
                           </div>
                           {/* <button
                         onClick={() => {
@@ -238,6 +305,28 @@ const Jobs = () => {
                       );
                     })}
                   </div>
+                </>
+              )}
+              {selectedJob.status === "OPEN" && (
+                <>
+                  <Button
+                    label="Cancel Offer"
+                    className="startup-jobs-reject-button "
+                    clickFunction={() => {
+                      handleCancelJob(selectedJob);
+                    }}
+                  />
+                </>
+              )}
+              {selectedJob.status === "IN_PROGRESS" && (
+                <>
+                  <Button
+                    label="Mark As DONE"
+                    className="startup-jobs-reject-button "
+                    clickFunction={() => {
+                      handleMarkAsDoneJob(selectedJob);
+                    }}
+                  />
                 </>
               )}
             </div>
@@ -291,15 +380,11 @@ const Jobs = () => {
           <NewJob
             title="Create New Job"
             jobTitle={jobTitle}
-            setJobTitle={(e) => setJobTitle(e.target.value)}
+            setJobTitle={setJobTitle}
             jobDescription={jobDescription}
-            setJobDescription={(e) => {
-              setJobDescription(e.target.value);
-            }}
+            setJobDescription={setJobDescription}
             skillsRequired={skillsRequired}
-            setSkillsRequired={(e) => {
-              setSkillsRequired(e.target.value);
-            }}
+            setSkillsRequired={setSkillsRequired}
             clickFunction={(e) => handleCreateNewJobSubmit(e)}
           />
         </Modal>

@@ -17,6 +17,8 @@ const {
   allJobs,
   filteredJobs,
   createDirectJob,
+  cancelJobOffer,
+  doneJob,
 } = require("./handlers/job.js");
 
 const {
@@ -69,6 +71,8 @@ app.delete("/api/delete-one-job/:id", deleteOneJob);
 app.get("/api/all-jobs", allJobs);
 app.get("/api/filtered-jobs", filteredJobs);
 app.post("/api/create-direct-job", createDirectJob);
+app.post("/api/cancel-job", cancelJobOffer);
+app.post("/api/done-job", doneJob);
 
 app.post("/api/create-new-application", createNewApplication);
 app.delete("/api/delete-one-application/:id", deleteOneApplication);

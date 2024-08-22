@@ -18,6 +18,7 @@ const JobsCard = ({ jobs, modalFunction }) => {
               <p>{job.description}</p>
             </div>
           </div>
+          <h1>{job.status}</h1>
 
           <Button
             label="View Details"
