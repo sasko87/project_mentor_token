@@ -140,7 +140,6 @@ const acceptDirectApplication = async (req, res) => {
 
     await updateJob(acceptedApplication.jobId, {
       status: "IN_PROGRESS",
-      mentorId: acceptedApplication.mentorId._id,
     });
 
     return res.status(200).send(applications);

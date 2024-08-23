@@ -13,16 +13,19 @@ const MentorJobs = ({
   icon,
   firstButtonClickFunction,
   secondButtonClickFunction,
+  cancelJob,
 }) => {
+  const user = window.mentorToken.user;
   return (
     <div>
       <div>
         <Title>{title}</Title>
         <p>{description}</p>
       </div>
+
       <div>
         <div className="mentors-jobs-container">
-          {jobs && (
+          {user.type === "mentor" && jobs && (
             <>
               {jobs.map((application, index) => (
                 <div key={index} className="mentors-jobs">
@@ -49,6 +52,24 @@ const MentorJobs = ({
                       />
                     )}
                     {icon === "true" && <img src={ClockIcon} />}
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
+          {user.type === "startup" && jobs && (
+            <>
+              {jobs.map((job, index) => (
+                <div key={index} className="mentors-jobs">
+                  <div>
+                    <p>{job.title}</p>
+                  </div>
+                  <div className="mentors-jobs-buttons">
+                    <Button
+                      label="Cancel Offer"
+                      className="cancel-offer-button "
+                      clickFunction={() => cancelJob(job)}
+                    />
                   </div>
                 </div>
               ))}

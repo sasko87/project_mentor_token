@@ -244,10 +244,10 @@ const Jobs = () => {
               {selectedJob.applicationType === "DIRECT" && (
                 <h1>this is a direct job</h1>
               )}
+              <h2>Applicants:</h2>
               {selectedJob.applications.length === 0 && <>no data found</>}
               {selectedJob.applications.length > 0 && (
                 <>
-                  <h2>Applicants:</h2>
                   <div>
                     {selectedJob.applications.map((application) => {
                       console.log(application);
@@ -311,7 +311,7 @@ const Jobs = () => {
                 <>
                   <Button
                     label="Cancel Offer"
-                    className="startup-jobs-reject-button "
+                    className="startup-jobs-cancel-button "
                     clickFunction={() => {
                       handleCancelJob(selectedJob);
                     }}

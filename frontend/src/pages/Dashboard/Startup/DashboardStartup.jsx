@@ -80,8 +80,6 @@ const DashboardStartup = () => {
     setSelectedTab(index);
   };
 
-  console.log("sande se zaebava", mentors);
-
   return (
     <>
       <section

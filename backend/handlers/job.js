@@ -31,6 +31,7 @@ const createDirectJob = async (req, res) => {
     await validate(req.body, JobValidate);
     const data = {
       companyId: req.auth.id,
+      mentorId: req.body.mentorId,
       title: req.body.title,
       description: req.body.description,
       skillsRequired: req.body.skillsRequired,

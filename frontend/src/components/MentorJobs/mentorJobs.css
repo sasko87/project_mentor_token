@@ -38,3 +38,19 @@
   color: #f2076a;
   background-color: white;
 }
+
+.cancel-offer-button {
+  border: 1px solid #f2076a;
+  color: #f2076a;
+  background-color: white;
+  width: 117px;
+  height: 25.74px;
+  font-family: Noto Sans;
+  font-size: 9.48px;
+  font-weight: 400;
+}
+
+.cancel-offer-button:hover {
+  background-color: white;
+  border: 2px solid #f2076a;
+}

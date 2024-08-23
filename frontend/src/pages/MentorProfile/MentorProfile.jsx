@@ -8,9 +8,18 @@ import MentorJobs from "../../components/MentorJobs/MentorJobs";
 
 const MentorProfile = () => {
   const token = window.localStorage.getItem("token");
+  const user = window.mentorToken.user;
   const { id } = useParams();
   const [mentorData, setMentorData] = useState([]);
+  const [jobs, setJobs] = useState([]);
+
   const fetchMentor = async () => {
+    let payload = {
+      mentorId: id,
+      companyId: user.id,
+      applicationType: "DIRECT",
+      status: "OPEN",
+    };
     try {
       const res = await fetch(`/api/get-account-data-by-id/${id}`, {
         method: "GET",
@@ -19,10 +28,26 @@ const MentorProfile = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      const jobs = await fetch(
+        "/api/filtered-jobs?" + new URLSearchParams(payload).toString(),
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       if (res.ok) {
         const data = await res.json();
         setMentorData(data);
+      }
+      if (jobs.ok) {
+        const data = await jobs.json();
         console.log(data);
+        setJobs(data);
       }
     } catch (error) {
       console.error("An error occurred during fetching data:", error);
@@ -32,6 +57,30 @@ const MentorProfile = () => {
   useEffect(() => {
     fetchMentor();
   }, [id]);
+
+  const handleCancelJob = async (job) => {
+    try {
+      const res = await fetch("/api/cancel-job", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+
+        body: JSON.stringify(job),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        job.status = "CANCELED";
+        fetchMentor();
+      } else {
+        const errorData = await res.json();
+      }
+    } catch (error) {
+      console.error("An error occurred during fetching data:", error);
+    }
+  };
 
   // const tabs = [
   //   {
@@ -59,6 +108,12 @@ const MentorProfile = () => {
           <div>
             {/* <AssignedJobs tabs={tabs} />
             <MentorJobs /> */}
+
+            <MentorJobs
+              title="Pending Offers"
+              jobs={jobs}
+              cancelJob={handleCancelJob}
+            />
           </div>
         </div>
       </Section>
