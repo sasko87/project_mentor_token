@@ -13,7 +13,7 @@ const AdminPageHeader = ({ user }) => {
       <div className="account-profile">
         {/* TODO smeni ja slikata spored user (treba da ja ima u token) */}
         <img src={ProfileImg} alt="Profile Image" className="profile-image" />
-        <p>{user.email}</p>
+        <p>{user.name}</p>
       </div>
     </div>
   );

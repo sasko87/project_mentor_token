@@ -11,14 +11,13 @@ const MentorProfile = () => {
   const user = window.mentorToken.user;
   const { id } = useParams();
   const [mentorData, setMentorData] = useState([]);
+  const [selectedTab, setSelectedTab] = useState(0);
   const [jobs, setJobs] = useState([]);
 
-  const fetchMentor = async () => {
+  const fetchData = async () => {
     let payload = {
       mentorId: id,
       companyId: user.id,
-      applicationType: "DIRECT",
-      status: "OPEN",
     };
     try {
       const res = await fetch(`/api/get-account-data-by-id/${id}`, {
@@ -55,7 +54,7 @@ const MentorProfile = () => {
   };
 
   useEffect(() => {
-    fetchMentor();
+    fetchData();
   }, [id]);
 
   const handleCancelJob = async (job) => {
@@ -73,7 +72,7 @@ const MentorProfile = () => {
       if (res.ok) {
         const data = await res.json();
         job.status = "CANCELED";
-        fetchMentor();
+        fetchData();
       } else {
         const errorData = await res.json();
       }
@@ -82,36 +81,49 @@ const MentorProfile = () => {
     }
   };
 
-  // const tabs = [
-  //   {
-  //     tab: "All",
-  //     content: jobs,
-  //   },
-  //   {
-  //     tab: "Done",
-  //     content: doneJobs,
-  //   },
-  //   {
-  //     tab: "Rejected",
-  //     content: rejectedJobs,
-  //   },
-  //   {
-  //     tab: "In Progress",
-  //     content: inProgressJobs,
-  //   },
-  // ];
+  const handleTabs = (index) => {
+    setSelectedTab(index);
+  };
+  const pendingDirectJobOffers = jobs.filter(
+    (job) => job.applicationType === "DIRECT" && job.status === "OPEN"
+  );
+
+  const doneJobs = jobs.filter((job) => job.status === "DONE");
+  const canceledJobs = jobs.filter((job) => job.status === "CANCELED");
+  const inProgressJobs = jobs.filter((job) => job.status === "IN_PROGRESS");
+  const tabs = [
+    {
+      tab: "All",
+      content: jobs,
+    },
+    {
+      tab: "Done",
+      content: doneJobs,
+    },
+    {
+      tab: "Canceled",
+      content: canceledJobs,
+    },
+    {
+      tab: "In Progress",
+      content: inProgressJobs,
+    },
+  ];
   return (
     <>
       <Section>
         <MentorInfo mentorData={mentorData} />
         <div>
-          <div>
-            {/* <AssignedJobs tabs={tabs} />
-            <MentorJobs /> */}
+          <div style={{ display: "flex", gap: 80 }}>
+            <AssignedJobs
+              tabs={tabs}
+              onClickFunction={handleTabs}
+              selectedTab={selectedTab}
+            />
 
             <MentorJobs
               title="Pending Offers"
-              jobs={jobs}
+              jobs={pendingDirectJobOffers}
               cancelJob={handleCancelJob}
             />
           </div>

@@ -17,7 +17,7 @@ const MentorJobs = ({
 }) => {
   const user = window.mentorToken.user;
   return (
-    <div>
+    <div style={{ maxWidth: "479px", width: "100%" }}>
       <div>
         <Title>{title}</Title>
         <p>{description}</p>
