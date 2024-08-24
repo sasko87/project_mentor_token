@@ -26,7 +26,6 @@ const FilterJobs = ({
               <option
                 key={index}
                 value={filter.value}
-                //onClick={(e) => handleSetSkillsFilter(e.target.value)}
                 className="filter-option"
               >
                 {filter.title}

@@ -1,7 +1,14 @@
 import React from "react";
 import "./textarea.css";
 
-const Textarea = ({ placeholder, className, disabled, rows, onChange }) => {
+const Textarea = ({
+  placeholder,
+  className,
+  disabled,
+  rows,
+  onChange,
+  value,
+}) => {
   return (
     <textarea
       placeholder={placeholder}
@@ -9,6 +16,7 @@ const Textarea = ({ placeholder, className, disabled, rows, onChange }) => {
       disabled={disabled}
       rows={rows}
       onChange={onChange}
+      value={value}
     ></textarea>
   );
 };

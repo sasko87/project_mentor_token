@@ -1,13 +1,13 @@
 .input {
   width: 100%;
+  border: 2px solid #d3d3ff;
+  border-radius: 9px;
+  outline: none;
 }
 
 .sign-input {
   width: 80%;
   height: 60px;
-  border: 2px solid #d3d3ff;
-  border-radius: 9px;
-  outline: none;
 }
 
 .active {
