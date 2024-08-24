@@ -39,12 +39,31 @@
   padding-bottom: 5px;
 }
 
-.mentor-info-save-button {
-  width: 100px;
-  height: 30px;
+.mentor-info-buttons-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
   position: absolute;
   right: 60px;
   bottom: 10px;
+}
+
+.mentor-info-save-button {
+  width: 100px;
+  height: 30px;
+}
+
+.mentor-info-cancel-button {
+  width: 100px;
+  height: 30px;
+  border: 1px solid #f2076a;
+  color: #f2076a;
+  background-color: white;
+}
+
+.mentor-info-cancel-button:hover {
+  border: 2px solid #f2076a;
+  background-color: white;
 }
 
 .mentor-info-name {
@@ -112,6 +131,10 @@
   max-width: 750px;
 }
 
+.mentor-info-textarea-length {
+  font-size: 12px;
+}
+
 .mentor-info-offer-job-button {
   display: flex;
   align-items: center;
@@ -122,4 +145,23 @@
   font-size: 11.83px;
   font-weight: 400;
   line-height: 16.9px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 15px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bcbcbc;
+  border-radius: 16px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9a9a9a;
+  cursor: default;
 }

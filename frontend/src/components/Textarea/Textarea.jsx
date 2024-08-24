@@ -8,6 +8,7 @@ const Textarea = ({
   rows,
   onChange,
   value,
+  maxLength,
 }) => {
   return (
     <textarea
@@ -17,6 +18,7 @@ const Textarea = ({
       rows={rows}
       onChange={onChange}
       value={value}
+      maxLength={maxLength}
     ></textarea>
   );
 };

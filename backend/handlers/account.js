@@ -1,4 +1,8 @@
-const { allMentors, accountById } = require("../pkg/account/index");
+const {
+  allMentors,
+  accountById,
+  updateAccount,
+} = require("../pkg/account/index");
 const { getFilteredJobs } = require("../pkg/job/job");
 
 const getAllMentors = async (req, res) => {
@@ -60,4 +64,25 @@ const getAccoutDataById = async (req, res) => {
   }
 };
 
-module.exports = { getAllMentors, getAccoutData, getAccoutDataById };
+const updateMentorAccount = async (req, res) => {
+  try {
+    const data = {
+      name: req.body.name,
+      desc: req.body.desc,
+      email: req.body.email,
+      phone: req.body.phone,
+      skills: req.body.skills,
+    };
+    await updateAccount(req.body.id, data);
+    return res.status(200).send({ message: "account updated" });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = {
+  getAllMentors,
+  getAccoutData,
+  getAccoutDataById,
+  updateMentorAccount,
+};

@@ -20,6 +20,20 @@ const MentorInfo = ({ mentorData }) => {
   const [jobDescription, setJobDescription] = useState("");
   const [skillsRequired, setSkillsRequired] = useState([]);
   const [isEditActive, setIsEditActive] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [skills, setSkills] = useState([]);
+  const [desc, setDesc] = useState("");
+  const maxLength = 1200;
+
+  useEffect(() => {
+    setName(mentorData.name);
+    setEmail(mentorData.email);
+    setPhone(mentorData.phone);
+    setSkills(mentorData.skills);
+    setDesc(mentorData.desc);
+  }, [mentorData]);
 
   const handleToggleOfferJobModal = () => {
     setIsOfferJobModalVisible(!isOfferJobModalVisible);
@@ -63,6 +77,42 @@ const MentorInfo = ({ mentorData }) => {
     setIsEditActive(!isEditActive);
   };
 
+  const handleCancel = (e) => {
+    e.preventDefault();
+    setIsEditActive(false);
+  };
+
+  const saveEditedAccount = async (e) => {
+    e.preventDefault();
+    try {
+      const data = {
+        name,
+        desc,
+        skills,
+        email,
+        phone,
+        id: mentorData._id,
+      };
+      const update = await fetch("/api/update-mentor-account", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+
+        body: JSON.stringify(data),
+      });
+
+      if (update.ok) {
+        const data = await update.json();
+        console.log("Update successful");
+        setIsEditActive(false);
+      }
+    } catch (error) {
+      console.error("An error occurred during fetching data:", { error });
+    }
+  };
+
   return (
     <>
       <Section>
@@ -93,25 +143,29 @@ const MentorInfo = ({ mentorData }) => {
                 <>
                   <Input
                     type="text"
-                    value={mentorData.name}
+                    value={name}
                     className="mentor-info-edit-input"
+                    onChange={(e) => setName(e.target.value)}
                   />
                   {mentorData.skills && (
                     <Input
                       type="text"
-                      value={mentorData.skills[0]}
+                      value={skills}
                       className="mentor-info-edit-input"
+                      onChange={(e) => setSkills(e.target.value)}
                     />
                   )}
                   <Input
                     type="email"
-                    value={mentorData.email}
+                    value={email}
                     className="mentor-info-edit-input"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <Input
                     type="number"
-                    value={mentorData.phone}
+                    value={phone}
                     className="mentor-info-edit-input"
+                    onChange={(e) => setPhone(e.target.value)}
                   />
                 </>
               )}
@@ -132,22 +186,33 @@ const MentorInfo = ({ mentorData }) => {
                 <>
                   <Input
                     type="text"
-                    value={mentorData.skills}
+                    value={skills}
                     className="mentor-info-edit-input"
+                    onChange={(e) => setSkills(e.target.value)}
                   />
                   <Textarea
-                    value={mentorData.desc}
+                    value={desc}
                     className="mentor-info-edit-textarea"
+                    onChange={(e) => setDesc(e.target.value)}
+                    maxLength={maxLength}
                   ></Textarea>
-                  <Button label="Save" className="mentor-info-save-button" />
+                  <p className="mentor-info-textarea-length">
+                    {maxLength - desc.length} characters remaining
+                  </p>
+                  <div className="mentor-info-buttons-container">
+                    <Button
+                      label="Save"
+                      className="mentor-info-save-button"
+                      clickFunction={saveEditedAccount}
+                    />
+                    <Button
+                      label="Cancel"
+                      className="mentor-info-cancel-button"
+                      clickFunction={handleCancel}
+                    />
+                  </div>
                 </>
               )}
-              {/* <Textarea
-                placeholder={mentorInfo.desc}
-                disabled={true}
-                className="mentor-info-textarea"
-              ></Textarea> */}
-
               {user.type === "mentor" && (
                 <span
                   className="mentor-info-edit-button"

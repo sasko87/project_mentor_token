@@ -37,9 +37,8 @@ const accountSchema = mongoose.Schema(
         return this.type === "mentor";
       },
     },
-    acceptedJobs: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "Job",
+    possition: {
+      type: String,
       required: function () {
         return this.type === "mentor";
       },
@@ -52,13 +51,6 @@ const accountSchema = mongoose.Schema(
     },
     address: {
       type: String,
-      required: function () {
-        return this.type === "startup";
-      },
-    },
-    jobsPosted: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "Job",
       required: function () {
         return this.type === "startup";
       },
@@ -80,8 +72,8 @@ const getAccountByEmail = async (email) => {
   return await Account.findOne({ email });
 };
 
-const updateAccount = async (id, account) => {
-  return await Account.updateOne({ _id: id }, account);
+const updateAccount = async (id, data) => {
+  return await Account.updateOne({ _id: id }, data);
 };
 
 const removeAccount = async (id) => {
