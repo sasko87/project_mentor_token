@@ -86,6 +86,10 @@
   line-height: 22px;
   text-align: left;
   color: #566a7f;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 3px;
 }
 
 .mentor-info-about-data-container {

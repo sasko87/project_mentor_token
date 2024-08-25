@@ -11,6 +11,8 @@ import Modal from "../Modal/Modal";
 import NewJob from "../NewJob/NewJob";
 import Input from "../Input/Input";
 import ProfileImg from "../../assets/Ellipse 3.png";
+import MailIcon from "../../assets/admin-icons/mail.png";
+import PhoneIcon from "../../assets/admin-icons/phone.png";
 
 const MentorInfo = ({ mentorData }) => {
   const token = window.localStorage.getItem("token");
@@ -123,7 +125,7 @@ const MentorInfo = ({ mentorData }) => {
               <div style={{ textAlign: "center" }}>
                 <img
                   src={ProfileImg}
-                  alt=""
+                  alt="Profile Image"
                   className="mentor-info-profile-image"
                 />
               </div>
@@ -135,8 +137,16 @@ const MentorInfo = ({ mentorData }) => {
                       {mentorData.skills[0]}
                     </p>
                   )}
-                  <p className="mentor-info-contact">{mentorData.email}</p>
-                  <p className="mentor-info-contact">{mentorData.phone}</p>
+                  <p className="mentor-info-contact">
+                    <img src={MailIcon} alt="" />
+
+                    {mentorData.email}
+                  </p>
+                  <p className="mentor-info-contact">
+                    <img src={PhoneIcon} alt="" />
+
+                    {mentorData.phone}
+                  </p>
                 </>
               )}
               {isEditActive && (
