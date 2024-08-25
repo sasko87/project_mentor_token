@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { TagsInput } from "react-tag-input-component";
 import Section from "../Section/Section";
 import "./mentorInfo.css";
 import Textarea from "../Textarea/Textarea";
@@ -194,12 +195,19 @@ const MentorInfo = ({ mentorData }) => {
 
               {isEditActive && mentorData.skills && (
                 <>
-                  <Input
+                  <TagsInput
+                    value={skills}
+                    onChange={setSkills}
+                    name="fruits"
+                    placeHolder="press enter to add new skill"
+                    classNames="mentor-info-edit-input"
+                  />
+                  {/* <Input
                     type="text"
                     value={skills}
                     className="mentor-info-edit-input"
                     onChange={(e) => setSkills(e.target.value)}
-                  />
+                  /> */}
                   <Textarea
                     value={desc}
                     className="mentor-info-edit-textarea"
