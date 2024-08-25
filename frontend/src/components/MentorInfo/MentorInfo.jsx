@@ -28,6 +28,7 @@ const MentorInfo = ({ mentorData }) => {
   const [phone, setPhone] = useState("");
   const [skills, setSkills] = useState([]);
   const [desc, setDesc] = useState("");
+  const [position, setPosition] = useState("");
   const maxLength = 1200;
 
   useEffect(() => {
@@ -36,6 +37,7 @@ const MentorInfo = ({ mentorData }) => {
     setPhone(mentorData.phone);
     setSkills(mentorData.skills);
     setDesc(mentorData.desc);
+    setPosition(mentorData.position);
   }, [mentorData]);
 
   const handleToggleOfferJobModal = () => {
@@ -94,6 +96,7 @@ const MentorInfo = ({ mentorData }) => {
         skills,
         email,
         phone,
+        position,
         id: mentorData._id,
       };
       const update = await fetch("/api/update-mentor-account", {
@@ -108,7 +111,6 @@ const MentorInfo = ({ mentorData }) => {
 
       if (update.ok) {
         const data = await update.json();
-        console.log("Update successful");
         setIsEditActive(false);
       }
     } catch (error) {
@@ -133,11 +135,9 @@ const MentorInfo = ({ mentorData }) => {
               {!isEditActive && (
                 <>
                   <h3 className="mentor-info-name">{mentorData.name}</h3>
-                  {mentorData.skills && (
-                    <p className="mentor-info-possition">
-                      {mentorData.skills[0]}
-                    </p>
-                  )}
+
+                  <p className="mentor-info-possition">{mentorData.position}</p>
+
                   <p className="mentor-info-contact">
                     <img src={MailIcon} alt="" />
 
@@ -158,14 +158,14 @@ const MentorInfo = ({ mentorData }) => {
                     className="mentor-info-edit-input"
                     onChange={(e) => setName(e.target.value)}
                   />
-                  {mentorData.skills && (
-                    <Input
-                      type="text"
-                      value={skills}
-                      className="mentor-info-edit-input"
-                      onChange={(e) => setSkills(e.target.value)}
-                    />
-                  )}
+
+                  <Input
+                    type="text"
+                    value={position}
+                    className="mentor-info-edit-input"
+                    onChange={(e) => setPosition(e.target.value)}
+                  />
+
                   <Input
                     type="email"
                     value={email}

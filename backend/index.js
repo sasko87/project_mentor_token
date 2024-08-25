@@ -38,6 +38,8 @@ const {
   getAccoutData,
   getAccoutDataById,
   updateMentorAccount,
+  getMentorStatistics,
+  getStartupStatistics,
 } = require("./handlers/account.js");
 const { sendMessage } = require("./handlers/mailer.js");
 
@@ -91,6 +93,8 @@ app.get("/api/getaccount", getAccoutData);
 app.get("/api/get-account-data-by-id/:id", getAccoutDataById);
 app.post("/api/sendmessage", sendMessage);
 app.put("/api/update-mentor-account", updateMentorAccount);
+app.get("/api/get-mentor-statistics", getMentorStatistics);
+app.get("/api/get-startup-statistics", getStartupStatistics);
 
 app.post("/api/auth/forgot-password", forgotPassword);
 app.post("/reset-password/:id/:token", resetPassword);

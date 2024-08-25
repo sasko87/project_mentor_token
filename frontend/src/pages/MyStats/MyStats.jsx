@@ -7,12 +7,12 @@ import "./myStats.css";
 import Title from "../../components/Title/Title";
 
 const MyStats = () => {
-  const [mentorData, setMentorData] = useState({});
+  const [mentorData, setMentorData] = useState([]);
   const token = window.localStorage.getItem("token");
   const user = token ? jwtDecode(token) : null;
   const fetchMentorInfo = async () => {
     try {
-      const res = await fetch("/api/getaccount", {
+      const res = await fetch("/api/get-mentor-statistics", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -35,19 +35,19 @@ const MyStats = () => {
   const quickOverviewData = [
     {
       title: "Total Jobs",
-      count: 150,
+      count: mentorData.totalJobs,
     },
     {
       title: "Total Assigned Jobs",
-      count: 180,
+      count: mentorData.totalAssignedJobs,
     },
     {
       title: "Jobs That You Have Applied",
-      count: 50,
+      count: mentorData.applicationsSent,
     },
     {
       title: "Finished Jobs",
-      count: 50,
+      count: mentorData.doneJobs,
     },
   ];
   return (

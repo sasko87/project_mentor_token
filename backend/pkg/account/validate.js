@@ -15,7 +15,8 @@ const AccountRegister = {
   desc: "string",
   representative: "string",
   address: "string",
-  possition: "required|string",
+  position: "required|string",
+  linkedin: "string",
 };
 
 const ChangePasswordValidate = {

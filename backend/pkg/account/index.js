@@ -37,7 +37,7 @@ const accountSchema = mongoose.Schema(
         return this.type === "mentor";
       },
     },
-    possition: {
+    position: {
       type: String,
       required: function () {
         return this.type === "mentor";
@@ -53,6 +53,12 @@ const accountSchema = mongoose.Schema(
       type: String,
       required: function () {
         return this.type === "startup";
+      },
+    },
+    linkedin: {
+      type: String,
+      required: function () {
+        return this.type === "mentor";
       },
     },
   },
@@ -85,7 +91,7 @@ const allMentors = async () => {
 };
 
 const accountById = async (id) => {
-  return await Account.findOne({ _id: id });
+  return await Account.findOne({ _id: id }).select("-password");
 };
 
 const setNewPassword = async (id, password) => {

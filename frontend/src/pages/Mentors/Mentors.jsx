@@ -8,10 +8,13 @@ import "./mentors.css";
 import { useEffect } from "react";
 import QuickOverview from "../../components/QuickOverview/QuickOverview";
 import { useNavigate, useLocation } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const Mentors = () => {
   const token = window.localStorage.getItem("token");
+  const user = token ? jwtDecode(token) : null;
   const [accountData, setAccountData] = useState([]);
+  const [accountStatistics, setAccountStatistics] = useState([]);
 
   const navigate = useNavigate();
   const fetchMentors = async () => {
@@ -22,10 +25,20 @@ const Mentors = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      const statistics = await fetch("/api/get-startup-statistics", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (allMentors.ok) {
         const data = await allMentors.json();
         setAccountData(data);
+      }
+      if (statistics.ok) {
+        const data = await statistics.json();
+        console.log(data);
+        setAccountStatistics(data);
       }
     } catch (error) {
       console.log("An error occurred during fetching data:", error);
@@ -47,11 +60,11 @@ const Mentors = () => {
     },
     {
       title: "Total Assigned Jobs",
-      count: 180,
+      count: accountStatistics.totalAssignedJobs,
     },
     {
       title: "Finished Jobs",
-      count: 50,
+      count: accountStatistics.doneJobs,
     },
   ];
 

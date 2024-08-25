@@ -4,6 +4,7 @@ import Button from "../../components/Button/Button";
 import "./register.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { TagsInput } from "react-tag-input-component";
 
 const Register = () => {
   const [type, setType] = useState("mentor");
@@ -14,8 +15,9 @@ const Register = () => {
   const [representative, setRepresentative] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
-  const [skills, setSkills] = useState("");
+  const [skills, setSkills] = useState([]);
   const [desc, setDesc] = useState("");
+  const [position, setPosition] = useState("");
 
   const navigate = useNavigate();
 
@@ -40,6 +42,7 @@ const Register = () => {
       phone,
       skills,
       desc,
+      position,
     };
 
     try {
@@ -222,14 +225,22 @@ const Register = () => {
                 value={phone}
               />
               <label htmlFor="skills">Skills</label>
-              <Input
+              <TagsInput
+                id="skills"
+                value={skills}
+                onChange={setSkills}
+                className="register-input"
+                placeHolder="press enter to add new skill"
+                classNames="mentor-info-edit-input"
+              />
+              {/* <Input
                 id="skills"
                 type="text"
                 placeholder="Skills"
                 className="register-input"
                 onChange={(e) => setSkills(e.target.value)}
                 value={skills}
-              />
+              /> */}
               <label htmlFor="desc">Description</label>
               <Input
                 id="desc"
@@ -239,10 +250,28 @@ const Register = () => {
                 onChange={(e) => setDesc(e.target.value)}
                 value={desc}
               />
+              <label htmlFor="position">Position</label>
+              <Input
+                id="position"
+                type="text"
+                placeholder="Position"
+                className="register-input"
+                onChange={(e) => setPosition(e.target.value)}
+                value={position}
+              />
+              <label htmlFor="linkedin">LinkedIn</label>
+              <Input
+                id="linkedin"
+                type="text"
+                placeholder="LinkedIn Profile"
+                className="register-input"
+                onChange={(e) => setPosition(e.target.value)}
+                value={position}
+              />
               <Button
                 type="submit"
-                label="Continue"
-                className="continue-button"
+                label="Register"
+                className="register-button"
                 clickFunction={(e) => handleRegister(e)}
               />
             </form>

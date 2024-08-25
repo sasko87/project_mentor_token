@@ -8,20 +8,24 @@
 }
 
 .register-form {
-  margin: 60px 0 20px;
+  margin: 30px 0 20px;
 }
 
-.register-input {
+.register-input,
+.rti--container {
   width: 100%;
   max-width: 521px;
   height: 60px;
   gap: 55px;
   border-radius: 9px;
   border: 2px solid #d3d3ff;
-  margin: 15px 0;
-  /* outline: 2px solid #696cff; */
+  margin: 10px 0;
   padding: 15px;
   position: relative;
+}
+
+.rti--input {
+  width: 100% !important;
 }
 .register-input:focus {
   outline: 2px solid #696cff;
@@ -71,10 +75,15 @@
   border-radius: 8px;
 }
 
-.continue-button {
-  margin-top: 120px;
+.continue-button,
+.register-button {
+  margin-top: 80px;
   font-size: 20px;
   font-weight: 700;
+}
+
+.register-button {
+  margin-top: 30px;
 }
 
 .register-login-link {
