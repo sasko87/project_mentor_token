@@ -18,6 +18,7 @@ const Register = () => {
   const [skills, setSkills] = useState([]);
   const [desc, setDesc] = useState("");
   const [position, setPosition] = useState("");
+  const [linkedin, setLinkedin] = useState("");
 
   const navigate = useNavigate();
 
@@ -43,6 +44,7 @@ const Register = () => {
       skills,
       desc,
       position,
+      linkedin,
     };
 
     try {
@@ -265,8 +267,8 @@ const Register = () => {
                 type="text"
                 placeholder="LinkedIn Profile"
                 className="register-input"
-                onChange={(e) => setPosition(e.target.value)}
-                value={position}
+                onChange={(e) => setLinkedin(e.target.value)}
+                value={linkedin}
               />
               <Button
                 type="submit"

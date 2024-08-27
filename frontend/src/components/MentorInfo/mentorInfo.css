@@ -34,11 +34,10 @@
   padding-left: 5px;
 }
 
-.rti--container {
+.mentor-info-about-data-container .rti--container {
   border: 2px solid #d3d3ff;
   border-radius: 9px;
   outline: none;
-  font-size: 14px;
 }
 
 .mentor-info-edit-textarea {

@@ -16,7 +16,7 @@ const Jobs = () => {
   const [jobTitle, setJobTitle] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [skillsRequired, setSkillsRequired] = useState([]);
-
+  const [category, setCategory] = useState("");
   const [selectedJob, setSelectedJob] = useState({});
 
   const token = window.localStorage.getItem("token");
@@ -53,6 +53,7 @@ const Jobs = () => {
         title: jobTitle,
         description: jobDescription,
         skillsRequired: skillsRequired,
+        category: category,
         status: "OPEN",
         applicationType: "OPEN_FOR_ALL",
       };
@@ -71,6 +72,7 @@ const Jobs = () => {
         setJobTitle("");
         setJobDescription("");
         setSkillsRequired([]);
+        setCategory("");
         handleToggleCreateJobModal(false);
         fetchData();
       } else {
@@ -84,6 +86,10 @@ const Jobs = () => {
 
   const handleToggleCreateJobModal = (isVisible) => {
     setIsCreateJobModalActive(isVisible);
+    setJobTitle("");
+    setJobDescription("");
+    setSkillsRequired([]);
+    setCategory("");
   };
 
   useEffect(() => {
@@ -248,9 +254,8 @@ const Jobs = () => {
               {selectedJob.applications.length === 0 && <>no data found</>}
               {selectedJob.applications.length > 0 && (
                 <>
-                  <div>
+                  <div style={{ overflowY: "auto", maxHeight: "130px" }}>
                     {selectedJob.applications.map((application) => {
-                      console.log(application);
                       return (
                         <div className="startup-job-details-applicants">
                           <div
@@ -386,6 +391,8 @@ const Jobs = () => {
             skillsRequired={skillsRequired}
             setSkillsRequired={setSkillsRequired}
             clickFunction={(e) => handleCreateNewJobSubmit(e)}
+            category={category}
+            setCategory={setCategory}
           />
         </Modal>
       )}

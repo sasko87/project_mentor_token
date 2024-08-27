@@ -15,6 +15,8 @@ const JobFeed = () => {
   const [isViewJobModalActive, setIsViewJobModalActive] = useState(false);
   const [selectedJob, setSelectedJob] = useState({});
   const [skillsFilter, setSkillsFilter] = useState();
+  const [categoryFilter, setCategoryFilter] = useState();
+
   const token = window.localStorage.getItem("token");
   const fetchData = async () => {
     try {
@@ -22,8 +24,8 @@ const JobFeed = () => {
         status: "OPEN",
         applicationType: "OPEN_FOR_ALL",
       };
-      if (skillsFilter) {
-        payload.skillsRequired = skillsFilter;
+      if (categoryFilter) {
+        payload.category = categoryFilter;
       }
       const allJobs = await fetch(
         "/api/filtered-jobs?" + new URLSearchParams(payload).toString(),
@@ -45,7 +47,7 @@ const JobFeed = () => {
   };
   useEffect(() => {
     fetchData();
-  }, [skillsFilter]);
+  }, [categoryFilter]);
 
   const handleToggleJobDetailsModal = (isVisible, job) => {
     setIsViewJobModalActive(isVisible);
@@ -58,12 +60,12 @@ const JobFeed = () => {
 
   const sort = [
     {
-      title: "Newest",
-      value: "Newest",
+      title: "Latest",
+      value: "Latest",
     },
     {
-      title: "Rating",
-      value: "Rating",
+      title: "Oldest",
+      value: "Oldest",
     },
   ];
 
@@ -73,17 +75,20 @@ const JobFeed = () => {
       value: "",
     },
     {
-      title: "HTML",
-      value: "HTML",
+      title: "Software Developer",
+      value: "Software Developer",
     },
     {
-      title: "Some Skills",
-      value: "Some Skills",
+      title: "Marketing",
+      value: "Marketing",
+    },
+    {
+      title: "Content Writing",
+      value: "Content Writing",
     },
   ];
 
   const handleApplyToJob = async () => {
-    console.log(selectedJob);
     const payload = {
       companyId: selectedJob.companyId._id,
       mentorId: user.id,
@@ -128,8 +133,8 @@ const JobFeed = () => {
             <FilterJobs label="Sort By" filter={sort} />
             <FilterJobs
               label="Category"
-              selecetdFilterValue={skillsFilter}
-              setSkillsFilter={setSkillsFilter}
+              selecetdFilterValue={categoryFilter}
+              setSkillsFilter={setCategoryFilter}
               filter={category}
             />
           </div>

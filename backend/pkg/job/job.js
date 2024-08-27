@@ -27,6 +27,11 @@ const jobSchema = mongoose.Schema(
       required: true,
     },
 
+    category: {
+      type: String,
+      default: "OTHER",
+    },
+
     status: {
       type: String,
       enum: ["OPEN", "IN_PROGRESS", "REVIEW", "DONE", "REJECTED", "CANCELED"],

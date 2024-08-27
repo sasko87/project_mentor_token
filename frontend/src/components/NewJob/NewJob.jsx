@@ -2,6 +2,8 @@ import React from "react";
 import Input from "../Input/Input";
 import Textarea from "../Textarea/Textarea";
 import Button from "../Button/Button";
+import { TagsInput } from "react-tag-input-component";
+
 import "./newJob.css";
 
 const NewJob = ({
@@ -13,6 +15,8 @@ const NewJob = ({
   setJobDescription,
   jobDescription,
   clickFunction,
+  category,
+  setCategory,
 }) => {
   return (
     <>
@@ -28,12 +32,19 @@ const NewJob = ({
             value={jobTitle}
           />
 
+          <TagsInput
+            value={skillsRequired}
+            onChange={setSkillsRequired}
+            placeHolder="Press enter to add new skill"
+            classNames="input-create-new-job"
+          />
+
           <Input
             className="input-create-new-job"
             type="text"
-            placeholder="Required Skills"
-            onChange={(e) => setSkillsRequired(e.target.value)}
-            value={skillsRequired}
+            placeholder="Category"
+            onChange={(e) => setCategory(e.target.value)}
+            value={category}
           />
 
           <Textarea
@@ -42,6 +53,7 @@ const NewJob = ({
             onChange={(e) => setJobDescription(e.target.value)}
             value={jobDescription}
           />
+
           <Button
             className="button-submit-new-job"
             label="Create Job"

@@ -103,12 +103,14 @@ const forgotPassword = async (req, res) => {
   }
 
   const secret = getSection("development").jwt_secret + user.password;
+  console.log("forgotPassword", secret);
+
   const payload = {
     email: user.email,
     id: user.id,
   };
 
-  const token = jwt.sign(payload, secret, { expiresIn: "15m" });
+  const token = jwt.sign(payload, secret, { expiresIn: "30m" });
   const link = `http://localhost:10000/reset-password/${user.id}/${token}`;
 
   try {
@@ -122,27 +124,25 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-// const resetPassTemplate = async (req, res) => {
-//   const { id, token } = req.params;
+const resetPassTemplate = async (req, res) => {
+  const { id, token } = req.params;
 
-//   const user = await accountById(id);
+  const user = await accountById(id);
 
-//   if (!user) {
-//     return res.status(400).send("User not registered!");
-//   }
+  if (!user) {
+    return res.status(400).send("User not registered!");
+  }
 
-//   const secret = getSection("development").jwt_secret + user.password;
+  const secret = getSection("development").jwt_secret + user.password;
+  console.log("resetpasstemlata", user);
 
-//   try {
-//     const payload = jwt.verify(token, secret);
-//     if (!payload) {
-//       res.send("Token not valid!");
-//     }
-//     res.render("reset-password", { email: user.email });
-//   } catch (err) {
-//     return res.status(500).send("Message not sent!");
-//   }
-// };
+  try {
+    const payload = jwt.verify(token, secret);
+    res.render("reset-password", { email: user.email });
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
 
 const resetPassword = async (req, res) => {
   const { id, token } = req.params;
@@ -161,6 +161,7 @@ const resetPassword = async (req, res) => {
   }
 
   const secret = getSection("development").jwt_secret + user.password;
+  console.log("resetPassword", secret);
 
   try {
     const payload = jwt.verify(token, secret);
@@ -182,5 +183,5 @@ module.exports = {
   changePassword,
   forgotPassword,
   resetPassword,
-  // resetPassTemplate,
+  resetPassTemplate,
 };

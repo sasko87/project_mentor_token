@@ -57,9 +57,6 @@ const accountSchema = mongoose.Schema(
     },
     linkedin: {
       type: String,
-      required: function () {
-        return this.type === "mentor";
-      },
     },
   },
   {
@@ -91,7 +88,7 @@ const allMentors = async () => {
 };
 
 const accountById = async (id) => {
-  return await Account.findOne({ _id: id }).select("-password");
+  return await Account.findOne({ _id: id });
 };
 
 const setNewPassword = async (id, password) => {

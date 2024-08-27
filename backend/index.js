@@ -8,7 +8,7 @@ const {
   changePassword,
   forgotPassword,
   resetPassword,
-  // resetPassTemplate,
+  resetPassTemplate,
 } = require("./handlers/auth");
 const {
   createNewJob,
@@ -41,7 +41,7 @@ const {
   getMentorStatistics,
   getStartupStatistics,
 } = require("./handlers/account.js");
-const { sendMessage } = require("./handlers/mailer.js");
+const { sendMessage, sendPasswordResetMail } = require("./handlers/mailer.js");
 
 require("./pkg/db/config");
 
@@ -57,10 +57,8 @@ app.use(
     path: [
       "/api/auth/login",
       "/api/auth/register",
-      "/api/auth/forgotpassword",
+      "/api/auth/forgot-password",
       "/api/auth/reset-password",
-      "/api/get-account-data-by-id/:id",
-      "/api/update-mentor-account",
     ],
   })
 );
@@ -98,8 +96,8 @@ app.get("/api/get-startup-statistics", getStartupStatistics);
 
 app.post("/api/auth/forgot-password", forgotPassword);
 app.post("/reset-password/:id/:token", resetPassword);
-// app.get("/reset-password/:id/:token", resetPassTemplate);
-// app.post("/api/reset-pass", sendPasswordResetMail);
+app.get("/reset-password/:id/:token", resetPassTemplate);
+app.post("/api/reset-pass", sendPasswordResetMail);
 
 app.listen(getSection("development").port, () =>
   console.log(`Server started at port ${getSection("development").port}`)
