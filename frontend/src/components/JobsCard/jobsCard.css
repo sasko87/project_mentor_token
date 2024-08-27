@@ -53,6 +53,35 @@
   color: #757d8a;
 }
 
+.applicants-profile-image-container {
+  position: relative;
+}
+
+.applicants-profile-image {
+  width: 31.85px;
+  height: 31.85px;
+  border-radius: 50%;
+  border: 1.03px solid #f5f5f9;
+}
+
+.applicants-profile-image-second {
+  position: absolute;
+  left: 25px;
+}
+
+.applicants-profile-image-third {
+  position: absolute;
+  left: 50px;
+}
+
+.applicants-number {
+  color: #757d8a;
+  font-size: 8.75px;
+  font-weight: 400;
+  line-height: 11.95px;
+  margin: 0 5px;
+}
+
 .jobs-button {
   width: 87px;
   height: 25px;

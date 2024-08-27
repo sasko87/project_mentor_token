@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import "./jobsCard.css";
 
 const JobsCard = ({ jobs, modalFunction }) => {
+  const user = window.mentorToken.user;
   return (
     <div className="jobs-container">
       {jobs.map((job) => (
@@ -18,15 +19,63 @@ const JobsCard = ({ jobs, modalFunction }) => {
               <p>{job.description}</p>
             </div>
           </div>
-          <h1>{job.status}</h1>
 
-          <Button
-            label="View Details"
-            clickFunction={() => {
-              modalFunction(true, job);
-            }}
-            className="jobs-button"
-          />
+          {user.type === "startup" && (
+            <>
+              <h1>{job.status}</h1>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <div style={{ width: "40%" }}>
+                  <div className="applicants-profile-image-container">
+                    <img
+                      src={ProfileImg}
+                      alt="Applicants Image"
+                      className="applicants-profile-image applicants-profile-image-first"
+                    />
+                    <img
+                      src={ProfileImg}
+                      alt="Applicants Image"
+                      className="applicants-profile-image applicants-profile-image-second"
+                    />
+                    <img
+                      src={ProfileImg}
+                      alt="Applicants Image"
+                      className="applicants-profile-image applicants-profile-image-third"
+                    />
+                  </div>
+                  <div style={{ textAlign: "center", width: "100%" }}>
+                    <p className="applicants-number">3+ Applicants</p>
+                  </div>
+                </div>
+                <div>
+                  <Button
+                    label="View Details"
+                    clickFunction={() => {
+                      modalFunction(true, job);
+                    }}
+                    className="jobs-button"
+                  />
+                </div>
+              </div>
+            </>
+          )}
+
+          {user.type === "mentor" && (
+            <>
+              <Button
+                label="View Details"
+                clickFunction={() => {
+                  modalFunction(true, job);
+                }}
+                className="jobs-button"
+              />
+            </>
+          )}
         </div>
       ))}
     </div>
