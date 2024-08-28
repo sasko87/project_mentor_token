@@ -97,6 +97,10 @@ const JobFeed = () => {
       title: "Content Writing",
       value: "Content Writing",
     },
+    {
+      title: "Other",
+      value: "OTHER",
+    },
   ];
 
   const handleApplyToJob = async () => {

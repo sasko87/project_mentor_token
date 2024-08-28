@@ -3,7 +3,7 @@ import Input from "../Input/Input";
 import Textarea from "../Textarea/Textarea";
 import Button from "../Button/Button";
 import { TagsInput } from "react-tag-input-component";
-
+import { useState } from "react";
 import "./newJob.css";
 
 const NewJob = ({
@@ -18,6 +18,23 @@ const NewJob = ({
   category,
   setCategory,
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const jobCategories = [
+    "Engineering",
+    "Marketing",
+    "Design",
+    "Sales",
+    "Customer Support",
+    "Other",
+  ];
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleCategorySelect = (category) => {
+    setCategory(category);
+    setIsOpen(false);
+  };
   return (
     <>
       <div>
@@ -39,13 +56,35 @@ const NewJob = ({
             classNames="input-create-new-job"
           />
 
-          <Input
+          <div className="input-create-new-job dropdown-container">
+            <div className="dropdown-header" onClick={toggleDropdown}>
+              {category || "Select a category"}
+              <span className={`dropdown-arrow ${isOpen ? "open" : ""}`}>
+                ▼
+              </span>
+            </div>
+            {isOpen && (
+              <ul className="dropdown-list">
+                {jobCategories.map((category, index) => (
+                  <li
+                    key={index}
+                    className="dropdown-item"
+                    onClick={() => handleCategorySelect(category)}
+                  >
+                    {category}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          {/* <Input
             className="input-create-new-job"
             type="text"
             placeholder="Category"
             onChange={(e) => setCategory(e.target.value)}
             value={category}
-          />
+          /> */}
 
           <Textarea
             placeholder="Job Description"

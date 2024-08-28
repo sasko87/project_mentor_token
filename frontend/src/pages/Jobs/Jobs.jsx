@@ -8,6 +8,7 @@ import "./jobs.css";
 import Textarea from "../../components/Textarea/Textarea";
 import Title from "../../components/Title/Title";
 import NewJob from "../../components/NewJob/NewJob";
+import FilterJobs from "../../components/FilterJobs/FilterJobs";
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -53,7 +54,7 @@ const Jobs = () => {
         title: jobTitle,
         description: jobDescription,
         skillsRequired: skillsRequired,
-        category: category,
+        category: category.toUpperCase(),
         status: "OPEN",
         applicationType: "OPEN_FOR_ALL",
       };
@@ -88,6 +89,7 @@ const Jobs = () => {
     setIsCreateJobModalActive(isVisible);
     setJobTitle("");
     setJobDescription("");
+    setCategory("");
     setSkillsRequired([]);
     setCategory("");
   };
@@ -194,6 +196,40 @@ const Jobs = () => {
     }
   };
 
+  // const jobStatus = [
+  //   {
+  //     title: "Open",
+  //     value: "OPEN",
+  //   },
+  //   {
+  //     title: "In Progress",
+  //     value: "IN_PROGRESS",
+  //   },
+  //   {
+  //     title: "Rejected",
+  //     value: "REJECTED",
+  //   },
+  //   {
+  //     title: "Done",
+  //     value: "DONE",
+  //   },
+  //   {
+  //     title: "Canceled",
+  //     value: "CANCELED",
+  //   },
+  // ];
+
+  // const applicationType = [
+  //   {
+  //     title: "Open",
+  //     value: "OPEN_FOR_ALL",
+  //   },
+  //   {
+  //     title: "Direct",
+  //     value: "DIRECT",
+  //   },
+  // ];
+
   return (
     <>
       <Section>
@@ -208,6 +244,35 @@ const Jobs = () => {
             }}
           />
         </div>
+        {/* <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <FilterJobs
+              label="Sort By"
+              filter={jobStatus}
+              // selecetdFilterValue={sortFilter}
+              // setSkillsFilter={setSortFilter}
+            />
+            <FilterJobs
+              label="Application Type"
+              // selecetdFilterValue={categoryFilter}
+              // setSkillsFilter={setCategoryFilter}
+              filter={applicationType}
+            />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          ></div>
+        </div> */}
         <h1>dodaj filtri tuka</h1>
         <p>
           by default neka ima setiran filter na open jobs na moi mozat da mu
@@ -257,7 +322,10 @@ const Jobs = () => {
                   <div style={{ overflowY: "auto", maxHeight: "130px" }}>
                     {selectedJob.applications.map((application) => {
                       return (
-                        <div className="startup-job-details-applicants">
+                        <div
+                          key={application._id}
+                          className="startup-job-details-applicants"
+                        >
                           <div
                             style={{
                               display: "flex",

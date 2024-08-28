@@ -29,6 +29,7 @@ const MentorInfo = ({ mentorData }) => {
   const [skills, setSkills] = useState([]);
   const [desc, setDesc] = useState("");
   const [position, setPosition] = useState("");
+  const [category, setCategory] = useState("");
   const maxLength = 1200;
 
   useEffect(() => {
@@ -51,6 +52,7 @@ const MentorInfo = ({ mentorData }) => {
         title: jobTitle,
         description: jobDescription,
         mentorId: mentorData._id,
+        category: category,
       };
       const res = await fetch("/api/create-direct-job", {
         method: "POST",
@@ -66,7 +68,7 @@ const MentorInfo = ({ mentorData }) => {
         const data = await res.json();
         setJobTitle("");
         setJobDescription("");
-
+        setCategory("");
         handleToggleOfferJobModal();
       } else {
         const errorData = await res.json();
@@ -267,11 +269,13 @@ const MentorInfo = ({ mentorData }) => {
               text="Create and offer job to a mentor"
               jobTitle={jobTitle}
               setJobTitle={setJobTitle}
-              setJobDescription={setJobDescription}
               jobDescription={jobDescription}
+              setJobDescription={setJobDescription}
               skillsRequired={skillsRequired}
               setSkillsRequired={setSkillsRequired}
-              clickFunction={handleCreateNewJobSubmit}
+              clickFunction={(e) => handleCreateNewJobSubmit(e)}
+              category={category}
+              setCategory={setCategory}
             />
           </Modal>
         )}
