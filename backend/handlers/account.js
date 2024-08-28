@@ -27,6 +27,7 @@ const getAllMentors = async (req, res) => {
         },
         status: "DONE",
       });
+
       let tempMentor = {
         desc: mentor.desc,
         email: mentor.email,
@@ -96,11 +97,7 @@ const getMentorStatistics = async (req, res) => {
 
 const getStartupStatistics = async (req, res) => {
   try {
-    const account = await accountById(req.auth.id);
-    const jobs = await getFilteredJobs({ companyId: account._id });
-    const applications = await getFilteredApplications({
-      companyId: account._id,
-    });
+    const jobs = await getFilteredJobs({});
     const jobsInMonth = new Date().getTime() - 30 * 24 * 60 * 60 * 1000;
 
     const totalAssignedJobs = jobs.filter(

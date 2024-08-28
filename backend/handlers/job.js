@@ -133,11 +133,11 @@ const allJobs = async (req, res) => {
 
 const filteredJobs = async (req, res) => {
   try {
+    const { sort } = req.query;
     // console.log(req.query);
     const jobs = await getFilteredJobs(req.query);
 
     let data = [];
-
     for (const job of jobs) {
       const applications = await getFilteredApplications({ jobId: job._id });
       let tempJob = {
@@ -150,13 +150,14 @@ const filteredJobs = async (req, res) => {
         status: job.status,
         applicationType: job.applicationType,
         applications: applications,
+        createdAt: job.createdAt,
       };
       data.push(tempJob);
     }
 
     return res.status(200).send(data);
   } catch (err) {
-    return res.status(err.status).send(err.error);
+    return res.status(400).send(err.error);
   }
 };
 

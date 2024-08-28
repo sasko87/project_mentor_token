@@ -53,10 +53,12 @@ const Mentors = () => {
     navigate(`/mentors/${id}`);
   };
 
+  console.log(accountData);
+
   const quickOverviewData = [
     {
       title: "Total Mentors",
-      count: 150,
+      count: accountData.length,
     },
     {
       title: "Total Assigned Jobs",

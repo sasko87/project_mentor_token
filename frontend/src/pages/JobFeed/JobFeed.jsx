@@ -16,7 +16,7 @@ const JobFeed = () => {
   const [selectedJob, setSelectedJob] = useState({});
   const [skillsFilter, setSkillsFilter] = useState();
   const [categoryFilter, setCategoryFilter] = useState();
-
+  const [sortFilter, setSortFilter] = useState([]);
   const token = window.localStorage.getItem("token");
   const fetchData = async () => {
     try {
@@ -27,6 +27,7 @@ const JobFeed = () => {
       if (categoryFilter) {
         payload.category = categoryFilter;
       }
+
       const allJobs = await fetch(
         "/api/filtered-jobs?" + new URLSearchParams(payload).toString(),
         {
@@ -58,6 +59,12 @@ const JobFeed = () => {
     }
   };
 
+  const sortNewestJobs = allJobs.sort(
+    (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+  );
+  const sortOldestJobs = allJobs.sort((a, b) => b.createdAt - a.createdAt);
+  console.log(sortNewestJobs);
+
   const sort = [
     {
       title: "Latest",
@@ -77,6 +84,10 @@ const JobFeed = () => {
     {
       title: "Software Developer",
       value: "Software Developer",
+    },
+    {
+      title: "Design",
+      value: "Design",
     },
     {
       title: "Marketing",
@@ -107,7 +118,6 @@ const JobFeed = () => {
       });
       if (postApplication.ok) {
         const data = await postApplication.json();
-        console.log("applied", data);
         setIsViewJobModalActive(false);
         fetchData();
       }
@@ -116,8 +126,6 @@ const JobFeed = () => {
     }
   };
 
-  // const sortNewestJobs = allJobs["createdAt"].sort((a, b) => a - b);
-  console.log(allJobs);
   return (
     <>
       <Section>
@@ -130,7 +138,12 @@ const JobFeed = () => {
           }}
         >
           <div style={{ display: "flex", alignItems: "center" }}>
-            <FilterJobs label="Sort By" filter={sort} />
+            <FilterJobs
+              label="Sort By"
+              filter={sort}
+              selecetdFilterValue={sortFilter}
+              setSkillsFilter={setSortFilter}
+            />
             <FilterJobs
               label="Category"
               selecetdFilterValue={categoryFilter}
