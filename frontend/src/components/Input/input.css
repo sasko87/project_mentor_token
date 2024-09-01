@@ -23,3 +23,35 @@
 .input:focus::placeholder {
   color: transparent;
 }
+
+.component-input-container {
+  position: relative;
+  padding: 10px 0;
+}
+
+.input-label {
+  position: absolute;
+  top: -12px;
+  left: 10px;
+  transition: 200ms;
+  padding: 0 10px;
+}
+
+.focused-label {
+  top: -1px;
+  background-color: white;
+  z-index: 2;
+  color: #696cff;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20.49px;
+}
+
+.required {
+  color: #e45270;
+  font-family: "DM Sans";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20.83px;
+  text-align: left;
+}

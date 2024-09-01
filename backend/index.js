@@ -9,6 +9,7 @@ const {
   forgotPassword,
   resetPassword,
   resetPassTemplate,
+  registerCheckExistingAccount,
 } = require("./handlers/auth");
 const {
   createNewJob,
@@ -59,6 +60,7 @@ app.use(
       "/api/auth/register",
       "/api/auth/forgot-password",
       "/api/auth/reset-password",
+      "/api/auth/register-check-existing-account",
     ],
   })
 );
@@ -66,6 +68,10 @@ app.use(
 app.post("/api/auth/login", login);
 app.post("/api/auth/register", register);
 app.post("/api/auth/changepassword", changePassword);
+app.post(
+  "/api/auth/register-check-existing-account",
+  registerCheckExistingAccount
+);
 
 app.post("/api/create-new-job", createNewJob);
 app.get("/api/get-one-company-jobs", getOneCompanyJobs);

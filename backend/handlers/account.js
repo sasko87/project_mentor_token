@@ -111,12 +111,7 @@ const getStartupStatistics = async (req, res) => {
     ).length;
 
     let data = {
-      email: account.email,
-      name: account.name,
-      type: account.type,
-      _id: account._id,
       jobs: jobs,
-      applications,
       totalAssignedJobs,
       doneJobs,
     };

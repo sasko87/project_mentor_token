@@ -45,23 +45,33 @@ const login = async (req, res) => {
   }
 };
 
+const registerCheckExistingAccount = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const exists = await getAccountByEmail(email);
+    if (exists) {
+      return res
+        .status(400)
+        .send({ error: "Account with this email already exists!" });
+    } else {
+      return res.status(200).send();
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(200).send(err.error);
+  }
+};
+
 const register = async (req, res) => {
   try {
     await validate(req.body, AccountRegister);
     const { email, password } = req.body;
-    const exists = await getAccountByEmail(email);
-    if (exists) {
-      throw {
-        code: 400,
-        error: "Account with this email already exists!",
-      };
-    }
+
     req.body.password = bcrypt.hashSync(password);
     const acc = await createAccount(req.body);
     return res.status(201).send(acc);
   } catch (err) {
-    console.log(err);
-    return res.status(200).send("err.error");
+    return res.status(400).send(err.error);
   }
 };
 
@@ -184,4 +194,5 @@ module.exports = {
   forgotPassword,
   resetPassword,
   resetPassTemplate,
+  registerCheckExistingAccount,
 };

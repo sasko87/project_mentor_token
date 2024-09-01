@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import "./register.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { TagsInput } from "react-tag-input-component";
+import { HiOutlineXMark } from "react-icons/hi2";
+import { HiOutlineCheck } from "react-icons/hi2";
+import FormValidation from "../../hooks/FormValidation";
 
 const Register = () => {
   const [type, setType] = useState("mentor");
   const [registerStep, setRegisterStep] = useState(0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordsMatch, setPasswordsMatch] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [disabledContinue, setDisabledContinue] = useState(true);
   const [registerName, setRegisterName] = useState("");
   const [representative, setRepresentative] = useState("");
   const [address, setAddress] = useState("");
@@ -19,12 +26,93 @@ const Register = () => {
   const [desc, setDesc] = useState("");
   const [position, setPosition] = useState("");
   const [linkedin, setLinkedin] = useState("");
+  const [formErrors, setFormErrors] = useState({});
+
+  const [passwordHasOneNumberOrSymbol, setPasswordHasOneNumberOrSymbol] =
+    useState(false);
+  const [passwordHasEightCharacters, setPasswordHasEightCharacters] =
+    useState(false);
+  const [containsNameOrEmail, setContainsNameOrEmail] = useState(true);
+  const [strongPassword, setStrongPassword] = useState(false);
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
-  const handleContinueClick = (e) => {
+  // const passwordRegexOneNumberOrSymbol = /^(?=.*[0-9!@#$%^&*(),.?":{}|<>]).*$/;
+  // const passwordHasOneNumberOrSymbol =
+  //   passwordRegexOneNumberOrSymbol.test(password);
+
+  // const passwordRegexEightCharacters = /^.{8,}$/;
+  // const passwordHasEightCharacters =
+  //   passwordRegexEightCharacters.test(password);
+
+  // const lowerPassword = password.toLowerCase();
+  // const emailPart = email.toLowerCase().split("@")[0];
+
+  // const containsNameOrEmail =
+  //   !lowerPassword.includes(emailPart) && password.length > 5;
+
+  // const strongPassword =
+  //   containsNameOrEmail &&
+  //   passwordHasEightCharacters &&
+  //   passwordHasOneNumberOrSymbol;
+
+  const checkPasswordConditions = (password) => {
+    const passwordRegexOneNumberOrSymbol =
+      /^(?=.*[0-9!@#$%^&*(),.?":{}|<>]).*$/;
+    setPasswordHasOneNumberOrSymbol(
+      passwordRegexOneNumberOrSymbol.test(password)
+    );
+
+    const passwordRegexEightCharacters = /^.{8,}$/;
+    setPasswordHasEightCharacters(passwordRegexEightCharacters.test(password));
+
+    const lowerPassword = password.toLowerCase();
+    const emailPart = email.toLowerCase().split("@")[0];
+    setContainsNameOrEmail(
+      !lowerPassword.includes(emailPart) && password.length > 5
+    );
+
+    setPasswordsMatch(password === confirmPassword);
+
+    setStrongPassword(
+      containsNameOrEmail &&
+        passwordHasEightCharacters &&
+        passwordHasOneNumberOrSymbol
+    );
+  };
+
+  useEffect(() => {
+    checkPasswordConditions(password);
+
+    if (strongPassword && passwordsMatch) {
+      setDisabledContinue(false);
+    } else {
+      setDisabledContinue(true);
+    }
+  }, [password, confirmPassword, strongPassword, passwordsMatch]);
+
+  const handleContinueClick = async (e) => {
     e.preventDefault();
-    setRegisterStep(1);
+    setError("");
+    try {
+      const res = await fetch("/api/auth/register-check-existing-account", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (res.ok) {
+        setRegisterStep(1);
+      } else {
+        const errorData = await res.json();
+        setError(errorData.error || "An unexpected error occurred.");
+      }
+    } catch (error) {
+      console.error("An error occurred during registration:", error);
+    }
   };
 
   const handleTypeChange = (event) => {
@@ -33,6 +121,25 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setError("");
+    setFormErrors({});
+
+    const isFormValid = FormValidation({
+      type,
+      setFormErrors,
+      registerName,
+      representative,
+      address,
+      phone,
+      skills,
+      desc,
+      position,
+    });
+
+    if (!isFormValid) {
+      return;
+    }
+
     const data = {
       type,
       email,
@@ -57,11 +164,17 @@ const Register = () => {
       });
 
       if (res.ok) {
-        alert("Registration Successfull");
+        alert("Registration Successful");
         navigate("/login");
+      } else {
+        const errorData = await res.json();
+        setFormErrors({ server: errorData.error });
       }
     } catch (error) {
       console.error("An error occurred during registration:", error);
+      setFormErrors({
+        server: "An error occurred while registering. Please try again.",
+      });
     }
   };
 
@@ -110,6 +223,7 @@ const Register = () => {
 
             <form className="register-form" onSubmit={handleRegister}>
               <Input
+                label="Email"
                 type="email"
                 placeholder="E-mail"
                 className="register-input"
@@ -117,6 +231,7 @@ const Register = () => {
                 value={email}
               />
               <Input
+                label="Password"
                 type="password"
                 placeholder="Password"
                 className="register-input"
@@ -124,12 +239,77 @@ const Register = () => {
                 value={password}
               />
               <Input
+                label="Confirm Password"
                 type="password"
                 placeholder="Confirm Password"
                 className="register-input"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={confirmPassword}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
               />
+              {isFocused && (
+                <small>
+                  {passwordsMatch ? (
+                    <span
+                      style={{
+                        color: "green",
+
+                        marginTop: 0,
+                      }}
+                    >
+                      Passwords Match
+                    </span>
+                  ) : (
+                    <span
+                      style={{
+                        color: "red",
+
+                        marginTop: 0,
+                      }}
+                    >
+                      Confirm password is not the same as password
+                    </span>
+                  )}
+                </small>
+              )}
+
+              <div>
+                <p className="password-check">
+                  {strongPassword ? <HiOutlineCheck /> : <HiOutlineXMark />}
+                  Password Strength : {strongPassword ? "Strong" : "Weak"}
+                </p>
+                <p className="password-check">
+                  {containsNameOrEmail ? (
+                    <HiOutlineCheck />
+                  ) : (
+                    <HiOutlineXMark />
+                  )}{" "}
+                  Cannot contain your email address
+                </p>
+                <p className="password-check">
+                  {passwordHasEightCharacters ? (
+                    <HiOutlineCheck />
+                  ) : (
+                    <HiOutlineXMark />
+                  )}
+                  At least 8 characters
+                </p>
+                <p className="password-check">
+                  {passwordHasOneNumberOrSymbol ? (
+                    <HiOutlineCheck />
+                  ) : (
+                    <HiOutlineXMark />
+                  )}
+                  Contains a number or symbol
+                </p>
+              </div>
+              {error && (
+                <p style={{ color: "red", textAlign: "center" }}>{error}</p>
+              )}
 
               <Button
+                disabled={disabledContinue}
                 label="Continue"
                 className="continue-button"
                 clickFunction={(e) => handleContinueClick(e)}
@@ -155,41 +335,64 @@ const Register = () => {
             </div>
 
             <form className="register-form" onSubmit={(e) => handleRegister(e)}>
-              <label htmlFor="startup-name">Startup Name</label>
+              {/* <label htmlFor="startup-name">Startup Name</label> */}
               <Input
+                label="Startup Name"
+                labelId="startup-name"
                 id="startup-name"
                 type="text"
                 placeholder="My Startup Name"
                 className="register-input"
                 onChange={(e) => setRegisterName(e.target.value)}
                 value={registerName}
+                isRequired={true}
               />
-              <label htmlFor="representative">Legal Representative</label>
+              {formErrors.registerName && (
+                <p className="error-text">{formErrors.registerName}</p>
+              )}
+
               <Input
+                label="Legal Representative"
+                labelId="representative"
                 id="representative"
                 type="text"
                 placeholder="Name and surname"
                 className="register-input"
                 onChange={(e) => setRepresentative(e.target.value)}
                 value={representative}
+                isRequired={true}
               />
-              <label htmlFor="address">Registered Business Adrress</label>
+              {formErrors.representative && (
+                <p className="error-text">{formErrors.representative}</p>
+              )}
+              {/* <label htmlFor="address">Registered Business Adrress</label> */}
               <Input
+                label="Registered Business Adrress"
+                labelId="address"
                 id="address"
                 type="text"
                 placeholder="Registered Business Adrress"
                 className="register-input"
                 onChange={(e) => setAddress(e.target.value)}
                 value={address}
+                isRequired={true}
               />
-              <label htmlFor="invite">Invite Mentors via email</label>
+              {formErrors.address && (
+                <p className="error-text">{formErrors.address}</p>
+              )}
+
               <Input
+                label="Invite Mentors via email"
+                labelId="invite"
                 id="invite"
                 type="email"
-                placeholder="Enter email adres to invite mentor"
+                placeholder="Enter email address to invite mentor"
                 className="register-input"
+                isRequired={true}
               />
-
+              {error && (
+                <p style={{ color: "red", textAlign: "center" }}>{error}</p>
+              )}
               <Button
                 type="submit"
                 label="Register"
@@ -208,25 +411,39 @@ const Register = () => {
             </div>
 
             <form className="register-form">
-              <label htmlFor="mentor-name">Mentor Name</label>
+              {/* <label htmlFor="mentor-name">Mentor Name</label> */}
               <Input
+                label="Mentor Name"
+                labelId="mentor-name"
                 id="mentor-name"
                 type="text"
                 placeholder="Name and surname"
                 className="register-input"
                 onChange={(e) => setRegisterName(e.target.value)}
                 value={registerName}
+                isRequired={true}
               />
-              <label htmlFor="phone">Phone</label>
+              {formErrors.registerName && (
+                <p className="error-text">{formErrors.registerName}</p>
+              )}
+              {/* <label htmlFor="phone">Phone</label> */}
               <Input
+                label="Phone"
+                labelId="phone"
                 id="phone"
                 type="number"
                 placeholder="Phone number"
                 className="register-input"
                 onChange={(e) => setPhone(e.target.value)}
                 value={phone}
+                isRequired={true}
               />
-              <label htmlFor="skills">Skills</label>
+              {formErrors.phone && (
+                <p className="error-text">{formErrors.phone}</p>
+              )}
+              <label htmlFor="skills" style={{ paddingLeft: 20 }}>
+                Skills <span className="required">*</span>
+              </label>
               <TagsInput
                 id="skills"
                 value={skills}
@@ -234,35 +451,46 @@ const Register = () => {
                 className="register-input"
                 placeHolder="press enter to add new skill"
                 classNames="mentor-info-edit-input"
+                style={{ marginBottom: "10px" }}
               />
-              {/* <Input
-                id="skills"
-                type="text"
-                placeholder="Skills"
-                className="register-input"
-                onChange={(e) => setSkills(e.target.value)}
-                value={skills}
-              /> */}
-              <label htmlFor="desc">Description</label>
+              {formErrors.skills && (
+                <p className="error-text">{formErrors.skills}</p>
+              )}
+
+              {/* <label htmlFor="desc">Description</label> */}
               <Input
+                label="Description"
+                labelId="desc"
                 id="desc"
                 type="text"
                 placeholder="Description"
                 className="register-input"
                 onChange={(e) => setDesc(e.target.value)}
                 value={desc}
+                isRequired={true}
               />
-              <label htmlFor="position">Position</label>
+              {formErrors.desc && (
+                <p className="error-text">{formErrors.desc}</p>
+              )}
+              {/* <label htmlFor="position">Position</label> */}
               <Input
+                label="Position"
+                labelId="position"
                 id="position"
                 type="text"
                 placeholder="Position"
                 className="register-input"
                 onChange={(e) => setPosition(e.target.value)}
                 value={position}
+                isRequired={true}
               />
-              <label htmlFor="linkedin">LinkedIn</label>
+              {formErrors.position && (
+                <p className="error-text">{formErrors.position}</p>
+              )}
+              {/* <label htmlFor="linkedin">LinkedIn</label> */}
               <Input
+                label="LinkedIn"
+                labelId="linkedin"
                 id="linkedin"
                 type="text"
                 placeholder="LinkedIn Profile"

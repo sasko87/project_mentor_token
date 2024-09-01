@@ -9,18 +9,37 @@
 
 .register-form {
   margin: 30px 0 20px;
+  position: relative;
+}
+
+.password-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 12px;
+  text-align: left;
+  color: #aab4bf;
 }
 
 .register-input {
   width: 100%;
   max-width: 521px;
-  height: 60px;
+  height: 57px;
   gap: 55px;
   border-radius: 9px;
   border: 2px solid #d3d3ff;
-  margin: 10px 0;
+  margin: 10px 0 3px 0;
   padding: 15px;
   position: relative;
+}
+
+.register-form label {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .register-form .rti--container {
@@ -29,6 +48,7 @@
   height: 60px;
   border-radius: 9px;
   border: 2px solid #d3d3ff;
+  margin-bottom: 10px;
 }
 
 /* .rti--input {
@@ -49,6 +69,7 @@
   font-weight: 400;
   line-height: 22px;
   letter-spacing: 0.03em;
+  margin-top: 7px;
 }
 
 .register-type {
@@ -90,7 +111,7 @@
 }
 
 .register-button {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .register-login-link {
@@ -102,4 +123,10 @@
   text-align: left;
   text-decoration: none;
   color: #696cff;
+}
+
+.error-text {
+  color: red;
+  font-size: 10px;
+  margin-top: 0;
 }
