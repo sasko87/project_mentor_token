@@ -48,6 +48,9 @@ const Login = () => {
         </div>
         <form onSubmit={handleLogin} className="login-form">
           <Input
+            label="Email"
+            labelId="email"
+            id="email"
             type="email"
             placeholder="E-mail"
             className="login-input"
@@ -55,6 +58,9 @@ const Login = () => {
             value={email}
           />
           <Input
+            label="Password"
+            labelId="password"
+            id="password"
             type="password"
             placeholder="Password"
             className="login-input"

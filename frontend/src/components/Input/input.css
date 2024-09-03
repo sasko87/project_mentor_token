@@ -35,6 +35,10 @@
   left: 10px;
   transition: 200ms;
   padding: 0 10px;
+  color: #566a7f;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 21.86px;
 }
 
 .focused-label {

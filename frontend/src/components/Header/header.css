@@ -22,3 +22,8 @@ header {
   align-items: center;
   justify-content: center;
 }
+
+.header-active-link {
+  background-color: white;
+  color: #696cff;
+}
