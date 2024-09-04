@@ -72,6 +72,24 @@ const getMentorStatistics = async (req, res) => {
     ).length;
     const doneJobs = jobs.filter((job) => job.status === "DONE").length;
 
+    const currentDate = new Date();
+    const jobsInMonth = new Array(12).fill(0);
+
+    for (let i = 0; i < jobs.length; i++) {
+      const job = jobs[i];
+      const updatedDate = new Date(job.updatedAt);
+      const monthsDifference =
+        currentDate.getFullYear() * 12 +
+        currentDate.getMonth() -
+        (updatedDate.getFullYear() * 12 + updatedDate.getMonth());
+
+      // Check if the job was updated within the last 12 months
+      if (monthsDifference >= 0 && monthsDifference < 12) {
+        const index = 11 - monthsDifference;
+        jobsInMonth[index]++;
+      }
+    }
+
     let data = {
       desc: account.desc,
       email: account.email,
@@ -87,6 +105,7 @@ const getMentorStatistics = async (req, res) => {
       totalAssignedJobs,
       applicationsSent,
       doneJobs,
+      jobsInMonth,
     };
 
     res.status(200).send(data);

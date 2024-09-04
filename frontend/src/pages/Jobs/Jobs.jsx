@@ -31,7 +31,7 @@ const Jobs = () => {
       });
       if (allJobs.ok) {
         const data = await allJobs.json();
-        setJobs(data);
+        setJobs(data.jobs);
       }
     } catch (error) {
       console.log("An error occurred during fetching data:", error);

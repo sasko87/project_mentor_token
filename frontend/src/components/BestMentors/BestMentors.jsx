@@ -19,8 +19,9 @@ const BestMentors = ({ mentors, profileImg, icon }) => {
               b.doneJobsInLast30Days.length - a.doneJobsInLast30Days.length
           )
           .slice(0, 3)
-          .map((mentor) => (
+          .map((mentor, _id) => (
             <div
+              key={mentor._id}
               className="best-mentors-data"
               onClick={() => handleViewMentor(mentor._id)}
             >

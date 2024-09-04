@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import MentorInfo from "../../components/MentorInfo/MentorInfo";
 import { jwtDecode } from "jwt-decode";
-import Grafikon from "../../assets/grafikon.png";
 import QuickOverview from "../../components/QuickOverview/QuickOverview";
 import "./myStats.css";
 import Title from "../../components/Title/Title";
+import ApexChart from "../../components/ApexChart/ApexChart";
 
 const MyStats = () => {
   const [mentorData, setMentorData] = useState([]);
@@ -21,7 +21,6 @@ const MyStats = () => {
 
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
         setMentorData(data);
       }
     } catch (error) {
@@ -54,12 +53,16 @@ const MyStats = () => {
     <>
       <MentorInfo mentorData={mentorData} />
       <div className="my-stats-info-container">
-        <div>
+        <div style={{ maxWidth: 567, width: "100%" }}>
           <Title>Performance Over Time</Title>
-          <img
+          {mentorData.jobsInMonth && (
+            <ApexChart jobsInMonth={mentorData.jobsInMonth} />
+          )}
+
+          {/* <img
             src={Grafikon}
             style={{ width: "567.11px", height: "345.03px" }}
-          />
+          /> */}
         </div>
         <div>
           <QuickOverview data={quickOverviewData} />

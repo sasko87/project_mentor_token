@@ -5,6 +5,8 @@ import BestMentors from "../../../components/BestMentors/BestMentors";
 import AssignedJobs from "../../../components/AssignedJobs/AssignedJobs";
 import ArrowUp from "../../../assets/admin-icons/arrow-up-side.png";
 import ProfileImg from "../../../assets/Ellipse 3.png";
+import ApexChart from "../../../components/ApexChart/ApexChart";
+import Title from "../../../components/Title/Title";
 
 const DashboardStartup = () => {
   const token = window.localStorage.getItem("token");
@@ -12,7 +14,7 @@ const DashboardStartup = () => {
 
   const [jobs, setJobs] = useState([]);
   const [mentors, setMentors] = useState([]);
-
+  const [jobsInMonth, setJobsInMonth] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
 
   const fetchData = async () => {
@@ -36,12 +38,12 @@ const DashboardStartup = () => {
 
       if (allJobs.ok) {
         const data = await allJobs.json();
-        setJobs(data);
+        setJobs(data.jobs);
+        setJobsInMonth(data.jobsInMonth);
       }
 
       if (allMentors.ok) {
         const data = await allMentors.json();
-        console.log(data);
         setMentors(data);
       }
     } catch (error) {
@@ -101,6 +103,10 @@ const DashboardStartup = () => {
             profileImg={ProfileImg}
             icon={ArrowUp}
           />
+          <div style={{ maxWidth: 567, width: "100%" }}>
+            <Title>OVERALL STATISTICKS</Title>
+            <ApexChart jobsInMonth={jobsInMonth} />
+          </div>
         </div>
       </section>
     </>

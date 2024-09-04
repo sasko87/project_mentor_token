@@ -92,8 +92,27 @@ const getOneCompanyJobs = async (req, res) => {
   try {
     const filter = { companyId: req.auth.id };
     const jobs = await getFilteredJobs(filter);
+    const currentDate = new Date();
+    const jobsInMonth = new Array(12).fill(0);
 
-    let data = [];
+    for (let i = 0; i < jobs.length; i++) {
+      const job = jobs[i];
+      const createdDate = new Date(job.createdAt);
+      const monthsDifference =
+        currentDate.getFullYear() * 12 +
+        currentDate.getMonth() -
+        (createdDate.getFullYear() * 12 + createdDate.getMonth());
+
+      if (monthsDifference >= 0 && monthsDifference < 12) {
+        const index = 11 - monthsDifference;
+        jobsInMonth[index]++;
+      }
+    }
+
+    let data = {
+      jobsInMonth: jobsInMonth,
+      jobs: [],
+    };
 
     for (const job of jobs) {
       const applications = await getFilteredApplications({ jobId: job._id });
@@ -107,8 +126,9 @@ const getOneCompanyJobs = async (req, res) => {
         status: job.status,
         applicationType: job.applicationType,
         applications: applications,
+        createdAt: job.createdAt,
       };
-      data.push(tempJob);
+      data.jobs.push(tempJob);
     }
 
     return res.status(200).send(data);
