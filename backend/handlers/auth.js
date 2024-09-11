@@ -31,6 +31,7 @@ const login = async (req, res) => {
 
     //TODO prati cel account bez pass
     const payload = {
+      profileImage: account.profileImage,
       name: account.name,
       email: account.email,
       id: account._id,

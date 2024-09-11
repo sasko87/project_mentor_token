@@ -14,6 +14,8 @@ import Input from "../Input/Input";
 import ProfileImg from "../../assets/Ellipse 3.png";
 import MailIcon from "../../assets/admin-icons/mail.png";
 import PhoneIcon from "../../assets/admin-icons/phone.png";
+import Linkedin from "../../assets/social-icons/linkedin.png";
+import GreenCheckSign from "../../assets/check-sign.png";
 
 const MentorInfo = ({ mentorData }) => {
   const token = window.localStorage.getItem("token");
@@ -133,10 +135,25 @@ const MentorInfo = ({ mentorData }) => {
                   alt="Profile Image"
                   className="mentor-info-profile-image"
                 />
+                <img
+                  src={GreenCheckSign}
+                  style={{ position: "absolute", right: "33%", top: "33%" }}
+                />
               </div>
               {!isEditActive && (
                 <>
-                  <h3 className="mentor-info-name">{mentorData.name}</h3>
+                  <h3 className="mentor-info-name">
+                    {mentorData.name}
+                    <sup style={{ marginLeft: 3 }}>
+                      <a href="http://linkedin.com" target="_blank">
+                        <img
+                          src={Linkedin}
+                          alt="linkedin"
+                          className="mentor-info-linkedin"
+                        />
+                      </a>
+                    </sup>
+                  </h3>
 
                   <p className="mentor-info-possition">{mentorData.position}</p>
 

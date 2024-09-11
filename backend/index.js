@@ -1,5 +1,6 @@
 const express = require("express");
 const { expressjwt: jwt } = require("express-jwt");
+const fileUpload = require("express-fileupload");
 
 const { getSection } = require("./pkg/config");
 const {
@@ -42,6 +43,7 @@ const {
   getMentorStatistics,
   getStartupStatistics,
 } = require("./handlers/account.js");
+
 const { sendMessage, sendPasswordResetMail } = require("./handlers/mailer.js");
 
 require("./pkg/db/config");
@@ -49,6 +51,7 @@ require("./pkg/db/config");
 const app = express();
 app.set("view engine", "ejs");
 app.use(express.json());
+app.use(fileUpload());
 app.use(
   "/api",
   jwt({
@@ -61,6 +64,7 @@ app.use(
       "/api/auth/forgot-password",
       "/api/auth/reset-password",
       "/api/auth/register-check-existing-account",
+      "/api/upload",
     ],
   })
 );

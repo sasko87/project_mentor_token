@@ -2,6 +2,7 @@ import React from "react";
 import Search from "../Search/Search";
 import ProfileImg from "../../assets/Ellipse 3.png";
 import "./adminPageHeader.css";
+import defaultProfileImage from "../../lib/ProfileImage";
 
 const AdminPageHeader = ({ user }) => {
   const placeholder =
@@ -11,8 +12,11 @@ const AdminPageHeader = ({ user }) => {
     <div className="admin-page-header">
       <Search placeholder={placeholder} />
       <div className="account-profile">
-        {/* TODO smeni ja slikata spored user (treba da ja ima u token) */}
-        <img src={ProfileImg} alt="Profile Image" className="profile-image" />
+        <img
+          src={user.profileImage}
+          alt="Profile Image"
+          className="profile-image"
+        />
         <p>{user.name}</p>
       </div>
     </div>

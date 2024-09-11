@@ -58,6 +58,9 @@ const accountSchema = mongoose.Schema(
     linkedin: {
       type: String,
     },
+    profileImage: {
+      type: String,
+    },
   },
   {
     timestamps: true,

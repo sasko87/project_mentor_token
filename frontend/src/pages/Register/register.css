@@ -12,6 +12,36 @@
   position: relative;
 }
 
+.register-upload-image-container {
+  width: 121.76px;
+  height: 121.76px;
+  border-radius: 50%;
+  border: 2.99px solid #696cff;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.uploaded-image-preview {
+  width: 117px;
+  height: 117px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#file-upload {
+  display: none;
+}
+
+.register-upload-photo {
+  position: absolute;
+  top: -23%;
+  right: -23%;
+}
+
 .password-check {
   display: flex;
   align-items: center;

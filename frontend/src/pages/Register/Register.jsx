@@ -8,6 +8,9 @@ import { TagsInput } from "react-tag-input-component";
 import { HiOutlineXMark } from "react-icons/hi2";
 import { HiOutlineCheck } from "react-icons/hi2";
 import FormValidation from "../../hooks/FormValidation";
+import userImage from "../../assets/user.png";
+import photoImage from "../../assets/photo.png";
+import defaultProfileImage from "../../lib/ProfileImage";
 
 const Register = () => {
   const [type, setType] = useState("mentor");
@@ -27,7 +30,8 @@ const Register = () => {
   const [position, setPosition] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [formErrors, setFormErrors] = useState({});
-
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
   const [passwordHasOneNumberOrSymbol, setPasswordHasOneNumberOrSymbol] =
     useState(false);
   const [passwordHasEightCharacters, setPasswordHasEightCharacters] =
@@ -116,7 +120,22 @@ const Register = () => {
   };
 
   const handleTypeChange = (event) => {
+    event.preventDefault();
     setType(event.target.value);
+  };
+
+  const handleFileUpload = (e) => {
+    e.preventDefault();
+    const selectedFile = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onload = () => {
+      setFile(reader.result);
+    };
+    if (selectedFile) {
+      const previewUrl = URL.createObjectURL(selectedFile);
+      setPreview(previewUrl);
+    }
   };
 
   const handleRegister = async (e) => {
@@ -152,6 +171,7 @@ const Register = () => {
       desc,
       position,
       linkedin,
+      profileImage: file ? file : defaultProfileImage,
     };
 
     try {
@@ -335,6 +355,38 @@ const Register = () => {
             </div>
 
             <form className="register-form" onSubmit={(e) => handleRegister(e)}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <div className="register-upload-image-container">
+                  <label
+                    htmlFor="file-upload"
+                    className="register-upload-label"
+                  >
+                    {file ? (
+                      <img src={preview} className="uploaded-image-preview" />
+                    ) : (
+                      <>
+                        <img src={userImage} alt="User Icon" />
+                        <img
+                          src={photoImage}
+                          alt="Camera Icon"
+                          className="register-upload-photo"
+                        />
+                      </>
+                    )}
+                  </label>
+                  <input
+                    type="file"
+                    id="file-upload"
+                    onChange={handleFileUpload}
+                  />
+                </div>
+              </div>
               {/* <label htmlFor="startup-name">Startup Name</label> */}
               <Input
                 label="Startup Name"
@@ -412,6 +464,39 @@ const Register = () => {
 
             <form className="register-form">
               {/* <label htmlFor="mentor-name">Mentor Name</label> */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <div className="register-upload-image-container">
+                  <label
+                    htmlFor="file-upload"
+                    className="register-upload-label"
+                  >
+                    {file ? (
+                      <img src={preview} className="uploaded-image-preview" />
+                    ) : (
+                      <>
+                        <img src={userImage} alt="User Icon" />
+                        <img
+                          src={photoImage}
+                          alt="Camera Icon"
+                          className="register-upload-photo"
+                        />
+                      </>
+                    )}
+                  </label>
+                  <input
+                    type="file"
+                    id="file-upload"
+                    onChange={handleFileUpload}
+                  />
+                </div>
+              </div>
+
               <Input
                 label="Mentor Name"
                 labelId="mentor-name"
