@@ -2,6 +2,7 @@ const {
   allMentors,
   accountById,
   updateAccount,
+  Account,
 } = require("../pkg/account/index");
 const { getFilteredApplications } = require("../pkg/application/application");
 const { getFilteredJobs } = require("../pkg/job/job");
@@ -167,6 +168,22 @@ const updateMentorAccount = async (req, res) => {
   }
 };
 
+const searchMentor = async (req, res) => {
+  const { query } = req.query;
+  try {
+    // Perform search in the database using regex for partial matches
+    console.log(query);
+    const results = await Account.find({
+      name: { $regex: query, $options: "i" },
+    });
+
+    res.json(results);
+  } catch (error) {
+    // console.log(error);
+    res.status(500).send({ error: "An error occurred while searching" });
+  }
+};
+
 module.exports = {
   getAllMentors,
   getAccoutData,
@@ -174,4 +191,5 @@ module.exports = {
   updateMentorAccount,
   getMentorStatistics,
   getStartupStatistics,
+  searchMentor,
 };

@@ -16,7 +16,8 @@ const JobFeed = () => {
   const [selectedJob, setSelectedJob] = useState({});
   const [skillsFilter, setSkillsFilter] = useState();
   const [categoryFilter, setCategoryFilter] = useState();
-  const [sortFilter, setSortFilter] = useState([]);
+  const [sortFilter, setSortFilter] = useState("Latest");
+  const [filters, setFilters] = useState();
   const token = window.localStorage.getItem("token");
   const fetchData = async () => {
     try {
@@ -39,7 +40,16 @@ const JobFeed = () => {
         }
       );
       if (allJobs.ok) {
-        const data = await allJobs.json();
+        let data = await allJobs.json();
+        if (sortFilter === "Oldest") {
+          data = data.sort(
+            (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+          );
+        } else if (sortFilter === "Latest") {
+          data = data.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
+        }
         setAllJobs(data);
       }
     } catch (error) {
@@ -48,8 +58,7 @@ const JobFeed = () => {
   };
   useEffect(() => {
     fetchData();
-  }, [categoryFilter]);
-
+  }, [categoryFilter, sortFilter]);
   const handleToggleJobDetailsModal = (isVisible, job) => {
     setIsViewJobModalActive(isVisible);
     if (isVisible) {
@@ -58,12 +67,6 @@ const JobFeed = () => {
       setSelectedJob({});
     }
   };
-
-  const sortNewestJobs = allJobs.sort(
-    (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-  );
-  const sortOldestJobs = allJobs.sort((a, b) => b.createdAt - a.createdAt);
-  console.log(sortNewestJobs);
 
   const sort = [
     {
@@ -144,9 +147,9 @@ const JobFeed = () => {
           <div style={{ display: "flex", alignItems: "center" }}>
             <FilterJobs
               label="Sort By"
-              filter={sort}
               selecetdFilterValue={sortFilter}
               setSkillsFilter={setSortFilter}
+              filter={sort}
             />
             <FilterJobs
               label="Category"

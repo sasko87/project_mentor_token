@@ -42,25 +42,6 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  // const passwordRegexOneNumberOrSymbol = /^(?=.*[0-9!@#$%^&*(),.?":{}|<>]).*$/;
-  // const passwordHasOneNumberOrSymbol =
-  //   passwordRegexOneNumberOrSymbol.test(password);
-
-  // const passwordRegexEightCharacters = /^.{8,}$/;
-  // const passwordHasEightCharacters =
-  //   passwordRegexEightCharacters.test(password);
-
-  // const lowerPassword = password.toLowerCase();
-  // const emailPart = email.toLowerCase().split("@")[0];
-
-  // const containsNameOrEmail =
-  //   !lowerPassword.includes(emailPart) && password.length > 5;
-
-  // const strongPassword =
-  //   containsNameOrEmail &&
-  //   passwordHasEightCharacters &&
-  //   passwordHasOneNumberOrSymbol;
-
   const checkPasswordConditions = (password) => {
     const passwordRegexOneNumberOrSymbol =
       /^(?=.*[0-9!@#$%^&*(),.?":{}|<>]).*$/;

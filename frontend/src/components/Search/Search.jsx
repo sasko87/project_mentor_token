@@ -5,7 +5,6 @@ import SearchIcon from "../../assets/admin-icons/search.png";
 
 const Search = ({ placeholder }) => {
   const [search, setSearch] = useState("");
-  console.log(search);
   return (
     <>
       <div style={{ width: "60%", position: "relative" }}>

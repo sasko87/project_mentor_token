@@ -42,6 +42,7 @@ const {
   updateMentorAccount,
   getMentorStatistics,
   getStartupStatistics,
+  searchMentor,
 } = require("./handlers/account.js");
 
 const { sendMessage, sendPasswordResetMail } = require("./handlers/mailer.js");
@@ -65,6 +66,7 @@ app.use(
       "/api/auth/reset-password",
       "/api/auth/register-check-existing-account",
       "/api/send-message",
+      "/api/search-mentor",
     ],
   })
 );
@@ -103,7 +105,7 @@ app.post("/api/send-message", sendMessage);
 app.put("/api/update-mentor-account", updateMentorAccount);
 app.get("/api/get-mentor-statistics", getMentorStatistics);
 app.get("/api/get-startup-statistics", getStartupStatistics);
-
+app.get("/api/search-mentor", searchMentor);
 app.post("/api/auth/forgot-password", forgotPassword);
 app.post("/reset-password/:id/:token", resetPassword);
 app.get("/reset-password/:id/:token", resetPassTemplate);
