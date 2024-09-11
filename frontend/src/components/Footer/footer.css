@@ -52,8 +52,9 @@
   align-self: first baseline;
 }
 
-hr {
+.hr-footer {
   max-width: 1200px;
+  width: 100%;
   margin: auto;
   padding-left: 20px;
 }

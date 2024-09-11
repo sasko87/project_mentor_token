@@ -44,7 +44,7 @@ const Footer = () => {
           </p>
         </div>
       </div>
-      <hr />
+      <hr className="hr-footer" />
       <p className="copyright">©2024 Mentor Token. All right reserved.</p>
     </footer>
   );

@@ -19,7 +19,7 @@ const AssignedJobs = ({ tabs, onClickFunction, selectedTab }) => {
           </div>
         ))}
       </div>
-      <hr />
+      <hr className="hr-assigned-jobs" />
 
       <div className="startupCompanyJobs">
         {tabs && (

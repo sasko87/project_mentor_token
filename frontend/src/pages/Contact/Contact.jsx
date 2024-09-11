@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./contact.css";
 import Input from "../../components/Input/Input";
 import Textarea from "../../components/Textarea/Textarea";
@@ -7,6 +7,35 @@ import Column from "../../components/Grid/Column";
 import Button from "../../components/Button/Button";
 
 const Contact = () => {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSendContactMessage = async (e) => {
+    e.preventDefault();
+    const data = {
+      fullName,
+      email,
+      message,
+    };
+    try {
+      // Send the POST request to the backend
+      const response = await fetch("/api/send-message", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const data = response.json();
+        console.log(data);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   return (
     <section id="contact">
       <div>
@@ -33,6 +62,8 @@ const Contact = () => {
                   name="full-name"
                   className="full-name"
                   placeholder="Full Name"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                 />
               </Column>
               <Column size="6">
@@ -41,13 +72,23 @@ const Contact = () => {
                   name="input-email"
                   className="input-email"
                   placeholder="E-mail"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Column>
               <Column size="12">
-                <Textarea placeholder="Your message" textareaClass="textarea" />
+                <Textarea
+                  placeholder="Your message"
+                  textareaClass="textarea"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                />
               </Column>
               <Column size="12">
-                <Button label="Send Message" />
+                <Button
+                  label="Send Message"
+                  clickFunction={handleSendContactMessage}
+                />
               </Column>
             </Grid>
           </form>

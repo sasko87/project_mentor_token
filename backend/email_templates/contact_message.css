@@ -1,0 +1,22 @@
+body {
+  margin: 20px;
+}
+
+.contact-email-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: auto;
+}
+h1 {
+  text-align: center;
+}
+
+span {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.contact-message {
+  margin-bottom: 20px;
+}

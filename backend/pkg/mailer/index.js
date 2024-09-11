@@ -17,9 +17,9 @@ const mailTemplates = {
     title: "Your Password reset link was generated",
     template: "reset_password.html",
   },
-  PASSWORD_RESET: {
-    title: "Your Password reset link was generated",
-    template: "reset_password.html",
+  CONTACT_MESSAGE: {
+    title: "You have new contact email",
+    template: "contact_message.html",
   },
 };
 
@@ -34,6 +34,9 @@ const sendMail = async (to, type, data) => {
   let templatePath = `${__dirname}/../../email_templates/${mailTemplates[type].template}`;
 
   let content = await readTemplate(templatePath);
+  content = content.replace("{{fullName}}", data.fullName);
+  content = content.replace("{{message}}", data.message);
+  content = content.replace("{{email}}", data.email);
 
   let options = {
     from: getSection("development").sender_email,
@@ -47,8 +50,6 @@ const sendMail = async (to, type, data) => {
       getSection("development").domain,
       options
     );
-
-    console.log("res", res);
     return res;
   } catch (err) {
     console.log("err", err);

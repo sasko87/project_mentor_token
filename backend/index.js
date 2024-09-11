@@ -64,7 +64,7 @@ app.use(
       "/api/auth/forgot-password",
       "/api/auth/reset-password",
       "/api/auth/register-check-existing-account",
-      "/api/upload",
+      "/api/send-message",
     ],
   })
 );
@@ -99,7 +99,7 @@ app.get("/api/get-applications-sent-by-mentor", getApplicationsSentByMentor);
 app.get("/api/getallmentors", getAllMentors);
 app.get("/api/getaccount", getAccoutData);
 app.get("/api/get-account-data-by-id/:id", getAccoutDataById);
-app.post("/api/sendmessage", sendMessage);
+app.post("/api/send-message", sendMessage);
 app.put("/api/update-mentor-account", updateMentorAccount);
 app.get("/api/get-mentor-statistics", getMentorStatistics);
 app.get("/api/get-startup-statistics", getStartupStatistics);
