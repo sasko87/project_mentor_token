@@ -8,6 +8,9 @@ import Title from "../../components/Title/Title";
 import LayoutIcon from "../../assets/admin-icons/layout-grid.png";
 import Button from "../../components/Button/Button";
 import ProfileImg from "../../assets/Ellipse 3.png";
+import JobCardRow from "../../components/JobCardRow/JobCardRow";
+import FilterIcon from "../../assets/admin-icons/filter-icon.png";
+import { useLocation } from "react-router-dom";
 
 const JobFeed = () => {
   const user = window.mentorToken.user;
@@ -17,7 +20,14 @@ const JobFeed = () => {
   const [skillsFilter, setSkillsFilter] = useState();
   const [categoryFilter, setCategoryFilter] = useState();
   const [sortFilter, setSortFilter] = useState("Latest");
-  const [filters, setFilters] = useState();
+  const [selectedStartup, setSelectedStartup] = useState();
+  const [filtersDropdown, setFiltersDropdown] = useState(false);
+  const [jobLayout, setJobLayout] = useState(false);
+  const [allStartups, setAllStartups] = useState();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const id = queryParams.get("companyId");
+
   const token = window.localStorage.getItem("token");
   const fetchData = async () => {
     try {
@@ -27,6 +37,12 @@ const JobFeed = () => {
       };
       if (categoryFilter) {
         payload.category = categoryFilter;
+      }
+
+      if (selectedStartup) {
+        payload.companyId = selectedStartup;
+      } else if (id) {
+        payload.companyId = id;
       }
 
       const allJobs = await fetch(
@@ -39,8 +55,17 @@ const JobFeed = () => {
           },
         }
       );
+
+      const allStartups = await fetch("/api/get-all-startups", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (allJobs.ok) {
         let data = await allJobs.json();
+        console.log(data);
         if (sortFilter === "Oldest") {
           data = data.sort(
             (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
@@ -52,13 +77,18 @@ const JobFeed = () => {
         }
         setAllJobs(data);
       }
+      if (allStartups.ok) {
+        let data = await allStartups.json();
+        data = data.sort((a, b) => a.name.localeCompare(b.name)); //sompare two strings
+        setAllStartups(data);
+      }
     } catch (error) {
       console.error("An error occurred during fetching data:", error);
     }
   };
   useEffect(() => {
     fetchData();
-  }, [categoryFilter, sortFilter]);
+  }, [categoryFilter, sortFilter, selectedStartup, id]);
   const handleToggleJobDetailsModal = (isVisible, job) => {
     setIsViewJobModalActive(isVisible);
     if (isVisible) {
@@ -133,6 +163,17 @@ const JobFeed = () => {
     }
   };
 
+  const handleJobLayot = (e) => {
+    e.preventDefault();
+    setJobLayout(!jobLayout);
+  };
+
+  const handleFiltersDropdown = (e) => {
+    e.preventDefault();
+    setFiltersDropdown(!filtersDropdown);
+  };
+  console.log(selectedStartup);
+
   return (
     <>
       <Section>
@@ -165,13 +206,56 @@ const JobFeed = () => {
               justifyContent: "center",
             }}
           >
-            <FilterJobs icon={true} label="Filters" />
+            <div
+              onClick={handleFiltersDropdown}
+              className="filter-container filters"
+            >
+              <img src={FilterIcon} />
+              <label>Filters</label>
+              {allStartups && filtersDropdown && (
+                <div className="filters-dropdown">
+                  <ul>
+                    {allStartups.map((startup) => (
+                      <li
+                        key={startup._id}
+                        value={selectedStartup}
+                        onClick={() => setSelectedStartup(startup._id)}
+                      >
+                        {startup.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {/* <FilterJobs
+              icon={true}
+              label="Filters"
+              allStartups={allStartups}
+              onClick={hangleFiltersDropdown}
+            /> */}
             <div className="filter-container" style={{ marginRight: 0 }}>
-              <img src={LayoutIcon} alt="Layout" />
+              <img
+                src={LayoutIcon}
+                alt="Layout"
+                value={jobLayout}
+                onClick={(e) => handleJobLayot(e)}
+              />
             </div>
           </div>
         </div>
-        <JobsCard jobs={allJobs} modalFunction={handleToggleJobDetailsModal} />
+        {jobLayout ? (
+          <JobCardRow
+            jobs={allJobs}
+            modalFunction={handleToggleJobDetailsModal}
+          />
+        ) : (
+          <JobsCard
+            jobs={allJobs}
+            modalFunction={handleToggleJobDetailsModal}
+          />
+        )}
 
         {isViewJobModalActive && (
           <Modal

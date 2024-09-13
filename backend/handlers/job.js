@@ -153,6 +153,7 @@ const allJobs = async (req, res) => {
 
 const filteredJobs = async (req, res) => {
   try {
+    //TODO: da go proveram ova dali sum go zaboravil
     const { sort } = req.query;
     // console.log(req.query);
     const jobs = await getFilteredJobs(req.query);

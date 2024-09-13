@@ -90,6 +90,10 @@ const allMentors = async () => {
   return await Account.find({ type: "mentor" });
 };
 
+const allStartups = async () => {
+  return await Account.find({ type: "startup" });
+};
+
 const accountById = async (id) => {
   return await Account.findOne({ _id: id });
 };
@@ -97,13 +101,20 @@ const accountById = async (id) => {
 const setNewPassword = async (id, password) => {
   return await Account.updateOne({ _id: id }, { password: password });
 };
+
+const accountFilter = async (filters) => {
+  return await Account.find(filters);
+};
+
 module.exports = {
   createAccount,
   getAccountByEmail,
   updateAccount,
   removeAccount,
   allMentors,
+  allStartups,
   accountById,
   setNewPassword,
   Account,
+  accountFilter,
 };

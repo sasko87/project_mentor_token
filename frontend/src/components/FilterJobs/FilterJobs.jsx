@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import FilterIcon from "../../assets/admin-icons/filter-icon.png";
 import "./filterJobs.css";
 
 const FilterJobs = ({
   label,
   filter,
-  icon,
   selecetdFilterValue,
   setSkillsFilter,
 }) => {
@@ -13,7 +11,6 @@ const FilterJobs = ({
     <>
       <div className="filter-container">
         <div>
-          {icon && <img src={FilterIcon} />}
           <label>{label}</label>
         </div>
         {filter && (

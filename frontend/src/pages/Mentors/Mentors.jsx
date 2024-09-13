@@ -53,8 +53,6 @@ const Mentors = () => {
     navigate(`/mentors/${id}`);
   };
 
-  console.log(accountData);
-
   const quickOverviewData = [
     {
       title: "Total Mentors",

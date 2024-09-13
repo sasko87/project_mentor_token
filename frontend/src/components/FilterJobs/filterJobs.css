@@ -8,6 +8,7 @@
   border-radius: 12px;
   background-color: #ffffff;
   gap: 10px;
+  position: relative;
 }
 
 .filter-icon {
@@ -25,9 +26,6 @@
   color: #566a7f;
 }
 
-.filter-container:first-child img {
-  margin-right: 10px;
-}
 .filter-select {
   background-color: transparent;
   border: none;
@@ -46,6 +44,7 @@
   line-height: 24px;
   text-align: center;
   color: #aab4bf;
+  z-index: 10;
 }
 
 .filter-select:focus {

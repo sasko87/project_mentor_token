@@ -3,6 +3,8 @@ const {
   accountById,
   updateAccount,
   Account,
+  allStartups,
+  accountFilter,
 } = require("../pkg/account/index");
 const { getFilteredApplications } = require("../pkg/application/application");
 const { getFilteredJobs } = require("../pkg/job/job");
@@ -43,6 +45,15 @@ const getAllMentors = async (req, res) => {
     }
 
     res.status(200).send(data);
+  } catch (err) {
+    return res.status(err.status).send(err.error);
+  }
+};
+
+const getAllStartups = async (req, res) => {
+  try {
+    const startups = await allStartups();
+    res.status(200).send(startups);
   } catch (err) {
     return res.status(err.status).send(err.error);
   }
@@ -169,17 +180,29 @@ const updateMentorAccount = async (req, res) => {
 };
 
 const searchMentor = async (req, res) => {
-  const { query } = req.query;
   try {
-    // Perform search in the database using regex for partial matches
-    console.log(query);
-    const results = await Account.find({
-      name: { $regex: query, $options: "i" },
+    const { name } = req.query;
+    const results = await accountFilter({
+      name: new RegExp(name, "i"),
+      type: "mentor",
     });
 
-    res.json(results);
+    res.status(200).send(results);
   } catch (error) {
-    // console.log(error);
+    res.status(500).send({ error: "An error occurred while searching" });
+  }
+};
+
+const searchStartup = async (req, res) => {
+  try {
+    const { name } = req.query;
+    const results = await accountFilter({
+      name: new RegExp(name, "i"),
+      type: "startup",
+    });
+
+    res.status(200).send(results);
+  } catch (error) {
     res.status(500).send({ error: "An error occurred while searching" });
   }
 };
@@ -192,4 +215,6 @@ module.exports = {
   getMentorStatistics,
   getStartupStatistics,
   searchMentor,
+  searchStartup,
+  getAllStartups,
 };

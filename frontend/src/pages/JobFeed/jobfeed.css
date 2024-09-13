@@ -60,3 +60,41 @@
   color: rgba(219, 2, 2, 0.938);
   font-weight: 500;
 }
+
+.filters-dropdown {
+  position: absolute;
+  top: 35px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+  color: #aab4bf;
+  z-index: 10;
+  background-color: #ffff;
+  height: 300px;
+  width: 150px;
+  overflow-y: scroll;
+  border: 1px solid #aab4bf;
+  border-top: none;
+}
+
+.filters-dropdown ul {
+  list-style: none;
+  cursor: pointer;
+  padding-left: 0;
+  margin: auto;
+}
+
+.filters-dropdown ul li {
+  padding: 5px;
+  margin: 1px;
+}
+
+.filters-dropdown ul li:hover {
+  background-color: #696cff;
+  color: white;
+}
+
+.filters {
+  width: 150px;
+}

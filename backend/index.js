@@ -37,12 +37,14 @@ const {
 } = require("./handlers/application.js");
 const {
   getAllMentors,
+  getAllStartups,
   getAccoutData,
   getAccoutDataById,
   updateMentorAccount,
   getMentorStatistics,
   getStartupStatistics,
   searchMentor,
+  searchStartup,
 } = require("./handlers/account.js");
 
 const { sendMessage, sendPasswordResetMail } = require("./handlers/mailer.js");
@@ -99,6 +101,7 @@ app.post("/api/reject-direct-application", rejectDirectApplication);
 app.get("/api/get-applications-sent-by-mentor", getApplicationsSentByMentor);
 
 app.get("/api/getallmentors", getAllMentors);
+app.get("/api/get-all-startups", getAllStartups);
 app.get("/api/getaccount", getAccoutData);
 app.get("/api/get-account-data-by-id/:id", getAccoutDataById);
 app.post("/api/send-message", sendMessage);
@@ -106,6 +109,7 @@ app.put("/api/update-mentor-account", updateMentorAccount);
 app.get("/api/get-mentor-statistics", getMentorStatistics);
 app.get("/api/get-startup-statistics", getStartupStatistics);
 app.get("/api/search-mentor", searchMentor);
+app.get("/api/search-startup", searchStartup);
 app.post("/api/auth/forgot-password", forgotPassword);
 app.post("/reset-password/:id/:token", resetPassword);
 app.get("/reset-password/:id/:token", resetPassTemplate);
