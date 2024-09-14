@@ -18,6 +18,8 @@ import Jobs from "./pages/Jobs/Jobs.jsx";
 import JobFeed from "./pages/JobFeed/JobFeed.jsx";
 import MyStats from "./pages/MyStats/MyStats.jsx";
 import MentorProfile from "./pages/MentorProfile/MentorProfile.jsx";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword.jsx";
+import ResetPassword from "./pages/ResetPassword/ResetPassword.jsx";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +50,14 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/reset-password/:id/:token",
+        element: <ResetPassword />,
       },
     ],
   },

@@ -37,6 +37,7 @@ const sendMail = async (to, type, data) => {
   content = content.replace("{{fullName}}", data.fullName);
   content = content.replace("{{message}}", data.message);
   content = content.replace("{{email}}", data.email);
+  content = content.replace("{{link}}", data.link);
 
   let options = {
     from: getSection("development").sender_email,

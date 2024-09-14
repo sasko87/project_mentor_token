@@ -90,18 +90,18 @@ const changePassword = async (req, res) => {
   const { newPassword, oldPassword } = req.body;
   const account = await accountById(req.auth.id);
   if (!bcrypt.compareSync(oldPassword, account.password)) {
-    return res.status(400).send("Old password is incorrect");
+    return res.status(400).send({ error: "Old password is incorrect" });
   }
 
   if (newPassword === oldPassword) {
     return res
       .status(400)
-      .send("New password cannot be the same as Old password");
+      .send({ error: "New password cannot be the same as Old password" });
   }
   const hashNewPassword = bcrypt.hashSync(newPassword);
 
   await setNewPassword(account._id.toString(), hashNewPassword);
-  return res.status(200).send("Password was successfuly changed");
+  return res.status(200).send({ message: "Password was successfuly changed" });
 };
 
 const forgotPassword = async (req, res) => {
@@ -110,31 +110,33 @@ const forgotPassword = async (req, res) => {
   const user = await getAccountByEmail(email);
 
   if (!user) {
-    return res.status(400).send("User not registered!");
+    return res
+      .status(400)
+      .send({ error: "User with this email is not registered!" });
   }
 
-  const secret = getSection("development").jwt_secret + user.password;
-  console.log("forgotPassword", secret);
+  const secret = getSection("development").jwt_secret;
 
   const payload = {
     email: user.email,
+    name: user.name,
     id: user.id,
   };
 
   const token = jwt.sign(payload, secret, { expiresIn: "30m" });
-  const link = `http://localhost:10000/reset-password/${user.id}/${token}`;
+  const link = `http://localhost:5173/reset-password/${user.id}/${token}`;
 
   try {
     await sendMail(user.email, "PASSWORD_RESET", { user, link });
 
     return res
       .status(200)
-      .send("Password reset link has been sent to your email...");
+      .send({ message: "Password reset link has been sent to your email..." });
   } catch (err) {
-    return res.status(500).send(err.message);
+    return res.status(500).send({ error: "Mail not sent. Try again later" });
   }
 };
-
+//TODO ova mislam ne mi treba da proveram
 const resetPassTemplate = async (req, res) => {
   const { id, token } = req.params;
 
@@ -157,33 +159,22 @@ const resetPassTemplate = async (req, res) => {
 
 const resetPassword = async (req, res) => {
   const { id, token } = req.params;
-  const { password, confirmPass } = req.body;
-
-  if (password !== confirmPass) {
-    return res.status(400).send("Passwords do not match!");
-  }
+  const { password } = req.body;
 
   const hashedPass = bcrypt.hashSync(password);
-
   const user = await accountById(id);
-
-  if (!user) {
-    return res.status(400).send("User not registered!");
-  }
-
-  const secret = getSection("development").jwt_secret + user.password;
-  console.log("resetPassword", secret);
+  const secret = getSection("development").jwt_secret;
 
   try {
     const payload = jwt.verify(token, secret);
     if (!payload) {
-      res.send("Token not valid!");
+      res.send({ error: "Token not valid!" });
     }
 
     await setNewPassword(user.id, hashedPass);
-    res.status(200).send("Password reset successful!");
+    res.status(200).send({ message: "Password reset successful!" });
   } catch (err) {
-    return res.status(500).send("Message not sent!");
+    return res.status(500).send({ error: "Password not changed" });
   }
 };
 

@@ -42,18 +42,6 @@
   right: -23%;
 }
 
-.password-check {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: Manrope;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 12px;
-  text-align: left;
-  color: #aab4bf;
-}
-
 .register-input {
   width: 100%;
   max-width: 521px;

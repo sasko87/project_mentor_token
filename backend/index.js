@@ -65,10 +65,9 @@ app.use(
       "/api/auth/login",
       "/api/auth/register",
       "/api/auth/forgot-password",
-      "/api/auth/reset-password",
+      "/api/reset-password/:id/:token",
       "/api/auth/register-check-existing-account",
       "/api/send-message",
-      "/api/search-mentor",
     ],
   })
 );
@@ -111,8 +110,8 @@ app.get("/api/get-startup-statistics", getStartupStatistics);
 app.get("/api/search-mentor", searchMentor);
 app.get("/api/search-startup", searchStartup);
 app.post("/api/auth/forgot-password", forgotPassword);
-app.post("/reset-password/:id/:token", resetPassword);
-app.get("/reset-password/:id/:token", resetPassTemplate);
+app.post("/api/reset-password/:id/:token", resetPassword);
+// app.get("/api/reset-password/:id/:token", resetPassTemplate);
 app.post("/api/reset-pass", sendPasswordResetMail);
 
 app.listen(getSection("development").port, () =>

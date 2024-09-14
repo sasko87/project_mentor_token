@@ -18,7 +18,14 @@
 }
 
 .login-form {
-  margin: 120px 0 20px;
+  margin: 30px 0 20px;
+  position: relative;
+}
+
+.login-form label {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .login-input {

@@ -11,6 +11,7 @@ import FormValidation from "../../hooks/FormValidation";
 import userImage from "../../assets/user.png";
 import photoImage from "../../assets/photo.png";
 import defaultProfileImage from "../../lib/ProfileImage";
+import PasswordCondition from "../../components/PasswordCondition/PasswordCondition";
 
 const Register = () => {
   const [type, setType] = useState("mentor");
@@ -249,62 +250,14 @@ const Register = () => {
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
               />
-              {isFocused && (
-                <small>
-                  {passwordsMatch ? (
-                    <span
-                      style={{
-                        color: "green",
-
-                        marginTop: 0,
-                      }}
-                    >
-                      Passwords Match
-                    </span>
-                  ) : (
-                    <span
-                      style={{
-                        color: "red",
-
-                        marginTop: 0,
-                      }}
-                    >
-                      Confirm password is not the same as password
-                    </span>
-                  )}
-                </small>
-              )}
-
-              <div>
-                <p className="password-check">
-                  {strongPassword ? <HiOutlineCheck /> : <HiOutlineXMark />}
-                  Password Strength : {strongPassword ? "Strong" : "Weak"}
-                </p>
-                <p className="password-check">
-                  {containsNameOrEmail ? (
-                    <HiOutlineCheck />
-                  ) : (
-                    <HiOutlineXMark />
-                  )}{" "}
-                  Cannot contain your email address
-                </p>
-                <p className="password-check">
-                  {passwordHasEightCharacters ? (
-                    <HiOutlineCheck />
-                  ) : (
-                    <HiOutlineXMark />
-                  )}
-                  At least 8 characters
-                </p>
-                <p className="password-check">
-                  {passwordHasOneNumberOrSymbol ? (
-                    <HiOutlineCheck />
-                  ) : (
-                    <HiOutlineXMark />
-                  )}
-                  Contains a number or symbol
-                </p>
-              </div>
+              <PasswordCondition
+                isFocused={isFocused}
+                passwordsMatch={passwordsMatch}
+                strongPassword={strongPassword}
+                passwordHasEightCharacters={strongPassword}
+                passwordHasOneNumberOrSymbol={passwordHasOneNumberOrSymbol}
+                containsNameOrEmail={containsNameOrEmail}
+              />
               {error && (
                 <p style={{ color: "red", textAlign: "center" }}>{error}</p>
               )}
