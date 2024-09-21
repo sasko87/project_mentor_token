@@ -36,8 +36,6 @@ const AdminPages = () => {
     }, 0);
   }
 
-  console.log(new Date().getDate().toLocaleString());
-
   const [isMenuVisible, setIsMenuVisible] = useState(true);
 
   const toggleMenuVisibility = () => {

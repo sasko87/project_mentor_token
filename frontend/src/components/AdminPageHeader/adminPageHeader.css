@@ -25,6 +25,27 @@
   border-radius: 50%;
 }
 
+.admin-page-header .user-name {
+  margin-bottom: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: left;
+  color: #566a7f;
+  margin-top: 0;
+}
+
+.admin-page-header .user-type {
+  font-family: Manrope;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+  color: #b9b8bc;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .account-profile p {
   font-family: "Poppins";
   font-size: 15px;

@@ -15,6 +15,10 @@
   position: relative;
 }
 
+.mentor-info-personal-data-container .component-input-container {
+  padding: 0;
+}
+
 .mentor-info-profile-image {
   width: 94px;
   height: 94px;
@@ -38,6 +42,7 @@
 .mentor-info-edit-input {
   margin: 5px auto;
   height: 25px;
+
   padding-left: 5px;
 }
 
@@ -45,6 +50,8 @@
   border: 2px solid #d3d3ff;
   border-radius: 9px;
   outline: none;
+  overflow-y: scroll;
+  height: 40px;
 }
 
 .mentor-info-edit-textarea {
@@ -140,13 +147,15 @@
   text-align: left;
   color: #566a7f;
   padding-right: 20px;
+  margin-top: 20px;
 }
 
 .mentor-info-textarea {
   border: none;
   height: 150px;
   padding-left: 0;
-  overflow: hidden;
+  overflow-y: scroll;
+
   max-width: 750px;
 }
 

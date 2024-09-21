@@ -12,3 +12,108 @@ body {
 .apexcharts-toolbar {
   display: none !important;
 }
+
+.link-default {
+  font-family: "Manrope", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: #232323;
+}
+
+.link-default:hover {
+  color: #9092f5;
+}
+
+.link-default.active {
+  color: #696cff;
+}
+
+.link-blue-button {
+  font-size: 16px;
+  border: none;
+  border-radius: 9px;
+  background-color: #696cff;
+  padding: 16px 24px;
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.link-white-button {
+  width: 100px;
+  height: 35px;
+  font-size: 16px;
+  border: none;
+  border-radius: 9px;
+  background-color: white;
+  padding: 10px;
+  text-decoration: none;
+  color: #696cff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.link-footer {
+  text-decoration: none;
+  color: white;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.active-link {
+  color: #696cff;
+}
+
+.link-footer-social {
+  border: 1px solid #696cff;
+  width: 36px;
+  padding: 8px 8px 5px;
+  border-radius: 50%;
+  margin: 3px;
+  color: #696cff;
+  cursor: pointer;
+}
+
+.link-footer:hover {
+  color: #9092f5;
+}
+
+.link-blue-button:hover {
+  background-color: #5d60f5;
+}
+
+.link-login-register {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  color: #696cff;
+}
+
+.link-login-register:hover {
+  color: #9092f5;
+}
+
+.link-auth-logo {
+  color: white;
+  padding-left: 42px;
+  text-decoration: none;
+}

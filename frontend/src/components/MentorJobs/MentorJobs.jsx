@@ -3,6 +3,7 @@ import Button from "../Button/Button";
 import ClockIcon from "../../assets/admin-icons/clock.png";
 import "./mentorJobs.css";
 import Title from "../Title/Title";
+import NoData from "../NoData/NoData";
 
 const MentorJobs = ({
   title,
@@ -22,10 +23,9 @@ const MentorJobs = ({
         <Title>{title}</Title>
         <p>{description}</p>
       </div>
-
       <div>
         <div className="mentors-jobs-container">
-          {user.type === "mentor" && jobs && (
+          {user.type === "mentor" && jobs && jobs.length > 0 && (
             <>
               {jobs.map((application, index) => (
                 <div key={index} className="mentors-jobs">
@@ -57,7 +57,7 @@ const MentorJobs = ({
               ))}
             </>
           )}
-          {user.type === "startup" && jobs && (
+          {user.type === "startup" && jobs && jobs.length > 0 && (
             <>
               {jobs.map((job, index) => (
                 <div key={index} className="mentors-jobs">
@@ -74,6 +74,13 @@ const MentorJobs = ({
                 </div>
               ))}
             </>
+          )}
+
+          {jobs && jobs.length === 0 && (
+            <NoData
+              children={"No data to show"}
+              style={{ justifyContent: "left", paddingLeft: 20 }}
+            />
           )}
         </div>
       </div>

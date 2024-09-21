@@ -1,6 +1,7 @@
 import React from "react";
 import "./assignedJobs.css";
 import Title from "../Title/Title";
+import NoData from "../NoData/NoData";
 
 const AssignedJobs = ({ tabs, onClickFunction, selectedTab }) => {
   return (
@@ -22,7 +23,7 @@ const AssignedJobs = ({ tabs, onClickFunction, selectedTab }) => {
       <hr className="hr-assigned-jobs" />
 
       <div className="startupCompanyJobs">
-        {tabs && (
+        {tabs && tabs.content ? (
           <>
             {tabs[selectedTab].content.slice(0, 10).map((job) => {
               let jobStatusClass = "";
@@ -31,6 +32,10 @@ const AssignedJobs = ({ tabs, onClickFunction, selectedTab }) => {
                 case "DONE":
                   jobStatusClass = "status-done";
                   break;
+                case "OPEN":
+                  jobStatusClass = "status-open";
+                  break;
+                case "REJECTED":
                 case "CANCELED":
                   jobStatusClass = "status-rejected";
                   break;
@@ -51,6 +56,8 @@ const AssignedJobs = ({ tabs, onClickFunction, selectedTab }) => {
               );
             })}
           </>
+        ) : (
+          <NoData children={"No jobs to show"} />
         )}
       </div>
     </div>

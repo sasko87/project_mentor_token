@@ -4,7 +4,7 @@ import { GoArrowRight } from "react-icons/go";
 import Card from "../../components/Card/Card";
 import users from "../../aboutCards.js";
 import "./about.css";
-import Link from "../../components/Link/Link.jsx";
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
@@ -20,7 +20,7 @@ const About = () => {
             Focus on what's most important to them.
           </p>
         </div>
-        <Link className="blueButton">
+        <Link to="/contact" className="link-blue-button">
           <GoArrowRight /> Get in touch
         </Link>
       </div>

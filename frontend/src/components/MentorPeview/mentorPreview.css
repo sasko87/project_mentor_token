@@ -32,12 +32,13 @@
 .mentor-preview-img {
   height: 836px;
   max-width: 1175.62px;
+  width: 100%;
   border-radius: 57.16px;
 }
 
 .mentor-preview-second-image {
   position: absolute;
-  top: -190px;
+  top: -22%;
   right: 28px;
   width: 558px;
   height: 522.91px;

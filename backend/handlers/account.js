@@ -173,7 +173,8 @@ const updateMentorAccount = async (req, res) => {
       position: req.body.position,
     };
     await updateAccount(req.body.id, data);
-    return res.status(200).send({ message: "account updated" });
+    const updatedAccount = await accountById(req.body.id);
+    return res.status(200).send(updatedAccount);
   } catch (err) {
     console.log(err);
   }

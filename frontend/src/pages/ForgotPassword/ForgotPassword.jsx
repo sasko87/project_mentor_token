@@ -3,7 +3,7 @@ import "./forgotPassword.css";
 
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
-import Link from "../../components/Link/Link";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const ForgotPassword = () => {
@@ -78,7 +78,7 @@ const ForgotPassword = () => {
 
         <p className="login-register-account">
           Don’t have account?
-          <Link url="/register" className="login-register">
+          <Link to="/register" className="link-login-register">
             Register
           </Link>
         </p>

@@ -46,6 +46,7 @@
 }
 
 .component-section-mentorPreview {
-  width: 1400px;
+  max-width: 1400px;
+  width: 100%;
   margin: 80px auto;
 }

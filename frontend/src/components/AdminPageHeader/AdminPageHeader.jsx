@@ -17,7 +17,16 @@ const AdminPageHeader = ({ user }) => {
           alt="Profile Image"
           className="profile-image"
         />
-        <p>{user.name}</p>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          <p className="user-name">{user.name}</p>
+          {user.type === "mentor" && <p className="user-type">Mentor</p>}
+        </div>
       </div>
     </div>
   );

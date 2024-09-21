@@ -1,9 +1,5 @@
 import React from "react";
 import "./adminNav.css";
-import DashboardIcon from "../../assets/admin-icons/dashboard-icon.png";
-import ProfileIcon from "../../assets/admin-icons/profile.png";
-import JobIcon from "../../assets/admin-icons/disc.png";
-import LogoutIcon from "../../assets/admin-icons/logout.png";
 import { Link, useLocation } from "react-router-dom";
 
 const AdminNav = ({ items }) => {

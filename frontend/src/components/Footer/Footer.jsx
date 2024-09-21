@@ -3,10 +3,11 @@ import MentorTokenLogo from "../../assets/logos/MentorToken.svg";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
-import Link from "../Link/Link";
+import { Link, useLocation } from "react-router-dom";
 import "./footer.css";
 
 const Footer = () => {
+  const location = useLocation();
   return (
     <footer id="footer">
       <div className="footer-container">
@@ -20,8 +21,26 @@ const Footer = () => {
         <div className="footer-subcontainer">
           <h5 className="footer-title">Pages</h5>
           <div className="footer-link-container">
-            <Link className="footer">Home</Link>
-            <Link className="footer">Contact Us</Link>
+            <Link
+              to="/"
+              className={`${
+                location.pathname === "/"
+                  ? "link-footer active-link"
+                  : "link-footer"
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              to="/contact"
+              className={`${
+                location.pathname.startsWith("/contact")
+                  ? "link-footer active-link"
+                  : "link-footer"
+              }`}
+            >
+              Contact Us
+            </Link>
           </div>
         </div>
         <div className="footer-subcontainer">
@@ -32,13 +51,25 @@ const Footer = () => {
         <div className="footer-subcontainer">
           <h5 className="footer-title">Follow Us</h5>
           <p>
-            <Link className="footer-social">
+            <Link
+              to="https://linkedin.com"
+              target="_blank"
+              className="link-footer-social"
+            >
               <FaLinkedinIn />
             </Link>
-            <Link className="footer-social">
+            <Link
+              to="https://x.com"
+              target="_blank"
+              className="link-footer-social"
+            >
               <FaTwitter />
             </Link>
-            <Link className="footer-social">
+            <Link
+              to="https://facebook.com"
+              target="_blank"
+              className="link-footer-social"
+            >
               <FaFacebookF />
             </Link>
           </p>

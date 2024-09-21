@@ -1,0 +1,10 @@
+.no-data-container {
+  text-align: center;
+  width: 100%;
+  color: gray;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20vh;
+}

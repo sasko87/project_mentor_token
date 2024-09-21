@@ -65,7 +65,6 @@ app.use(
       "/api/auth/login",
       "/api/auth/register",
       "/api/auth/forgot-password",
-      "/api/reset-password/:id/:token",
       "/api/auth/register-check-existing-account",
       "/api/send-message",
     ],

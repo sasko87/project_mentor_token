@@ -43,6 +43,7 @@
   background-color: #d3d3ff;
   border: none;
   margin-bottom: 10px;
+  margin-top: 0;
 }
 
 .tab-title {
@@ -87,6 +88,11 @@
 .status-rejected {
   background-color: #fff0f3;
   color: #f2076a;
+}
+
+.status-open {
+  color: #674188;
+  background-color: #f4f0ea;
 }
 
 .activeTab {

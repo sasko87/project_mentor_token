@@ -11,13 +11,13 @@ import ProfileImg from "../../assets/Ellipse 3.png";
 import JobCardRow from "../../components/JobCardRow/JobCardRow";
 import FilterIcon from "../../assets/admin-icons/filter-icon.png";
 import { useLocation } from "react-router-dom";
+import NoData from "../../components/NoData/NoData";
 
 const JobFeed = () => {
   const user = window.mentorToken.user;
   const [allJobs, setAllJobs] = useState([]);
   const [isViewJobModalActive, setIsViewJobModalActive] = useState(false);
   const [selectedJob, setSelectedJob] = useState({});
-  const [skillsFilter, setSkillsFilter] = useState();
   const [categoryFilter, setCategoryFilter] = useState();
   const [sortFilter, setSortFilter] = useState("Latest");
   const [selectedStartup, setSelectedStartup] = useState();
@@ -215,6 +215,7 @@ const JobFeed = () => {
               {allStartups && filtersDropdown && (
                 <div className="filters-dropdown">
                   <ul>
+                    <li onClick={() => setSelectedStartup(null)}>All</li>
                     {allStartups.map((startup) => (
                       <li
                         key={startup._id}
@@ -245,7 +246,7 @@ const JobFeed = () => {
             </div>
           </div>
         </div>
-        {jobLayout ? (
+        {allJobs && jobLayout ? (
           <JobCardRow
             jobs={allJobs}
             modalFunction={handleToggleJobDetailsModal}
@@ -256,6 +257,8 @@ const JobFeed = () => {
             modalFunction={handleToggleJobDetailsModal}
           />
         )}
+
+        {allJobs.length === 0 && <NoData children={"No Jobs avaliabe"} />}
 
         {isViewJobModalActive && (
           <Modal

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-import Link from "../Link/Link";
+import { Link } from "react-router-dom";
 import "./login.css";
 
 const Login = () => {
@@ -75,7 +75,7 @@ const Login = () => {
 
         <p className="login-register-account">
           Don’t have account?
-          <Link url="/register" className="login-register">
+          <Link to="/register" className="link-login-register">
             Register
           </Link>
         </p>

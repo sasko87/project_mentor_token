@@ -76,7 +76,13 @@ const Register = () => {
     } else {
       setDisabledContinue(true);
     }
-  }, [password, confirmPassword, strongPassword, passwordsMatch]);
+  }, [
+    password,
+    confirmPassword,
+    strongPassword,
+    passwordsMatch,
+    passwordHasEightCharacters,
+  ]);
 
   const handleContinueClick = async (e) => {
     e.preventDefault();

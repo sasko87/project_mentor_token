@@ -12,6 +12,7 @@ const JobsCard = ({ jobs, modalFunction }) => {
           <div>
             <div className="jobs-card-company-container">
               <img src={ProfileImg} alt="" />
+
               <p>{job.companyId.name}</p>
             </div>
             <div className="jobs-card-job-info">
@@ -22,7 +23,7 @@ const JobsCard = ({ jobs, modalFunction }) => {
 
           {user.type === "startup" && (
             <>
-              <h1>{job.status}</h1>
+              <p className="jobs-cards-job-status">{job.status}</p>
               <div
                 style={{
                   display: "flex",

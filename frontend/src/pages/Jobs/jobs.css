@@ -83,3 +83,18 @@
   height: 40px;
   width: 80%;
 }
+
+.startup-jobs-done-button {
+  border: 1px solid #31aa27;
+  color: #31aa27;
+  background-color: white;
+  position: absolute;
+  bottom: 10px;
+  height: 40px;
+  width: 80%;
+}
+
+.startup-jobs-done-button:hover {
+  border: 2px solid #31aa27;
+  background-color: white;
+}

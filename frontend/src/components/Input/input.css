@@ -31,7 +31,7 @@
 
 .input-label {
   position: absolute;
-  top: -12px;
+  top: -10px;
   left: 10px;
   transition: 200ms;
   padding: 0 10px;
@@ -39,10 +39,11 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 21.86px;
+  margin-top: 0;
 }
 
 .focused-label {
-  top: -1px;
+  top: 0;
   background-color: white;
   z-index: 2;
   color: #696cff;

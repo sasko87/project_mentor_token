@@ -67,6 +67,7 @@
   border-radius: 9px;
   border: 2px solid #d3d3ff;
   margin-bottom: 10px;
+  overflow-y: scroll;
 }
 
 /* .rti--input {

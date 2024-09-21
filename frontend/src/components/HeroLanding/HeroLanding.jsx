@@ -1,6 +1,7 @@
 import React from "react";
 import Section from "../../components/Section/Section";
-import Link from "../../components/Link/Link";
+// import Link from "../../components/Link/Link";
+import { Link } from "react-router-dom";
 import { GoArrowRight } from "react-icons/go";
 import ComputerImg from "../../assets/Scene.png";
 import "./heroLanding.css";
@@ -17,10 +18,12 @@ const HeroLanding = () => {
           to drive the success of the ventures they support.
         </p>
         <div className="home-hero-button-container">
-          <Link className="blueButton">
+          <Link to="/register" className="link-blue-button">
             <GoArrowRight /> Get Started
           </Link>
-          <Link>Get in Touch</Link>
+          <Link to="/contact" className="link-default">
+            Get in Touch
+          </Link>
         </div>
       </div>
       <div className="hero-right-container">

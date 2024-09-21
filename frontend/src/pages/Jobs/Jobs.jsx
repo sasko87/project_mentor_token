@@ -19,19 +19,39 @@ const Jobs = () => {
   const [skillsRequired, setSkillsRequired] = useState([]);
   const [category, setCategory] = useState("");
   const [selectedJob, setSelectedJob] = useState({});
+  const [sortJobStatus, setSortJobStatus] = useState("OPEN");
+  const [sortApplicationStatus, setSortApplicationStatus] =
+    useState("OPEN_FOR_ALL");
 
   const token = window.localStorage.getItem("token");
+  const user = window.mentorToken.user;
+  console.log(user.id);
   const fetchData = async () => {
     try {
-      const allJobs = await fetch("/api/get-one-company-jobs", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      let payload = {
+        companyId: user.id,
+      };
+
+      if (sortJobStatus) {
+        payload.status = sortJobStatus;
+      }
+
+      if (sortApplicationStatus) {
+        payload.applicationType = sortApplicationStatus;
+      }
+      const allJobs = await fetch(
+        "/api/filtered-jobs?" + new URLSearchParams(payload).toString(),
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (allJobs.ok) {
         const data = await allJobs.json();
-        setJobs(data.jobs);
+        console.log(data);
+        setJobs(data);
       }
     } catch (error) {
       console.log("An error occurred during fetching data:", error);
@@ -96,7 +116,7 @@ const Jobs = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [sortApplicationStatus, sortJobStatus]);
 
   const handleAcceptApplication = async (application) => {
     try {
@@ -196,39 +216,39 @@ const Jobs = () => {
     }
   };
 
-  // const jobStatus = [
-  //   {
-  //     title: "Open",
-  //     value: "OPEN",
-  //   },
-  //   {
-  //     title: "In Progress",
-  //     value: "IN_PROGRESS",
-  //   },
-  //   {
-  //     title: "Rejected",
-  //     value: "REJECTED",
-  //   },
-  //   {
-  //     title: "Done",
-  //     value: "DONE",
-  //   },
-  //   {
-  //     title: "Canceled",
-  //     value: "CANCELED",
-  //   },
-  // ];
+  const jobStatus = [
+    {
+      title: "Open",
+      value: "OPEN",
+    },
+    {
+      title: "In Progress",
+      value: "IN_PROGRESS",
+    },
+    {
+      title: "Rejected",
+      value: "REJECTED",
+    },
+    {
+      title: "Done",
+      value: "DONE",
+    },
+    {
+      title: "Canceled",
+      value: "CANCELED",
+    },
+  ];
 
-  // const applicationType = [
-  //   {
-  //     title: "Open",
-  //     value: "OPEN_FOR_ALL",
-  //   },
-  //   {
-  //     title: "Direct",
-  //     value: "DIRECT",
-  //   },
-  // ];
+  const applicationType = [
+    {
+      title: "Open",
+      value: "OPEN_FOR_ALL",
+    },
+    {
+      title: "Direct",
+      value: "DIRECT",
+    },
+  ];
 
   return (
     <>
@@ -244,58 +264,22 @@ const Jobs = () => {
             }}
           />
         </div>
-        {/* <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <FilterJobs
-              label="Sort By"
-              filter={jobStatus}
-              // selecetdFilterValue={sortFilter}
-              // setSkillsFilter={setSortFilter}
-            />
-            <FilterJobs
-              label="Application Type"
-              // selecetdFilterValue={categoryFilter}
-              // setSkillsFilter={setCategoryFilter}
-              filter={applicationType}
-            />
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          ></div>
-        </div> */}
-        <h1>dodaj filtri tuka</h1>
-        <p>
-          by default neka ima setiran filter na open jobs na moi mozat da mu
-          apliciraat mentor
-        </p>
-        <p>prv ddl filter : open, in progress, [site statusi so gi imame] </p>
-        <p>vtor ddl filter: direct, open for all</p>
-        <JobsCard jobs={jobs} modalFunction={handleToggleJobDetailsModal} />
 
-        {/* <div>
-          {jobs.map((job) => (
-            <div key={job._id}>
-              <h2>{job.title}</h2>
-              <p>{job.description}</p>
-              <Button
-                label="View Details"
-                clickFunction={() => {
-                  handleToggleJobDetailsModal(true, job);
-                }}
-              />
-            </div>
-          ))}
-        </div> */}
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <FilterJobs
+            label="Job Status"
+            selecetdFilterValue={sortJobStatus}
+            setSkillsFilter={setSortJobStatus}
+            filter={jobStatus}
+          />
+          <FilterJobs
+            label="Application Status"
+            selecetdFilterValue={sortApplicationStatus}
+            setSkillsFilter={setSortApplicationStatus}
+            filter={applicationType}
+          />
+        </div>
+        <JobsCard jobs={jobs} modalFunction={handleToggleJobDetailsModal} />
       </Section>
 
       {isViewJobModalActive && (
@@ -395,7 +379,7 @@ const Jobs = () => {
                 <>
                   <Button
                     label="Mark As DONE"
-                    className="startup-jobs-reject-button "
+                    className="startup-jobs-done-button"
                     clickFunction={() => {
                       handleMarkAsDoneJob(selectedJob);
                     }}

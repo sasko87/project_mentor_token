@@ -114,7 +114,14 @@ const MentorInfo = ({ mentorData }) => {
       });
 
       if (update.ok) {
-        const data = await update.json();
+        const updatedData = await update.json();
+        console.log(updatedData.desc);
+        setName(updatedData.name);
+        setEmail(updatedData.email);
+        setPhone(updatedData.phone);
+        setSkills(updatedData.skills);
+        setDesc(updatedData.desc);
+        setPosition(updatedData.position);
         setIsEditActive(false);
       }
     } catch (error) {
@@ -143,9 +150,9 @@ const MentorInfo = ({ mentorData }) => {
               {!isEditActive && (
                 <>
                   <h3 className="mentor-info-name">
-                    {mentorData.name}
+                    {name}
                     <sup style={{ marginLeft: 3 }}>
-                      <a href="http://linkedin.com" target="_blank">
+                      <a href={mentorData.linkedin} target="_blank">
                         <img
                           src={Linkedin}
                           alt="linkedin"
@@ -155,17 +162,17 @@ const MentorInfo = ({ mentorData }) => {
                     </sup>
                   </h3>
 
-                  <p className="mentor-info-possition">{mentorData.position}</p>
+                  <p className="mentor-info-possition">{position}</p>
 
                   <p className="mentor-info-contact">
                     <img src={MailIcon} alt="" />
 
-                    {mentorData.email}
+                    {email}
                   </p>
                   <p className="mentor-info-contact">
                     <img src={PhoneIcon} alt="" />
 
-                    {mentorData.phone}
+                    {phone}
                   </p>
                 </>
               )}
@@ -203,16 +210,16 @@ const MentorInfo = ({ mentorData }) => {
             <div className="mentor-info-about-data-container">
               {user.type === "mentor" && <h4>About</h4>}
               {user.type === "startup" && <h4>About Mentor</h4>}
-              {!isEditActive && mentorData.skills && (
+              {!isEditActive && skills && (
                 <>
                   <p className="mentor-info-skills">
-                    Skills: {mentorData.skills.join(" | ")}
+                    Skills: {skills.join(" | ")}
                   </p>
-                  <p className="mentor-info-desc">{mentorData.desc}</p>
+                  <p className="mentor-info-desc">{desc}</p>
                 </>
               )}
 
-              {isEditActive && mentorData.skills && (
+              {isEditActive && skills && (
                 <>
                   <TagsInput
                     value={skills}
