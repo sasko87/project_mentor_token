@@ -32,6 +32,7 @@ const MentorInfo = ({ mentorData }) => {
   const [desc, setDesc] = useState("");
   const [position, setPosition] = useState("");
   const [category, setCategory] = useState("");
+  const [profileImage, setProfileImage] = useState("");
   const maxLength = 1200;
 
   useEffect(() => {
@@ -41,6 +42,7 @@ const MentorInfo = ({ mentorData }) => {
     setSkills(mentorData.skills);
     setDesc(mentorData.desc);
     setPosition(mentorData.position);
+    setProfileImage(mentorData.profileImage);
   }, [mentorData]);
 
   const handleToggleOfferJobModal = () => {
@@ -138,7 +140,7 @@ const MentorInfo = ({ mentorData }) => {
             <div className="mentor-info-personal-data-container">
               <div style={{ textAlign: "center" }}>
                 <img
-                  src={ProfileImg}
+                  src={profileImage}
                   alt="Profile Image"
                   className="mentor-info-profile-image"
                 />

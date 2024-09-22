@@ -58,13 +58,8 @@ const MyStats = () => {
           {mentorData.jobsInMonth && (
             <ApexChart jobsInMonth={mentorData.jobsInMonth} />
           )}
-
-          {/* <img
-            src={Grafikon}
-            style={{ width: "567.11px", height: "345.03px" }}
-          /> */}
         </div>
-        <div>
+        <div style={{ marginLeft: 30 }}>
           <QuickOverview data={quickOverviewData} />
         </div>
       </div>

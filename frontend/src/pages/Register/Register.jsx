@@ -12,6 +12,7 @@ import userImage from "../../assets/user.png";
 import photoImage from "../../assets/photo.png";
 import defaultProfileImage from "../../lib/ProfileImage";
 import PasswordCondition from "../../components/PasswordCondition/PasswordCondition";
+import { createRef } from "react";
 
 const Register = () => {
   const [type, setType] = useState("mentor");
@@ -31,7 +32,7 @@ const Register = () => {
   const [position, setPosition] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [formErrors, setFormErrors] = useState({});
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState();
   const [preview, setPreview] = useState(null);
   const [passwordHasOneNumberOrSymbol, setPasswordHasOneNumberOrSymbol] =
     useState(false);
@@ -40,8 +41,10 @@ const Register = () => {
   const [containsNameOrEmail, setContainsNameOrEmail] = useState(true);
   const [strongPassword, setStrongPassword] = useState(false);
   const [error, setError] = useState("");
-
+  const [uploadImage, setUploadImage] = useState();
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
+  const fileInput = createRef();
 
   const checkPasswordConditions = (password) => {
     const passwordRegexOneNumberOrSymbol =
@@ -87,6 +90,7 @@ const Register = () => {
   const handleContinueClick = async (e) => {
     e.preventDefault();
     setError("");
+    setSuccessMessage("");
     try {
       const res = await fetch("/api/auth/register-check-existing-account", {
         method: "POST",
@@ -115,6 +119,7 @@ const Register = () => {
   const handleFileUpload = (e) => {
     e.preventDefault();
     const selectedFile = e.target.files[0];
+    setUploadImage(selectedFile);
     const reader = new FileReader();
     reader.readAsDataURL(selectedFile);
     reader.onload = () => {
@@ -147,22 +152,37 @@ const Register = () => {
       return;
     }
 
-    const data = {
-      type,
-      email,
-      password,
-      name: registerName,
-      representative,
-      address,
-      phone,
-      skills,
-      desc,
-      position,
-      linkedin,
-      profileImage: file ? file : defaultProfileImage,
-    };
-
     try {
+      let imagePath = "";
+      let formData = new FormData();
+      formData.set("document", uploadImage);
+      formData.set("email", email);
+      const image = await fetch("/api/upload", {
+        method: "POST",
+        "Content-Type": "multipart/form-data",
+        body: formData,
+      });
+      if (image.ok) {
+        const data = await image.json();
+
+        imagePath = data.localhost;
+      }
+
+      const data = {
+        type,
+        email,
+        password,
+        name: registerName,
+        representative,
+        address,
+        phone,
+        skills,
+        desc,
+        position,
+        linkedin,
+        profileImage: imagePath,
+      };
+
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
@@ -172,8 +192,12 @@ const Register = () => {
       });
 
       if (res.ok) {
-        alert("Registration Successful");
-        navigate("/login");
+        const data = await res.json();
+        console.log(data.message);
+        setSuccessMessage(data.message);
+        setTimeout(() => {
+          navigate("/login");
+        }, 5000);
       } else {
         const errorData = await res.json();
         setFormErrors({ server: errorData.error });
@@ -321,9 +345,11 @@ const Register = () => {
                     )}
                   </label>
                   <input
+                    name="document"
                     type="file"
                     id="file-upload"
                     onChange={handleFileUpload}
+                    ref={fileInput}
                   />
                 </div>
               </div>
@@ -385,6 +411,11 @@ const Register = () => {
               {error && (
                 <p style={{ color: "red", textAlign: "center" }}>{error}</p>
               )}
+              {successMessage && (
+                <p style={{ color: "green", textAlign: "center" }}>
+                  {successMessage}
+                </p>
+              )}
               <Button
                 type="submit"
                 label="Register"
@@ -430,9 +461,11 @@ const Register = () => {
                     )}
                   </label>
                   <input
+                    name="document"
                     type="file"
                     id="file-upload"
                     onChange={handleFileUpload}
+                    ref={fileInput}
                   />
                 </div>
               </div>
@@ -523,6 +556,11 @@ const Register = () => {
                 onChange={(e) => setLinkedin(e.target.value)}
                 value={linkedin}
               />
+              {successMessage && (
+                <p style={{ color: "green", textAlign: "center" }}>
+                  {successMessage}
+                </p>
+              )}
               <Button
                 type="submit"
                 label="Register"

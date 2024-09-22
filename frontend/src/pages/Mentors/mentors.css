@@ -27,6 +27,7 @@
 .startup-mentors-card-image {
   width: 81px;
   height: 81px;
+  border-radius: 50%;
 }
 
 .startup-mentors-card-name {

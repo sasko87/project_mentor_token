@@ -70,7 +70,9 @@ const register = async (req, res) => {
 
     req.body.password = bcrypt.hashSync(password);
     const acc = await createAccount(req.body);
-    return res.status(201).send(acc);
+    return res
+      .status(201)
+      .send({ message: "Your registration has been successfull" });
   } catch (err) {
     return res.status(400).send(err.error);
   }
@@ -128,7 +130,7 @@ const forgotPassword = async (req, res) => {
 
   try {
     await sendMail(user.email, "PASSWORD_RESET", { user, link });
-
+    console.log("register", req.files);
     return res
       .status(200)
       .send({ message: "Password reset link has been sent to your email..." });

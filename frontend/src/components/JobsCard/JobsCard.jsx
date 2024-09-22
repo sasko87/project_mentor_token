@@ -11,13 +11,17 @@ const JobsCard = ({ jobs, modalFunction }) => {
         <div key={job._id} className="jobs-card">
           <div>
             <div className="jobs-card-company-container">
-              <img src={ProfileImg} alt="" />
+              <img src={job.companyId.profileImage} alt="" />
 
               <p>{job.companyId.name}</p>
             </div>
             <div className="jobs-card-job-info">
               <h2>{job.title}</h2>
-              <p>{job.description}</p>
+              <p>
+                {job.description.length > 200
+                  ? job.description.slice(0, 200) + "..."
+                  : job.description}
+              </p>
             </div>
           </div>
 

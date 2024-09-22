@@ -137,6 +137,7 @@
   line-height: 18.15px;
   text-align: left;
   color: #000000;
+  text-transform: capitalize;
 }
 
 .mentor-info-desc {

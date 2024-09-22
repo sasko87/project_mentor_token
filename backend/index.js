@@ -1,6 +1,7 @@
 const express = require("express");
 const { expressjwt: jwt } = require("express-jwt");
 const fileUpload = require("express-fileupload");
+const path = require("path");
 
 const { getSection } = require("./pkg/config");
 const {
@@ -48,13 +49,15 @@ const {
 } = require("./handlers/account.js");
 
 const { sendMessage, sendPasswordResetMail } = require("./handlers/mailer.js");
+const { upload } = require("./handlers/storage");
 
 require("./pkg/db/config");
 
 const app = express();
+app.use(fileUpload());
 app.set("view engine", "ejs");
 app.use(express.json());
-app.use(fileUpload());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(
   "/api",
   jwt({
@@ -67,6 +70,7 @@ app.use(
       "/api/auth/forgot-password",
       "/api/auth/register-check-existing-account",
       "/api/send-message",
+      "/api/upload",
     ],
   })
 );
@@ -78,6 +82,7 @@ app.post(
   "/api/auth/register-check-existing-account",
   registerCheckExistingAccount
 );
+app.post("/api/upload", upload);
 
 app.post("/api/create-new-job", createNewJob);
 app.get("/api/get-one-company-jobs", getOneCompanyJobs);

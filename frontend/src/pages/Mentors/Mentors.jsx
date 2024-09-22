@@ -75,7 +75,10 @@ const Mentors = () => {
           {accountData.slice(0, 3).map((mentor, index) => (
             <div key={index} className="startup-mentors-card">
               <div style={{ width: "10%" }}>
-                <img src={ProfileImg} className="startup-mentors-card-image" />
+                <img
+                  src={mentor.profileImage}
+                  className="startup-mentors-card-image"
+                />
               </div>
               <div style={{ width: "80%" }}>
                 <h3 className="startup-mentors-card-name">{mentor.name}</h3>
@@ -84,7 +87,9 @@ const Mentors = () => {
                   Skills: {mentor.skills.join(" | ")}
                 </p>
                 <p className="startup-mentors-card-description">
-                  {mentor.desc}
+                  {mentor.desc.length > 200
+                    ? mentor.desc.slice(0, 200) + "..."
+                    : mentor.desc}
                 </p>
               </div>
               <Button
