@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Logo from "../assets/logos/MentorToken.svg";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import ArrowLeft from "../assets/admin-icons/arrow-left.png";
 import ArrowRight from "../assets/admin-icons/arrow-right.png";
 import DashboardIcon from "../assets/admin-icons/dashboard-icon.png";
@@ -12,11 +12,14 @@ import StatsIcon from "../assets/admin-icons/stats.png";
 import "./adminPagesLayout.css";
 import { jwtDecode } from "jwt-decode";
 import AdminNav from "../components/AdminNav/AdminNav";
-import Modal from "../components/Modal/Modal";
 import AdminPageHeader from "../components/AdminPageHeader/AdminPageHeader";
-import { useNavigate } from "react-router-dom";
 
 const AdminPages = () => {
+  const { pathname } = useLocation();
+  //scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   //token
   const token = localStorage.getItem("token");
   const navigate = useNavigate();

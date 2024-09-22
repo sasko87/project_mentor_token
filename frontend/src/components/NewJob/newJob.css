@@ -46,6 +46,7 @@
   height: 60px;
   border: 2px solid #d3d3ff;
   border-radius: 9px;
+  overflow-y: scroll;
 }
 
 .create-new-job-form {

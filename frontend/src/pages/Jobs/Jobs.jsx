@@ -293,7 +293,9 @@ const Jobs = () => {
           <div className="startup-job-details-container">
             <div className="startup-job-details">
               <h2>{selectedJob.title}</h2>
-              <p>{selectedJob.description}</p>
+              <p style={{ overflowY: "scroll", maxHeight: "150px" }}>
+                {selectedJob.description}
+              </p>
             </div>
             <div className="startup-job-details-applicants-container">
               {selectedJob.applicationType === "DIRECT" && (

@@ -20,6 +20,7 @@ const NewJob = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const jobCategories = [
+    "Software Developer",
     "Engineering",
     "Marketing",
     "Design",

@@ -350,6 +350,10 @@ const Register = () => {
                     id="file-upload"
                     onChange={handleFileUpload}
                     ref={fileInput}
+                    accept="image/jpeg,
+  image/png,
+  image/pjpeg,
+  image/gif"
                   />
                 </div>
               </div>
@@ -466,6 +470,10 @@ const Register = () => {
                     id="file-upload"
                     onChange={handleFileUpload}
                     ref={fileInput}
+                    accept="image/jpeg,
+  image/png,
+  image/pjpeg,
+  image/gif"
                   />
                 </div>
               </div>

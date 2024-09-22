@@ -119,16 +119,20 @@ const JobFeed = () => {
       value: "Software Developer",
     },
     {
-      title: "Design",
-      value: "Design",
+      title: "Engineering",
+      value: "Engineering",
     },
     {
       title: "Marketing",
       value: "Marketing",
     },
     {
-      title: "Content Writing",
-      value: "Content Writing",
+      title: "Sales",
+      value: "Sales",
+    },
+    {
+      title: "Customer Support",
+      value: "Customer Support",
     },
     {
       title: "Other",

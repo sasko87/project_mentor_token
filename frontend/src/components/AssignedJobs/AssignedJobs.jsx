@@ -21,9 +21,8 @@ const AssignedJobs = ({ tabs, onClickFunction, selectedTab }) => {
         ))}
       </div>
       <hr className="hr-assigned-jobs" />
-
-      <div className="startupCompanyJobs">
-        {tabs && tabs.content ? (
+      {tabs[selectedTab].content.length > 0 ? (
+        <div className="startupCompanyJobs">
           <>
             {tabs[selectedTab].content.slice(0, 10).map((job) => {
               let jobStatusClass = "";
@@ -56,10 +55,10 @@ const AssignedJobs = ({ tabs, onClickFunction, selectedTab }) => {
               );
             })}
           </>
-        ) : (
-          <NoData children={"No jobs to show"} />
-        )}
-      </div>
+        </div>
+      ) : (
+        <NoData>No jobs to show</NoData>
+      )}
     </div>
   );
 };

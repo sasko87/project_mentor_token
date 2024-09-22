@@ -6,8 +6,15 @@ import { GoArrowLeft } from "react-icons/go";
 import { Link } from "react-router-dom";
 import "./authPagesLayout.css";
 import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const AuthPagesLayouts = () => {
+  const { pathname } = useLocation();
+  //scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return (
     <div className="auth-page">
       <div className="auth-page-hero">

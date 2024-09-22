@@ -27,7 +27,7 @@ const BestMentors = ({ mentors, profileImg, icon }) => {
             >
               <div style={{ width: "15%", textAlign: "center" }}>
                 <img
-                  src={profileImg}
+                  src={mentor.profileImage}
                   alt="Profile Image"
                   className="best-mentor-profile-image"
                 />
