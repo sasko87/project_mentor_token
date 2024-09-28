@@ -1,8 +1,16 @@
-import React from "react";
+import { jwtDecode } from "jwt-decode";
 
 const useAuth = () => {
   const token = window.localStorage.getItem("token");
-  return token ? true : false;
+
+  if (!token) return null;
+
+  try {
+    const user = jwtDecode(token);
+    return user;
+  } catch (error) {
+    return null; // If the token is invalid or expired
+  }
 };
 
 export default useAuth;

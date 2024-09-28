@@ -18,15 +18,11 @@ const AuthPagesLayouts = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  const handleBack = (e) => {
-    e.preventDefault();
-    navigate(-1);
-  };
   return (
     <div className="auth-page">
       <div className="auth-page-hero">
         <div className="auth-page-hero-text">
-          <Link onClick={handleBack} className="link-white-button">
+          <Link to="/" className="link-white-button">
             <GoArrowLeft />
             Back
           </Link>
