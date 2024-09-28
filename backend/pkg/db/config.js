@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-const { getSection } = require("../config");
 
-const { MONGO_USERNAME, MONGO_PASSWORD } = getSection("development");
+const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_DB_NAME } = process.env;
 
-const uri = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@cluster0.frwhldk.mongodb.net/mentorToken?retryWrites=true&w=majority&appName=Cluster0`;
+const uri = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@cluster0.frwhldk.mongodb.net/${MONGO_DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`;
 
 async function dbConnect() {
   try {

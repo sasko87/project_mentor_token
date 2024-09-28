@@ -50,3 +50,22 @@
   width: 100%;
   margin: 80px auto;
 }
+
+.component-section-contact {
+  background: url(../../assets/background-images/hero-background.svg);
+  background-position: center;
+  max-width: 1440px;
+  height: 746px;
+  padding: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  border-radius: 20px;
+}
+.component-section-flex {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 20px 0;
+}

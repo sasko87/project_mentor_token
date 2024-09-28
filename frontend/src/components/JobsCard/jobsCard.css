@@ -1,14 +1,14 @@
 .jobs-container {
   display: flex;
-  gap: 40px;
+  gap: 14px;
   flex-wrap: wrap;
   margin-top: 20px;
+  max-width: 1280px;
 }
 
 .jobs-card {
-  max-width: 249px;
-  min-height: 284px;
-  flex: 1 1 249px;
+  flex-wrap: wrap;
+  flex: 0 1 249px;
   padding: 20px;
   background-color: #ffffff;
   border-radius: 20px;
@@ -39,7 +39,6 @@
 }
 
 .jobs-card-job-info h2 {
-  font-family: Manrope;
   font-size: 14.75px;
   font-weight: 600;
   line-height: 20.15px;
@@ -47,7 +46,6 @@
 }
 
 .jobs-card-job-info p {
-  font-family: Manrope;
   font-size: 12.75px;
   font-weight: 400;
   line-height: 17.42px;
@@ -63,7 +61,10 @@
 }
 
 .applicants-profile-image-container {
-  position: relative;
+  /* position: relative; */
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
 }
 
 .applicants-profile-image {
@@ -71,16 +72,8 @@
   height: 31.85px;
   border-radius: 50%;
   border: 1.03px solid #f5f5f9;
-}
-
-.applicants-profile-image-second {
-  position: absolute;
-  left: 25px;
-}
-
-.applicants-profile-image-third {
-  position: absolute;
-  left: 50px;
+  margin-left: -10px;
+  object-fit: cover;
 }
 
 .applicants-number {
@@ -103,4 +96,11 @@
   font-weight: 400;
   line-height: 13.54px;
   text-align: center;
+  align-self: right;
+}
+
+@media screen and (max-width: 1438px) {
+  .jobs-card {
+    flex: 1 1 249px;
+  }
 }

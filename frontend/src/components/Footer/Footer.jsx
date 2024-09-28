@@ -12,7 +12,9 @@ const Footer = () => {
     <footer id="footer">
       <div className="footer-container">
         <div className="footer-logo">
-          <img src={MentorTokenLogo} alt="Mentor Token Logo" />
+          <Link to="/">
+            <img src={MentorTokenLogo} alt="Mentor Token Logo" />
+          </Link>
           <p className="footer-description">
             With Mentor Token, every failure transforms into an opportunity for
             growth.

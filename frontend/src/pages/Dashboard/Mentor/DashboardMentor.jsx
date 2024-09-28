@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import AssignedJobs from "../../../components/AssignedJobs/AssignedJobs";
 import MentorJobs from "../../../components/MentorJobs/MentorJobs";
+import Section from "../../../components/Section/Section";
 
 const DashboardMentor = () => {
   const token = window.localStorage.getItem("token");
@@ -149,14 +150,7 @@ const DashboardMentor = () => {
 
   return (
     <>
-      <section
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          gap: "30px",
-          padding: "20px 0",
-        }}
-      >
+      <Section className="flex">
         <AssignedJobs
           tabs={tabs}
           onClickFunction={handleTabs}
@@ -179,7 +173,7 @@ const DashboardMentor = () => {
             icon="true"
           />
         </div>
-      </section>
+      </Section>
     </>
   );
 };

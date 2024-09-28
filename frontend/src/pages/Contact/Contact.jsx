@@ -5,14 +5,20 @@ import Textarea from "../../components/Textarea/Textarea";
 import Grid from "../../components/Grid/Grid";
 import Column from "../../components/Grid/Column";
 import Button from "../../components/Button/Button";
+import Section from "../../components/Section/Section";
 
 const Contact = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleSendContactMessage = async (e) => {
     e.preventDefault();
+    setError("");
+    setSuccessMessage("");
     const data = {
       fullName,
       email,
@@ -29,15 +35,20 @@ const Contact = () => {
       });
 
       if (response.ok) {
-        const data = response.json();
-        console.log(data);
+        const data = await response.json();
+        setFullName("");
+        setEmail("");
+        setMessage("");
+        setSuccessMessage("Message sent. Thank you for contacting us");
       }
     } catch (error) {
+      const errorData = await response.json();
+      setError(errorData.error);
       console.error("Error:", error);
     }
   };
   return (
-    <section id="contact">
+    <Section className="contact">
       <div>
         <div className="contact-data">
           <h2 className="contact-title">Let’s Talk!</h2>
@@ -84,6 +95,14 @@ const Contact = () => {
                   onChange={(e) => setMessage(e.target.value)}
                 />
               </Column>
+              {error && (
+                <p style={{ color: "red", textAlign: "center" }}>{error}</p>
+              )}
+              {successMessage && (
+                <p style={{ color: "green", textAlign: "center" }}>
+                  {successMessage}
+                </p>
+              )}
               <Column size="12">
                 <Button
                   label="Send Message"
@@ -94,7 +113,7 @@ const Contact = () => {
           </form>
         </div>
       </div>
-    </section>
+    </Section>
   );
 };
 

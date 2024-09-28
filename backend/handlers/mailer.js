@@ -1,16 +1,14 @@
 const mailer = require("../pkg/mailer");
-const { getSection } = require("../pkg/config/index");
+
 const sendMessage = async (req, res) => {
   try {
     const data = req.body;
-    await mailer.sendMail(
-      getSection("development").sender_email,
-      "CONTACT_MESSAGE",
-      data
-    );
-  } catch (err) {
-    console.log(err);
-    return res.status(500).send("Internal server error");
+    await mailer.sendMail(process.env.SENDER_EMAIL, "CONTACT_MESSAGE", data);
+    res.status(200).send({ message: "Message Successfully Sent" });
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ error: "Message not sent. Please try again later" });
   }
 };
 
@@ -23,7 +21,6 @@ const sendPasswordResetMail = async (req, res) => {
     );
     return res.status(201).send(result);
   } catch (err) {
-    console.log(err);
     return res.status(500).send("Internal server error");
   }
 };

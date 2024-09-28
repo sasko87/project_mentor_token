@@ -13,6 +13,7 @@ import photoImage from "../../assets/photo.png";
 import defaultProfileImage from "../../lib/ProfileImage";
 import PasswordCondition from "../../components/PasswordCondition/PasswordCondition";
 import { createRef } from "react";
+import ConfirmPasswordMessage from "../../components/ConfirmPasswordMessage/ConfirmPasswordMessage";
 
 const Register = () => {
   const [type, setType] = useState("mentor");
@@ -193,7 +194,6 @@ const Register = () => {
 
       if (res.ok) {
         const data = await res.json();
-        console.log(data.message);
         setSuccessMessage(data.message);
         setTimeout(() => {
           navigate("/login");
@@ -207,6 +207,12 @@ const Register = () => {
       setFormErrors({
         server: "An error occurred while registering. Please try again.",
       });
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+      e.preventDefault();
     }
   };
 
@@ -258,7 +264,7 @@ const Register = () => {
                 label="Email"
                 type="email"
                 placeholder="E-mail"
-                className="register-input"
+                className="register-input register-input-step-one"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
               />
@@ -266,20 +272,26 @@ const Register = () => {
                 label="Password"
                 type="password"
                 placeholder="Password"
-                className="register-input"
+                className="register-input register-input-step-one"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
               />
-              <Input
-                label="Confirm Password"
-                type="password"
-                placeholder="Confirm Password"
-                className="register-input"
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                value={confirmPassword}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
-              />
+              <div style={{ position: "relative" }}>
+                <Input
+                  label="Confirm Password"
+                  type="password"
+                  placeholder="Confirm Password"
+                  className="register-input register-input-step-one"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  value={confirmPassword}
+                  onFocus={() => setIsFocused(true)}
+                  onBlur={() => setIsFocused(false)}
+                />
+                <ConfirmPasswordMessage
+                  isFocused={isFocused}
+                  passwordsMatch={passwordsMatch}
+                />
+              </div>
               <PasswordCondition
                 isFocused={isFocused}
                 passwordsMatch={passwordsMatch}
@@ -350,10 +362,7 @@ const Register = () => {
                     id="file-upload"
                     onChange={handleFileUpload}
                     ref={fileInput}
-                    accept="image/jpeg,
-  image/png,
-  image/pjpeg,
-  image/gif"
+                    accept="image/jpeg, image/png, image/pjpeg, image/gif"
                   />
                 </div>
               </div>
@@ -413,7 +422,9 @@ const Register = () => {
                 isRequired={true}
               />
               {error && (
-                <p style={{ color: "red", textAlign: "center" }}>{error}</p>
+                <span style={{ color: "red", textAlign: "center" }}>
+                  {error}
+                </span>
               )}
               {successMessage && (
                 <p style={{ color: "green", textAlign: "center" }}>
@@ -470,10 +481,7 @@ const Register = () => {
                     id="file-upload"
                     onChange={handleFileUpload}
                     ref={fileInput}
-                    accept="image/jpeg,
-  image/png,
-  image/pjpeg,
-  image/gif"
+                    accept="image/jpeg, image/png, image/pjpeg, image/gif"
                   />
                 </div>
               </div>
@@ -503,6 +511,7 @@ const Register = () => {
                 onChange={(e) => setPhone(e.target.value)}
                 value={phone}
                 isRequired={true}
+                onKeyDown={handleKeyDown}
               />
               {formErrors.phone && (
                 <p className="error-text">{formErrors.phone}</p>

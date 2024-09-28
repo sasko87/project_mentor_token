@@ -44,19 +44,19 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <div className="component-login">
-        <div className="login-text">
+      <div className="forgot-password-container">
+        <div className="forgot-password-text">
           <h2>Reset your password </h2>
           <p>Enter your email to reset your password</p>
         </div>
-        <form onSubmit={handleForgotPassword} className="login-form">
+        <form onSubmit={handleForgotPassword} className="forgot-password-form">
           <Input
             label="Email"
             labelId="email"
             id="email"
             type="email"
             placeholder="E-mail"
-            className="login-input"
+            className="forgot-password-input"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
@@ -72,7 +72,7 @@ const ForgotPassword = () => {
           <Button
             type="submit"
             label="Reset Password"
-            className="login-button"
+            className="forgot-password-button"
           />
         </form>
 

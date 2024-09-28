@@ -13,7 +13,7 @@ const {
   accountById,
   setNewPassword,
 } = require("../pkg/account");
-const { getSection } = require("../pkg/config/index");
+
 const { sendMail, sendPasswordResetMail } = require("../pkg/mailer");
 
 const login = async (req, res) => {
@@ -39,7 +39,7 @@ const login = async (req, res) => {
       exp: new Date().getTime() / 1000 + 7 * 24 * 60 * 60,
     };
 
-    const token = jwt.sign(payload, getSection("development").jwt_secret);
+    const token = jwt.sign(payload, process.env.JWT_SECRET);
     res.status(200).send({ token });
   } catch (err) {
     res.status(500).send("Internal Server Error");
@@ -83,7 +83,7 @@ const refreshToken = async (req, res) => {
     ...req.auth,
     exp: (new Date().getTime() / 1000) * 7 * 24 * 60 * 60,
   };
-  const token = jwt.sign(payload, getSection["development"].jwt_secret);
+  const token = jwt.sign(payload, process.env.JWT_SECRET);
   res.status(200).send({ token });
 };
 
@@ -117,7 +117,7 @@ const forgotPassword = async (req, res) => {
       .send({ error: "User with this email is not registered!" });
   }
 
-  const secret = getSection("development").jwt_secret;
+  const secret = process.env.JWT_SECRET;
 
   const payload = {
     email: user.email,
@@ -130,7 +130,6 @@ const forgotPassword = async (req, res) => {
 
   try {
     await sendMail(user.email, "PASSWORD_RESET", { user, link });
-    console.log("register", req.files);
     return res
       .status(200)
       .send({ message: "Password reset link has been sent to your email..." });
@@ -148,7 +147,7 @@ const resetPassTemplate = async (req, res) => {
     return res.status(400).send("User not registered!");
   }
 
-  const secret = getSection("development").jwt_secret + user.password;
+  const secret = process.env.JWT_SECRET + user.password;
   console.log("resetpasstemlata", user);
 
   try {
@@ -165,7 +164,7 @@ const resetPassword = async (req, res) => {
 
   const hashedPass = bcrypt.hashSync(password);
   const user = await accountById(id);
-  const secret = getSection("development").jwt_secret;
+  const secret = process.env.JWT_SECRET;
 
   try {
     const payload = jwt.verify(token, secret);

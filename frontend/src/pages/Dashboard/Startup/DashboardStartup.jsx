@@ -7,6 +7,7 @@ import ArrowUp from "../../../assets/admin-icons/arrow-up-side.png";
 import ProfileImg from "../../../assets/Ellipse 3.png";
 import ApexChart from "../../../components/ApexChart/ApexChart";
 import Title from "../../../components/Title/Title";
+import Section from "../../../components/Section/Section";
 
 const DashboardStartup = () => {
   const token = window.localStorage.getItem("token");
@@ -84,14 +85,7 @@ const DashboardStartup = () => {
 
   return (
     <>
-      <section
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          gap: "30px",
-          padding: "20px 0",
-        }}
-      >
+      <Section className="flex">
         <AssignedJobs
           tabs={tabs}
           onClickFunction={handleTabs}
@@ -103,12 +97,24 @@ const DashboardStartup = () => {
             profileImg={ProfileImg}
             icon={ArrowUp}
           />
-          <div style={{ maxWidth: 567, width: "100%" }}>
+          <div style={{ marginTop: 25 }}>
             <Title>OVERALL STATISTICKS</Title>
+          </div>
+
+          <div
+            style={{
+              maxWidth: 567,
+              width: "100%",
+              marginTop: 25,
+              backgroundColor: "white",
+              borderRadius: 23.8,
+              padding: 20,
+            }}
+          >
             <ApexChart jobsInMonth={jobsInMonth} />
           </div>
         </div>
-      </section>
+      </Section>
     </>
   );
 };

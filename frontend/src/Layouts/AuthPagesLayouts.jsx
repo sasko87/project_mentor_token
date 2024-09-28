@@ -8,18 +8,24 @@ import "./authPagesLayout.css";
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AuthPagesLayouts = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   //scroll to top
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+  const handleBack = (e) => {
+    e.preventDefault();
+    navigate(-1);
+  };
   return (
     <div className="auth-page">
       <div className="auth-page-hero">
         <div className="auth-page-hero-text">
-          <Link to="/" className="link-white-button">
+          <Link onClick={handleBack} className="link-white-button">
             <GoArrowLeft />
             Back
           </Link>

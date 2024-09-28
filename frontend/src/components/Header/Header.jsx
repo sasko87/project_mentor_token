@@ -7,16 +7,17 @@ import { Link, useLocation } from "react-router-dom";
 const Header = () => {
   const token = window.localStorage.getItem("token");
   const location = useLocation();
-  const handleLogout = (e) => {
-    e.preventDefault();
+  const handleLogout = () => {
     window.localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/");
   };
   return (
     <header>
       <nav className="main-nav">
         <div>
-          <img src={Logo} alt="" />
+          <Link to="/">
+            <img src={Logo} alt="Mentor Token Logo" />
+          </Link>
         </div>
         <div className="links">
           <Link
@@ -61,11 +62,7 @@ const Header = () => {
             </Link>
           )}
           {token ? (
-            <Link
-              to="/login"
-              className="link-default"
-              onClick={() => handleLogout()}
-            >
+            <Link to="/" className="link-default" onClick={handleLogout}>
               Logout
             </Link>
           ) : (

@@ -32,13 +32,6 @@ const AdminPages = () => {
   //postavi go user spored window objekt
   const user = window.mentorToken.user;
 
-  if (user.exp > new Date().getTime()) {
-    window.localStorage.removeItem("token");
-    setTimeout(() => {
-      navigate("/login");
-    }, 0);
-  }
-
   const [isMenuVisible, setIsMenuVisible] = useState(true);
 
   const toggleMenuVisibility = () => {

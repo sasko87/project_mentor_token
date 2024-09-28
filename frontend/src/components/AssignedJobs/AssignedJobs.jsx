@@ -2,8 +2,16 @@ import React from "react";
 import "./assignedJobs.css";
 import Title from "../Title/Title";
 import NoData from "../NoData/NoData";
+import { useNavigate } from "react-router-dom";
 
 const AssignedJobs = ({ tabs, onClickFunction, selectedTab }) => {
+  const navigate = useNavigate();
+  const user = window.mentorToken.user;
+  const handleViewJob = (id) => {
+    user.type === "startup"
+      ? navigate(`/jobs?` + new URLSearchParams({ _id: id }).toString())
+      : navigate(`/jobfeed?` + new URLSearchParams({ _id: id }).toString());
+  };
   return (
     <div className="startup-jobs">
       <Title>Assigned Jobs</Title>
@@ -44,7 +52,12 @@ const AssignedJobs = ({ tabs, onClickFunction, selectedTab }) => {
               return (
                 <div key={job._id} className="startup-company-job">
                   <div className="job-title-container">
-                    <h3 className="job-title">{job.title}</h3>
+                    <h3
+                      className="job-title"
+                      onClick={() => handleViewJob(job._id)}
+                    >
+                      {job.title}
+                    </h3>
                   </div>
                   <div className="job-status-container">
                     <p className={`job-status ${jobStatusClass}`}>

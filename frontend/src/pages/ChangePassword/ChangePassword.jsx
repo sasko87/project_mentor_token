@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
-import "./resetPassword.css";
+import "./changePassword.css";
 import { jwtDecode } from "jwt-decode";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+
 import PasswordCondition from "../../components/PasswordCondition/PasswordCondition";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ConfirmPasswordMessage from "../../components/ConfirmPasswordMessage/ConfirmPasswordMessage";
 
-const ResetPassword = () => {
-  const { id, token } = useParams();
+const ChangePassword = () => {
+  const [oldPassword, setOldPassword] = useState("");
+  const [samePasswords, setsSamePasswords] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordsMatch, setPasswordsMatch] = useState(false);
@@ -26,9 +28,8 @@ const ResetPassword = () => {
   const [containsNameOrEmail, setContainsNameOrEmail] = useState(true);
   const [strongPassword, setStrongPassword] = useState(false);
   const navigate = useNavigate();
-
-  const user = jwtDecode(token);
-  console.log(user);
+  const token = window.localStorage.getItem("token");
+  const user = window.mentorToken.user;
 
   const checkPasswordConditions = (newPassword) => {
     const passwordRegexOneNumberOrSymbol =
@@ -50,6 +51,8 @@ const ResetPassword = () => {
 
     setPasswordsMatch(newPassword === confirmPassword);
 
+    setsSamePasswords(oldPassword === newPassword);
+
     setStrongPassword(
       passwordHasEightCharacters && passwordHasOneNumberOrSymbol
     );
@@ -58,7 +61,7 @@ const ResetPassword = () => {
   useEffect(() => {
     checkPasswordConditions(newPassword);
 
-    if (strongPassword && passwordsMatch) {
+    if (strongPassword && passwordsMatch && !samePasswords) {
       setDisableButton(false);
     } else {
       setDisableButton(true);
@@ -70,6 +73,7 @@ const ResetPassword = () => {
     passwordsMatch,
     passwordHasEightCharacters,
     passwordHasOneNumberOrSymbol,
+    samePasswords,
   ]);
 
   const handleResetPassword = async (e) => {
@@ -77,12 +81,11 @@ const ResetPassword = () => {
     setError("");
     setSuccessMessage("");
     const data = {
-      password: newPassword,
-      id,
-      token,
+      oldPassword,
+      newPassword,
     };
     try {
-      const res = await fetch(`/api/reset-password/${id}/${token}`, {
+      const res = await fetch("/api/auth/change-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -94,6 +97,7 @@ const ResetPassword = () => {
       if (res.ok) {
         const data = await res.json();
         setSuccessMessage(data.message);
+        setOldPassword("");
         setNewPassword("");
         setConfirmPassword("");
         setTimeout(() => {
@@ -114,22 +118,47 @@ const ResetPassword = () => {
 
   return (
     <>
-      <div className="reset-password-container">
-        <div className="reset-password-text">
-          <h2>Reset your password </h2>
+      <div className="change-password-container">
+        <div className="change-password-text">
+          <h2>Change your password </h2>
           <p>Enter your new password</p>
         </div>
-        <form onSubmit={handleResetPassword} className="reset-password-form">
+        <form onSubmit={handleResetPassword} className="change-password-form">
           <Input
-            label="New Password"
-            labelId="new-password"
-            id="new-password"
+            label="Old Password"
+            labelId="olg-password"
+            id="old-password"
             type="password"
-            placeholder="New Password"
-            className="reset-password-input"
-            onChange={(e) => setNewPassword(e.target.value)}
-            value={newPassword}
+            placeholder="Old Password"
+            className="change-password-input"
+            onChange={(e) => setOldPassword(e.target.value)}
+            value={oldPassword}
           />
+          <div style={{ position: "relative" }}>
+            <Input
+              label="New Password"
+              labelId="new-password"
+              id="new-password"
+              type="password"
+              placeholder="New Password"
+              className="change-password-input"
+              onChange={(e) => setNewPassword(e.target.value)}
+              value={newPassword}
+            />
+            {isFocused && samePasswords && (
+              <small style={{ position: "absolute", top: 87 }}>
+                <span
+                  style={{
+                    color: "red",
+
+                    marginTop: 0,
+                  }}
+                >
+                  * Old password cannot be the same as new password
+                </span>
+              </small>
+            )}
+          </div>
           <div style={{ position: "relative" }}>
             <Input
               label="Confirm Password"
@@ -137,7 +166,7 @@ const ResetPassword = () => {
               id="confirm-password"
               type="password"
               placeholder="Confirm Password"
-              className="reset-password-input"
+              className="change-password-input"
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
               onFocus={() => setIsFocused(true)}
@@ -155,6 +184,7 @@ const ResetPassword = () => {
             passwordHasEightCharacters={strongPassword}
             passwordHasOneNumberOrSymbol={passwordHasOneNumberOrSymbol}
             containsNameOrEmail={containsNameOrEmail}
+            confirmPassword={confirmPassword}
           />
           {error && (
             <p style={{ color: "red", textAlign: "center" }}>{error}</p>
@@ -168,12 +198,19 @@ const ResetPassword = () => {
             disabled={disableButton}
             type="submit"
             label="Reset Password"
-            className="reset-password-button"
+            className="change-password-button"
           />
+
+          <p className="login-register-account">
+            Don't know your password?
+            <Link to="/forgot-password" className="link-login-register">
+              Forgot Password
+            </Link>
+          </p>
         </form>
       </div>
     </>
   );
 };
 
-export default ResetPassword;
+export default ChangePassword;

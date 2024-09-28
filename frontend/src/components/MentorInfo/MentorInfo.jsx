@@ -74,6 +74,7 @@ const MentorInfo = ({ mentorData }) => {
         setJobDescription("");
         setCategory("");
         handleToggleOfferJobModal();
+        setSkillsRequired("");
       } else {
         const errorData = await res.json();
         console.log(errorData);
@@ -299,7 +300,7 @@ const MentorInfo = ({ mentorData }) => {
               setJobDescription={setJobDescription}
               skillsRequired={skillsRequired}
               setSkillsRequired={setSkillsRequired}
-              clickFunction={(e) => handleCreateNewJobSubmit(e)}
+              clickFunction={handleCreateNewJobSubmit}
               category={category}
               setCategory={setCategory}
             />

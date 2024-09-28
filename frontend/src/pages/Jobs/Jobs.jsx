@@ -9,6 +9,7 @@ import Textarea from "../../components/Textarea/Textarea";
 import Title from "../../components/Title/Title";
 import NewJob from "../../components/NewJob/NewJob";
 import FilterJobs from "../../components/FilterJobs/FilterJobs";
+import { useLocation } from "react-router-dom";
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -20,24 +21,35 @@ const Jobs = () => {
   const [category, setCategory] = useState("");
   const [selectedJob, setSelectedJob] = useState({});
   const [sortJobStatus, setSortJobStatus] = useState("OPEN");
+  const [jobById, setJobById] = useState();
+
   const [sortApplicationStatus, setSortApplicationStatus] =
     useState("OPEN_FOR_ALL");
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const id = queryParams.get("_id");
 
   const token = window.localStorage.getItem("token");
   const user = window.mentorToken.user;
-  console.log(user.id);
+
   const fetchData = async () => {
     try {
       let payload = {
         companyId: user.id,
       };
-
       if (sortJobStatus) {
         payload.status = sortJobStatus;
       }
 
       if (sortApplicationStatus) {
         payload.applicationType = sortApplicationStatus;
+      }
+      console.log(id);
+
+      if (id) {
+        payload._id = id;
+        setSortJobStatus("");
+        setSortApplicationStatus("");
       }
       const allJobs = await fetch(
         "/api/filtered-jobs?" + new URLSearchParams(payload).toString(),
@@ -293,19 +305,21 @@ const Jobs = () => {
           <div className="startup-job-details-container">
             <div className="startup-job-details">
               <h2>{selectedJob.title}</h2>
-              <p style={{ overflowY: "scroll", maxHeight: "150px" }}>
+              <p style={{ overflowY: "auto", maxHeight: "150px" }}>
                 {selectedJob.description}
               </p>
             </div>
             <div className="startup-job-details-applicants-container">
               {selectedJob.applicationType === "DIRECT" && (
-                <h1>this is a direct job</h1>
+                <p style={{ position: "absolute", top: 5, right: 60 }}>
+                  direct job
+                </p>
               )}
               <h2>Applicants:</h2>
               {selectedJob.applications.length === 0 && <>no data found</>}
               {selectedJob.applications.length > 0 && (
                 <>
-                  <div style={{ overflowY: "auto", maxHeight: "130px" }}>
+                  <div style={{ overflowY: "auto", maxHeight: "80px" }}>
                     {selectedJob.applications.map((application) => {
                       return (
                         <div
@@ -320,6 +334,11 @@ const Jobs = () => {
                               marginRight: "10px",
                             }}
                           >
+                            <img
+                              src={application.mentorId.profileImage}
+                              alt=""
+                              className="jobs-modal-applicants-profile-image"
+                            />
                             <p> {application.mentorId.name}</p>
                             <p> {application.status}</p>
                           </div>

@@ -13,6 +13,10 @@ const MentorProfile = () => {
   const [mentorData, setMentorData] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
   const [jobs, setJobs] = useState([]);
+  const [pendingDirectJobOffers, setPendingDirectJobOffers] = useState([]);
+  const [doneJobs, setDoneJobs] = useState([]);
+  const [canceledJobs, setCanceledJobs] = useState([]);
+  const [inProgressJobs, setInProgressJobs] = useState([]);
 
   const fetchData = async () => {
     let payload = {
@@ -84,13 +88,18 @@ const MentorProfile = () => {
   const handleTabs = (index) => {
     setSelectedTab(index);
   };
-  const pendingDirectJobOffers = jobs.filter(
-    (job) => job.applicationType === "DIRECT" && job.status === "OPEN"
-  );
 
-  const doneJobs = jobs.filter((job) => job.status === "DONE");
-  const canceledJobs = jobs.filter((job) => job.status === "CANCELED");
-  const inProgressJobs = jobs.filter((job) => job.status === "IN_PROGRESS");
+  useEffect(() => {
+    setPendingDirectJobOffers(
+      jobs.filter(
+        (job) => job.applicationType === "DIRECT" && job.status === "OPEN"
+      )
+    );
+
+    setDoneJobs(jobs.filter((job) => job.status === "DONE"));
+    setCanceledJobs(jobs.filter((job) => job.status === "CANCELED"));
+    setInProgressJobs(jobs.filter((job) => job.status === "IN_PROGRESS"));
+  }, [jobs]);
   const tabs = [
     {
       tab: "All",
@@ -109,6 +118,41 @@ const MentorProfile = () => {
       content: inProgressJobs,
     },
   ];
+
+  const handleCreateNewJobSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const data = {
+        title: jobTitle,
+        description: jobDescription,
+        mentorId: mentorData._id,
+        category: category,
+      };
+      const res = await fetch("/api/create-direct-job", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setJobTitle("");
+        setJobDescription("");
+        setCategory("");
+        handleToggleOfferJobModal();
+        setSkillsRequired("");
+      } else {
+        const errorData = await res.json();
+        console.log(errorData);
+      }
+    } catch (error) {
+      console.error("An error occurred during fetching data:", error);
+    }
+  };
   return (
     <>
       <Section>

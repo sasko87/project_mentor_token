@@ -10,7 +10,7 @@ const JobCardRow = ({ jobs, modalFunction }) => {
         <div key={job._id} className="job-card-row">
           <div className="job-card-row-content">
             <div className="job-card-row-company-container">
-              <img src={ProfileImg} alt="" />
+              <img src={job.companyId.profileImage} alt="" />
               <p>{job.companyId.name}</p>
             </div>
             <div className="job-card-row-job-info">

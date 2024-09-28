@@ -79,6 +79,11 @@ const Login = () => {
             Register
           </Link>
         </p>
+        <p className="login-register-account">
+          <Link to="/forgot-password" className="link-login-register">
+            Forgot Password
+          </Link>
+        </p>
       </div>
     </>
   );

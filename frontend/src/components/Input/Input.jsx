@@ -16,6 +16,7 @@ const Input = ({
   labelId,
   label,
   isRequired = false,
+  onKeyDown,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -53,6 +54,7 @@ const Input = ({
         id={id}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        onKeyDown={onKeyDown}
       ></input>
     </div>
   );

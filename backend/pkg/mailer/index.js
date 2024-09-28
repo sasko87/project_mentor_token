@@ -1,7 +1,6 @@
 const fs = require("fs");
 const Mailgun = require("mailgun.js");
 const mailgun = new Mailgun(FormData);
-const { getSection } = require("../../pkg/config");
 
 const readTemplate = async (file) => {
   return new Promise((success, fail) => {
@@ -27,7 +26,7 @@ const sendMail = async (to, type, data) => {
   console.log("to", to, type, data);
   const mg = mailgun.client({
     username: "api",
-    key: getSection("development").api_key,
+    key: process.env.API_KEY,
   });
 
   let title = mailTemplates[type].title;
@@ -40,17 +39,14 @@ const sendMail = async (to, type, data) => {
   content = content.replace("{{link}}", data.link);
 
   let options = {
-    from: getSection("development").sender_email,
+    from: process.env.SENDER_EMAIL,
     to: to,
     subject: title,
     html: content,
   };
 
   try {
-    const res = await mg.messages.create(
-      getSection("development").domain,
-      options
-    );
+    const res = await mg.messages.create(process.env.DOMAIN, options);
     return res;
   } catch (err) {
     console.log("err", err);

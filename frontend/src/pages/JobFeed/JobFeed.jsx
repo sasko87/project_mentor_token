@@ -116,23 +116,23 @@ const JobFeed = () => {
     },
     {
       title: "Software Developer",
-      value: "Software Developer",
+      value: "SOFTWARE DEVELOPER",
     },
     {
       title: "Engineering",
-      value: "Engineering",
+      value: "ENGINEERING",
     },
     {
       title: "Marketing",
-      value: "Marketing",
+      value: "MARKETING",
     },
     {
       title: "Sales",
-      value: "Sales",
+      value: "SALES",
     },
     {
       title: "Customer Support",
-      value: "Customer Support",
+      value: "CUSTOMER SUPPORT",
     },
     {
       title: "Other",
@@ -262,8 +262,6 @@ const JobFeed = () => {
           />
         )}
 
-        {allJobs.length === 0 && <NoData children={"No Jobs avaliabe"} />}
-
         {isViewJobModalActive && (
           <Modal
             closeModal={() => {
@@ -275,11 +273,11 @@ const JobFeed = () => {
             <div className="job-details-container">
               <div>
                 <div className="job-details-company-info">
-                  <img src={ProfileImg} alt="" />
+                  <img src={selectedJob.companyId.profileImage} alt="" />
                   <p>{selectedJob.companyId.name}</p>
                 </div>
                 <div>
-                  <h3 className="job-details-title">New job offer</h3>
+                  <h3 className="job-details-title">{selectedJob.title}</h3>
                   <p className="job-details-description">
                     {selectedJob.description}
                   </p>

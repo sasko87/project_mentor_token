@@ -20,6 +20,7 @@ import MyStats from "./pages/MyStats/MyStats.jsx";
 import MentorProfile from "./pages/MentorProfile/MentorProfile.jsx";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.jsx";
+import ChangePassword from "./pages/ChangePassword/ChangePassword.jsx";
 
 const router = createBrowserRouter([
   {
@@ -55,10 +56,6 @@ const router = createBrowserRouter([
         path: "/forgot-password",
         element: <ForgotPassword />,
       },
-      {
-        path: "/reset-password/:id/:token",
-        element: <ResetPassword />,
-      },
     ],
   },
 
@@ -91,6 +88,20 @@ const router = createBrowserRouter([
           {
             path: "/mentors/:id",
             element: <MentorProfile />,
+          },
+        ],
+      },
+      {
+        element: <AuthPagesLayouts />,
+        children: [
+          {
+            path: "/reset-password/:id/:token",
+            element: <ResetPassword />,
+          },
+
+          {
+            path: "/change-password",
+            element: <ChangePassword />,
           },
         ],
       },

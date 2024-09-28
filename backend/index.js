@@ -1,9 +1,10 @@
 const express = require("express");
+require("dotenv").config();
+require("./pkg/db/config");
 const { expressjwt: jwt } = require("express-jwt");
 const fileUpload = require("express-fileupload");
 const path = require("path");
 
-const { getSection } = require("./pkg/config");
 const {
   login,
   register,
@@ -51,8 +52,6 @@ const {
 const { sendMessage, sendPasswordResetMail } = require("./handlers/mailer.js");
 const { upload } = require("./handlers/storage");
 
-require("./pkg/db/config");
-
 const app = express();
 app.use(fileUpload());
 app.set("view engine", "ejs");
@@ -61,7 +60,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(
   "/api",
   jwt({
-    secret: getSection("development").jwt_secret,
+    secret: process.env.JWT_SECRET,
     algorithms: ["HS256"],
   }).unless({
     path: [
@@ -117,7 +116,8 @@ app.post("/api/auth/forgot-password", forgotPassword);
 app.post("/api/reset-password/:id/:token", resetPassword);
 // app.get("/api/reset-password/:id/:token", resetPassTemplate);
 app.post("/api/reset-pass", sendPasswordResetMail);
+app.post("/api/auth/change-password", changePassword);
 
-app.listen(getSection("development").port, () =>
-  console.log(`Server started at port ${getSection("development").port}`)
+app.listen(process.env.PORT || 10000, () =>
+  console.log(`Server started at port ${process.env.PORT}`)
 );

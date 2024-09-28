@@ -12,7 +12,7 @@ const PasswordCondition = ({
 }) => {
   return (
     <>
-      {isFocused && (
+      {/* {isFocused && (
         <small>
           {passwordsMatch ? (
             <span
@@ -28,7 +28,6 @@ const PasswordCondition = ({
             <span
               style={{
                 color: "red",
-
                 marginTop: 0,
               }}
             >
@@ -36,7 +35,7 @@ const PasswordCondition = ({
             </span>
           )}
         </small>
-      )}
+      )} */}
 
       <div>
         <p className="password-check">
