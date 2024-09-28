@@ -24,6 +24,7 @@ import ForgotPassword from "./pages/ForgotPassword/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.jsx";
 import ChangePassword from "./pages/ChangePassword/ChangePassword.jsx";
 import Unauthorized from "./components/Unauthorized/Unauthorized.jsx";
+import ErrorPage from "./pages/ErrorPage/ErrorPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -118,6 +119,10 @@ const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
 ]);
 

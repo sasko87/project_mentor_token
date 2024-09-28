@@ -30,7 +30,7 @@
 }
 
 .component-section-partners {
-  margin: 70px auto;
+  margin: 70px auto 120px auto;
   max-width: 1400px;
 }
 
@@ -68,4 +68,67 @@
   justify-content: space-between;
   gap: 30px;
   padding: 20px 0;
+}
+
+.component-section-error-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  max-width: 1440px;
+  width: 100%;
+}
+
+@media only screen and (max-width: 1200px) {
+  .component-section-lp-hero {
+    height: 800px;
+  }
+  .component-section-lp-hero h2 {
+    font-size: 40px;
+  }
+
+  .component-section-lp-hero p {
+    font-size: 13px;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .component-section-lp-hero {
+    height: 700px;
+  }
+  .component-section-lp-hero h2 {
+    font-size: 28px;
+    line-height: 40px;
+  }
+
+  .component-section-lp-hero p {
+    font-size: 13px;
+  }
+
+  .component-section-features {
+    height: fit-content;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .component-section-lp-hero {
+    height: fit-content;
+    flex-direction: column;
+    padding: 30px 50px;
+  }
+  .component-section-lp-hero h2 {
+    font-size: 28px;
+    line-height: 40px;
+  }
+
+  .component-section-lp-hero p {
+    font-size: 13px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .component-section-lp-hero {
+    height: fit-content;
+  }
 }

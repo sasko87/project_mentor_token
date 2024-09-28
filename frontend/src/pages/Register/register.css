@@ -157,6 +157,11 @@
   color: red;
   font-size: 10px;
   margin-top: 0;
+  text-align: left;
+}
+
+.error-text::before {
+  content: "*";
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -165,4 +170,17 @@ input[type="number"]::-webkit-outer-spin-button {
   -moz-appearance: none;
   appearance: none;
   margin: 0;
+}
+
+.terms-container {
+  margin-top: 10px;
+  text-align: center;
+  color: #9c9aa5;
+}
+
+.terms-container label {
+  margin-left: 5px;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 13.66px;
 }

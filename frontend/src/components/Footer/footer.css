@@ -67,5 +67,47 @@
   font-weight: 400;
   line-height: 24px;
   text-align: left;
-  width: 1400px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .copyright {
+    padding: 20px 0;
+    margin: auto;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .footer-subcontainer-pages {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .footer-subcontainer-contact {
+    display: none;
+  }
+  .footer-container {
+    justify-content: space-around;
+  }
+  .copyright {
+    margin-left: 25px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .footer-container {
+    flex-direction: column;
+    width: fit-content;
+  }
+  .footer-subcontainer-social {
+    max-width: 307px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+  #footer {
+    height: fit-content;
+  }
+  .copyright {
+    text-align: center;
+  }
 }

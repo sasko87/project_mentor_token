@@ -20,7 +20,7 @@ const Footer = () => {
             growth.
           </p>
         </div>
-        <div className="footer-subcontainer">
+        <div className="footer-subcontainer footer-subcontainer-pages">
           <h5 className="footer-title">Pages</h5>
           <div className="footer-link-container">
             <Link
@@ -45,12 +45,12 @@ const Footer = () => {
             </Link>
           </div>
         </div>
-        <div className="footer-subcontainer">
+        <div className="footer-subcontainer footer-subcontainer-contact">
           <h5 className="footer-title">Contact</h5>
           <p className="footer-info">info@mentortoken.com</p>
           <p className="footer-info">+ ( 389 ) 123 456 789</p>
         </div>
-        <div className="footer-subcontainer">
+        <div className="footer-subcontainer footer-subcontainer-social">
           <h5 className="footer-title">Follow Us</h5>
           <p>
             <Link

@@ -17,3 +17,26 @@
   max-height: 699.5px;
   border-bottom-right-radius: 20px;
 }
+
+@media only screen and (max-width: 992px) {
+  .hero-computer-image {
+    width: 75%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .hero-computer-image {
+    position: static;
+    max-width: 500px;
+    width: 100%;
+  }
+  .hero-left-container {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .hero-right-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

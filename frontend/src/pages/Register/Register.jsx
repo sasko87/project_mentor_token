@@ -9,6 +9,7 @@ import { HiOutlineXMark } from "react-icons/hi2";
 import { HiOutlineCheck } from "react-icons/hi2";
 import FormValidation from "../../hooks/FormValidation";
 import userImage from "../../assets/user.png";
+import startupImage from "../../assets/startup-register-image.png";
 import photoImage from "../../assets/photo.png";
 import defaultProfileImage from "../../lib/ProfileImage";
 import PasswordCondition from "../../components/PasswordCondition/PasswordCondition";
@@ -41,6 +42,7 @@ const Register = () => {
     useState(false);
   const [containsNameOrEmail, setContainsNameOrEmail] = useState(true);
   const [strongPassword, setStrongPassword] = useState(false);
+  const [termsChecked, setTermsChecked] = useState(false);
   const [error, setError] = useState("");
   const [uploadImage, setUploadImage] = useState();
   const [successMessage, setSuccessMessage] = useState("");
@@ -147,6 +149,7 @@ const Register = () => {
       skills,
       desc,
       position,
+      termsChecked,
     });
 
     if (!isFormValid) {
@@ -347,7 +350,7 @@ const Register = () => {
                       <img src={preview} className="uploaded-image-preview" />
                     ) : (
                       <>
-                        <img src={userImage} alt="User Icon" />
+                        <img src={startupImage} alt="User Icon" />
                         <img
                           src={photoImage}
                           alt="Camera Icon"
@@ -419,7 +422,7 @@ const Register = () => {
                 type="email"
                 placeholder="Enter email address to invite mentor"
                 className="register-input"
-                isRequired={true}
+                isRequired={false}
               />
               {error && (
                 <span style={{ color: "red", textAlign: "center" }}>
@@ -436,6 +439,27 @@ const Register = () => {
                 label="Register"
                 className="continue-button"
               />
+              <div className="terms-container">
+                <input
+                  type="checkbox"
+                  id="terms"
+                  name="terms"
+                  value={termsChecked}
+                  onClick={(e) => setTermsChecked(e.target.value)}
+                />
+                <label htmlFor="terms">
+                  By signing up to create an account I accept Company’s{" "}
+                  <Link
+                    className="link-login-register"
+                    style={{ fontSize: 10 }}
+                  >
+                    Terms of use & Privacy Policy.
+                  </Link>
+                </label>
+                {formErrors.termsChecked && (
+                  <p className="error-text">{formErrors.termsChecked}</p>
+                )}
+              </div>
             </form>
           </div>
         </>

@@ -12,13 +12,39 @@ header {
   justify-content: space-between;
 }
 
-/* .main-nav div {
-  width: 33.3%;
-} */
-
 .links {
   display: flex;
   gap: 38px;
   align-items: center;
   justify-content: center;
+}
+
+.mobile-nav {
+  display: none;
+  cursor: pointer;
+}
+
+.mobile-links {
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.link-register {
+  margin-top: 25px;
+}
+
+@media only screen and (max-width: 968px) {
+  .links {
+    display: none;
+  }
+  .mobile-nav {
+    display: block;
+  }
+  header {
+    padding: 32px 50px;
+  }
 }

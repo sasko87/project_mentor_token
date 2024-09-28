@@ -1,6 +1,6 @@
 import React from "react";
 import Section from "../Section/Section";
-import RocketImg from "../../assets/rocket.svg";
+import RocketImg from "../../assets/rocket-small.png";
 import "./features.css";
 import Card from "../Card/Card";
 import cardData from "../../cardData.js";

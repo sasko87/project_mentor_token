@@ -23,14 +23,24 @@ body {
   color: #232323;
 }
 
-.link-default:hover {
+.link-default:hover,
+.link-mobile-nav:hover {
   color: #9092f5;
 }
 
-.link-default.active {
+.link-default.active,
+.link-mobile-nav.active {
   color: #696cff;
 }
 
+.link-mobile-nav {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: white;
+}
 .link-blue-button {
   font-size: 16px;
   border: none;

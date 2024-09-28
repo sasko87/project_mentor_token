@@ -1,18 +1,8 @@
-#partners {
-  margin: 70px auto;
-  max-width: 1400px;
-}
-
-.partners-container {
-  max-width: 248px;
-  text-align: center;
-  padding: 24px 10px;
-}
-
 .partners-info {
   max-width: 614px;
   align-self: center;
   margin: auto;
+  width: 100%;
 }
 
 .partners-info p {
@@ -30,3 +20,30 @@
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
+
+.partners-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.partners-images {
+  flex: 1 1 248px;
+  max-width: 248px;
+  text-align: center;
+  padding: 24px 10px;
+}
+
+@media only screen and (max-width: 1290px) {
+  .partners-images {
+    max-width: 190px;
+  }
+}
+
+/* @media only screen and (max-width: 992px) {
+  .partners-images {
+    max-width: 25%;
+  }
+} */

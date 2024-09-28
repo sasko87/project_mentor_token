@@ -10,6 +10,7 @@ const FormValidation = ({
   skills,
   setFormErrors,
   type,
+  termsChecked,
 }) => {
   const errors = {};
   if (!registerName) errors.registerName = "Name is required";
@@ -22,6 +23,7 @@ const FormValidation = ({
     if (!representative || representative.length === 0)
       errors.representative = "Representative is required";
     if (!address) errors.address = "Address is required";
+    if (!termsChecked) errors.termsChecked = "You must agree to our terms";
   }
 
   // Add other field validations as needed

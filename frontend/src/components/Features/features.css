@@ -1,7 +1,7 @@
 .rocket-img {
   position: absolute;
-  top: -364px;
-  right: -50px;
+  top: -154px;
+  right: 127px;
 }
 
 .features-titles {
@@ -19,7 +19,8 @@
 
 .features-title {
   margin: auto;
-  width: 614px;
+  max-width: 614px;
+  width: 100%;
   font-size: 40px;
   font-weight: 500;
   line-height: 47px;
@@ -27,8 +28,10 @@
 
 .component-section-features .features-card-container {
   display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
   max-width: 1240px;
-  height: 259px;
+  height: fit-content;
   gap: 16px;
 }
 
@@ -60,4 +63,35 @@
   font-weight: 400;
   line-height: 18px;
   letter-spacing: -2%;
+}
+
+@media only screen and (max-width: 1200px) {
+  .rocket-img {
+    right: 70px;
+  }
+  .component-section-features .feature-card {
+    height: 300px;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .rocket-img {
+    right: 30px;
+    width: 25%;
+  }
+
+  .component-section-features .feature-card {
+    flex: 1 1 300px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .rocket-img {
+    right: 20px;
+    top: -110px;
+    width: 180px;
+  }
+  .component-section-features .feature-card {
+    flex: 1 1 200px;
+  }
 }
