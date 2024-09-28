@@ -29,7 +29,7 @@ const ChangePassword = () => {
   const [strongPassword, setStrongPassword] = useState(false);
   const navigate = useNavigate();
   const token = window.localStorage.getItem("token");
-  const user = window.mentorToken.user;
+  const user = jwtDecode(token);
 
   const checkPasswordConditions = (newPassword) => {
     const passwordRegexOneNumberOrSymbol =

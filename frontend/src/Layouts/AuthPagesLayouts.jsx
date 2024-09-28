@@ -13,16 +13,25 @@ import { useNavigate } from "react-router-dom";
 const AuthPagesLayouts = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const token = window.localStorage.getItem("token");
   //scroll to top
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  const handleBack = (e) => {
+    e.preventDefault();
+    if (token) {
+      navigate("/dashboard");
+    } else {
+      navigate("/");
+    }
+  };
   return (
     <div className="auth-page">
       <div className="auth-page-hero">
         <div className="auth-page-hero-text">
-          <Link to="/" className="link-white-button">
+          <Link onClick={handleBack} className="link-white-button">
             <GoArrowLeft />
             Back
           </Link>
