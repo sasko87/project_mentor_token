@@ -1,22 +1,17 @@
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router";
-import { jwtDecode } from "jwt-decode";
-
 import useAuth from "../hooks/useAuth";
 
 const ProtectedRoutes = () => {
   const location = useLocation();
-  const isAuth = useAuth();
-  const token = window.localStorage.getItem("token");
-  const user = jwtDecode(token);
-  return isAuth && user.exp < Date.now() ? (
-    <Outlet />
-  ) : (
-    <>
-      window.localStorage.removeItem("token")
-      <Navigate to="/" replace state={{ from: location }} />
-    </>
-  );
+  const user = useAuth();
+
+  if (!user || user.exp < Date.now() / 1000) {
+    window.localStorage.removeItem("token");
+    return <Navigate to="/login" replace state={{ from: location }} />;
+  }
+
+  return <Outlet />;
 };
 
 export default ProtectedRoutes;

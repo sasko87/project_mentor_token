@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { jwtDecode } from "jwt-decode";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import Home from "./pages/Home/Home.jsx";
 import About from "./pages/About/About.jsx";
 import Contact from "./pages/Contact/Contact.jsx";
@@ -21,6 +23,10 @@ import MentorProfile from "./pages/MentorProfile/MentorProfile.jsx";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.jsx";
 import ChangePassword from "./pages/ChangePassword/ChangePassword.jsx";
+import Unauthorized from "./components/Unauthorized/Unauthorized.jsx";
+
+const token = window.localStorage.getItem("token");
+const user = jwtDecode(token);
 
 const router = createBrowserRouter([
   {
@@ -71,26 +77,28 @@ const router = createBrowserRouter([
           },
           {
             path: "/mentors",
-            element: <Mentors />,
+            element: user.type === "startup" ? <Mentors /> : <Unauthorized />,
           },
           {
             path: "/jobs",
-            element: <Jobs />,
+            element: user.type === "startup" ? <Jobs /> : <Unauthorized />,
           },
           {
             path: "/jobFeed",
-            element: <JobFeed />,
+            element: user.type === "mentor" ? <JobFeed /> : <Unauthorized />,
           },
           {
             path: "/mystats",
-            element: <MyStats />,
+            element: user.type === "mentor" ? <MyStats /> : <Unauthorized />,
           },
           {
             path: "/mentors/:id",
-            element: <MentorProfile />,
+            element:
+              user.type === "startup" ? <MentorProfile /> : <Unauthorized />,
           },
         ],
       },
+
       {
         element: <AuthPagesLayouts />,
         children: [
@@ -111,7 +119,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* <App /> */}
     <RouterProvider router={router} />
   </React.StrictMode>
 );

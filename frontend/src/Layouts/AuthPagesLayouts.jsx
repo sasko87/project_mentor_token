@@ -17,6 +17,7 @@ const AuthPagesLayouts = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
   const handleBack = (e) => {
     e.preventDefault();
     navigate(-1);

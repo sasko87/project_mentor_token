@@ -157,7 +157,7 @@ const MentorProfile = () => {
     <>
       <Section>
         <MentorInfo mentorData={mentorData} />
-        <div>
+        <div style={{ marginTop: 25 }}>
           <div style={{ display: "flex", gap: 80 }}>
             <AssignedJobs
               tabs={tabs}
