@@ -78,6 +78,10 @@
   transform: translateX(-120%);
 }
 
+.show {
+  transform: translateX(120%);
+}
+
 .admin-right-side {
   margin-left: 260px;
   flex-grow: 1;
@@ -87,4 +91,19 @@
 
 .admin-menu.hidden + .admin-right-side {
   margin: 0 120px;
+}
+
+@media only screen and (max-width: 992px) {
+  .admin-menu.hidden + .admin-right-side {
+    margin: 0 50px;
+  }
+  .admin-right-side {
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .admin-menu {
+    z-index: 9;
+  }
 }

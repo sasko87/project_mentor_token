@@ -6,7 +6,7 @@ const Modal = ({ children, closeModal }) => {
   return (
     <div className="modal">
       <div
-        className="back-lock"
+        className="modal-backgroud"
         onClick={() => {
           closeModal();
         }}

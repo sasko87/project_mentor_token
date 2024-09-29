@@ -1,10 +1,10 @@
-.back-lock {
+.modal-backgroud {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #000000e6;
+  background-color: #000000dc;
   z-index: 1111;
 }
 

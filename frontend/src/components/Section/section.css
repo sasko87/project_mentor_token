@@ -110,6 +110,10 @@
   .component-section-features {
     height: fit-content;
   }
+
+  .component-section-flex {
+    flex-direction: column;
+  }
 }
 
 @media only screen and (max-width: 768px) {

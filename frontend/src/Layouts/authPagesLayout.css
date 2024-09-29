@@ -34,7 +34,6 @@
   font-family: "Manrope";
   font-size: 20px;
   font-weight: 700;
-
   text-align: left;
   margin-top: 18px;
   text-transform: uppercase;
@@ -68,4 +67,76 @@
   max-width: 49px;
   height: 54.44px;
   margin-top: 20px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .auth-page-hero {
+    padding: 70px 50px;
+  }
+
+  .auth-page-hero-text h1 {
+    font-size: 70px;
+  }
+
+  .auth-page-hero-text h4 {
+    font-size: 18px;
+  }
+
+  .auth-page-form {
+    padding: 70px 50px;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .auth-page-hero-text h1 {
+    font-size: 50px;
+    line-height: 50px;
+  }
+
+  .auth-page-hero-text h4 {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .auth-page {
+    flex-direction: column;
+  }
+  .auth-page-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .auth-form-icon {
+    align-self: first baseline;
+  }
+
+  .auth-page-hero {
+    width: 100%;
+    height: 300px;
+  }
+  .auth-page-rocket {
+    width: 20%;
+    top: 65%;
+    left: 65%;
+  }
+
+  .auth-page-logo {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .auth-page-rocket {
+    width: 25%;
+    top: 75%;
+    left: 65%;
+  }
+  .auth-page-form {
+    min-height: fit-content;
+    border-bottom-left-radius: 0;
+  }
 }

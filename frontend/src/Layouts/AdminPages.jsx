@@ -13,9 +13,11 @@ import "./adminPagesLayout.css";
 import { jwtDecode } from "jwt-decode";
 import AdminNav from "../components/AdminNav/AdminNav";
 import AdminPageHeader from "../components/AdminPageHeader/AdminPageHeader";
+import useWindowSize from "../hooks/useWindowSize";
 
 const AdminPages = () => {
   const { pathname } = useLocation();
+  const windowSize = useWindowSize();
   //scroll to top
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -33,6 +35,11 @@ const AdminPages = () => {
   const user = window.mentorToken.user;
 
   const [isMenuVisible, setIsMenuVisible] = useState(true);
+  useEffect(() => {
+    if (windowSize.width < 992) {
+      setIsMenuVisible(false);
+    }
+  }, [windowSize.width]);
 
   const toggleMenuVisibility = () => {
     setIsMenuVisible(!isMenuVisible);
