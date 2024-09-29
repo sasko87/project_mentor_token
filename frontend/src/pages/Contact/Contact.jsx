@@ -25,7 +25,6 @@ const Contact = () => {
       message,
     };
     try {
-      // Send the POST request to the backend
       const response = await fetch("/api/send-message", {
         method: "POST",
         headers: {
@@ -49,7 +48,7 @@ const Contact = () => {
   };
   return (
     <Section className="contact">
-      <div>
+      <div style={{ height: "fit-content" }}>
         <div className="contact-data">
           <h2 className="contact-title">Let’s Talk!</h2>
           <p className="contact-description">
@@ -64,7 +63,7 @@ const Contact = () => {
             </span>
           </p>
         </div>
-        <div className="contact-form">
+        {/* <div className="contact-form">
           <form action="">
             <Grid columns={12}>
               <Column size="6">
@@ -110,6 +109,51 @@ const Contact = () => {
                 />
               </Column>
             </Grid>
+          </form>
+        </div> */}
+        <div>
+          <form className="contact-form">
+            <div className="contact-user-data-container">
+              <Input
+                type="text"
+                name="full-name"
+                className="full-name"
+                placeholder="Full Name"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+              />
+
+              <Input
+                type="email"
+                name="input-email"
+                className="input-email"
+                placeholder="E-mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div>
+              <Textarea
+                placeholder="Your message"
+                textareaClass="textarea"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
+            </div>
+            {error && (
+              <p style={{ color: "red", textAlign: "center" }}>{error}</p>
+            )}
+            {successMessage && (
+              <p style={{ color: "green", textAlign: "center" }}>
+                {successMessage}
+              </p>
+            )}
+            <div>
+              <Button
+                label="Send Message"
+                clickFunction={handleSendContactMessage}
+              />
+            </div>
           </form>
         </div>
       </div>
