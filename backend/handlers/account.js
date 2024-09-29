@@ -173,6 +173,7 @@ const updateMentorAccount = async (req, res) => {
       phone: req.body.phone,
       skills: req.body.skills,
       position: req.body.position,
+      profileImage: req.body.profileImage,
     };
     await updateAccount(req.body.id, data);
     const updatedAccount = await accountById(req.body.id);

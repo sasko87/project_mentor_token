@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Search from "../Search/Search";
 import ProfileImg from "../../assets/Ellipse 3.png";
 import "./adminPageHeader.css";
@@ -7,6 +7,31 @@ import { Link } from "react-router-dom";
 
 const AdminPageHeader = ({ user }) => {
   const [dropdownIsActive, setDropdownIsActive] = useState(false);
+  const [accountData, setAccountData] = useState("");
+  const token = window.localStorage.getItem("token");
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch(`/api/get-account-data`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setAccountData(data);
+      }
+    } catch (error) {
+      console.error("An error occurred during fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleDropdown = (e) => {
     e.preventDefault();
@@ -30,7 +55,7 @@ const AdminPageHeader = ({ user }) => {
       <div className="account-profile">
         <div className="account-profile-content" onClick={handleDropdown}>
           <img
-            src={user.profileImage}
+            src={accountData.profileImage}
             alt="Profile Image"
             className="profile-image"
           />
@@ -41,7 +66,7 @@ const AdminPageHeader = ({ user }) => {
               flexDirection: "column",
             }}
           >
-            <p className="user-name">{user.name}</p>
+            <p className="user-name">{accountData.name}</p>
             {user.type === "mentor" && <p className="user-type">Mentor</p>}
           </div>
         </div>

@@ -176,6 +176,25 @@
   line-height: 16.9px;
 }
 
+.mentor-info-edit-image-container {
+  width: 94px;
+  height: 94px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mentor-info-uploaded-image-preview {
+  width: 117px;
+  height: 117px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }

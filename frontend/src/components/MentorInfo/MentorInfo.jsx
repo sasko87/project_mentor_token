@@ -33,6 +33,9 @@ const MentorInfo = ({ mentorData }) => {
   const [position, setPosition] = useState("");
   const [category, setCategory] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  const [file, setFile] = useState();
+  const [preview, setPreview] = useState(null);
+  const [uploadImage, setUploadImage] = useState();
   const maxLength = 1200;
 
   useEffect(() => {
@@ -94,9 +97,39 @@ const MentorInfo = ({ mentorData }) => {
     setIsEditActive(false);
   };
 
+  const handleFileUpload = (e) => {
+    e.preventDefault();
+    const selectedFile = e.target.files[0];
+    setUploadImage(selectedFile);
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onload = () => {
+      setFile(reader.result);
+    };
+    if (selectedFile) {
+      const previewUrl = URL.createObjectURL(selectedFile);
+      setPreview(previewUrl);
+    }
+  };
+
   const saveEditedAccount = async (e) => {
     e.preventDefault();
     try {
+      let imagePath = "";
+      let formData = new FormData();
+      formData.set("document", uploadImage);
+      formData.set("email", email);
+      const image = await fetch("/api/upload", {
+        method: "POST",
+        "Content-Type": "multipart/form-data",
+        body: formData,
+      });
+      if (image.ok) {
+        const data = await image.json();
+
+        imagePath = data.localhost;
+      }
+
       const data = {
         name,
         desc,
@@ -105,6 +138,7 @@ const MentorInfo = ({ mentorData }) => {
         phone,
         position,
         id: mentorData._id,
+        profileImage: imagePath,
       };
       const update = await fetch("/api/update-mentor-account", {
         method: "PUT",
@@ -125,6 +159,7 @@ const MentorInfo = ({ mentorData }) => {
         setSkills(updatedData.skills);
         setDesc(updatedData.desc);
         setPosition(updatedData.position);
+        setProfileImage(updatedData.profileImage);
         setIsEditActive(false);
       }
     } catch (error) {
@@ -139,19 +174,19 @@ const MentorInfo = ({ mentorData }) => {
         <div className="mentor-info">
           <div className="mentor-info-container">
             <div className="mentor-info-personal-data-container">
-              <div style={{ textAlign: "center" }}>
-                <img
-                  src={profileImage}
-                  alt="Profile Image"
-                  className="mentor-info-profile-image"
-                />
-                <img
-                  src={GreenCheckSign}
-                  style={{ position: "absolute", right: "33%", top: "33%" }}
-                />
-              </div>
               {!isEditActive && (
                 <>
+                  <div style={{ textAlign: "center" }}>
+                    <img
+                      src={profileImage}
+                      alt="Profile Image"
+                      className="mentor-info-profile-image"
+                    />
+                    <img
+                      src={GreenCheckSign}
+                      style={{ position: "absolute", right: "33%", top: "33%" }}
+                    />
+                  </div>
                   <h3 className="mentor-info-name">
                     {name}
                     <sup style={{ marginLeft: 3 }}>
@@ -181,6 +216,42 @@ const MentorInfo = ({ mentorData }) => {
               )}
               {isEditActive && (
                 <>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <div className=".mentor-info-edit-image-container">
+                      <label
+                        htmlFor="file-upload"
+                        className="register-upload-label"
+                      >
+                        {file ? (
+                          <img
+                            src={preview}
+                            className="mentor-info-profile-image"
+                          />
+                        ) : (
+                          <>
+                            <img
+                              src={profileImage}
+                              alt="User Icon"
+                              className="mentor-info-profile-image"
+                            />
+                          </>
+                        )}
+                      </label>
+                      <input
+                        name="document"
+                        type="file"
+                        id="file-upload"
+                        onChange={handleFileUpload}
+                        accept="image/jpeg, image/png, image/pjpeg, image/gif"
+                      />
+                    </div>
+                  </div>
                   <Input
                     type="text"
                     value={name}
@@ -231,12 +302,7 @@ const MentorInfo = ({ mentorData }) => {
                     placeHolder="press enter to add new skill"
                     classNames="mentor-info-edit-input"
                   />
-                  {/* <Input
-                    type="text"
-                    value={skills}
-                    className="mentor-info-edit-input"
-                    onChange={(e) => setSkills(e.target.value)}
-                  /> */}
+
                   <Textarea
                     value={desc}
                     className="mentor-info-edit-textarea"
