@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./bestMentors.css";
 import Title from "../Title/Title";
 import { useNavigate } from "react-router-dom";
+import RisingIcon from "../../assets/admin-icons/rizing-arrow.png";
 
-const BestMentors = ({ mentors, profileImg, icon }) => {
+const BestMentors = ({ mentors, icon }) => {
+  const [rizingMentor, setRizingMentor] = useState(false);
   const navigate = useNavigate();
   const handleViewMentor = (id) => {
     navigate(`/mentors/${id}`);
   };
+
+  // Najdi go mentorot so najmnogu zavrseni raboti vo poslednite 30 dena
+  useEffect(() => {
+    // Find the mentor with the most jobs in the last 30 days
+    if (mentors.length > 0) {
+      const maxJobsIn30Days = Math.max(
+        ...mentors.map((mentor) => mentor.doneJobsInLast30Days.length)
+      );
+      const risingMentor = mentors.find(
+        (mentor) => mentor.doneJobsInLast30Days.length === maxJobsIn30Days
+      );
+      if (risingMentor) {
+        setRizingMentor(risingMentor._id);
+      }
+    }
+  }, [mentors]);
 
   return (
     <>
@@ -22,10 +40,12 @@ const BestMentors = ({ mentors, profileImg, icon }) => {
           .map((mentor, _id) => (
             <div
               key={mentor._id}
-              className="best-mentors-data"
+              className={`best-mentors-data ${
+                mentor._id === rizingMentor ? "rizing-mentor" : ""
+              }`}
               onClick={() => handleViewMentor(mentor._id)}
             >
-              <div style={{ width: "15%", textAlign: "center" }}>
+              <div className="best-mentor-profile-image-container">
                 <img
                   src={mentor.profileImage}
                   alt="Profile Image"
@@ -43,10 +63,11 @@ const BestMentors = ({ mentors, profileImg, icon }) => {
                 <p className="best-mentor-archived-jobs">Archived Jobs</p>
               </div>
               <div style={{ width: "10%", textAlign: "right" }}>
-                {mentor.doneJobsInLast30Days.length >
-                  mentor.doneJobsInLast60Days.length -
-                    mentor.doneJobsInLast30Days.length && <>p</>}
-                <img src={icon} alt="arrow up" className="best-mentor-arrow" />
+                <img
+                  src={mentor._id === rizingMentor ? RisingIcon : icon}
+                  alt="arrow up"
+                  className="best-mentor-arrow"
+                />
               </div>
             </div>
           ))}
