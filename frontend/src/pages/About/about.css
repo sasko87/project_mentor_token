@@ -87,3 +87,27 @@
   color: #787a82;
   min-height: 91px;
 }
+
+@media only screen and (max-width: 600px) {
+  .about-users_card {
+    flex: 1 1 35%;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .about-users_card {
+    flex: 1 1 70%;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .about-title {
+    font-size: 38px;
+  }
+
+  .about-description {
+    font-size: 15px;
+  }
+}
