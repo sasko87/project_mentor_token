@@ -148,14 +148,8 @@ const allJobs = async (req, res) => {
   }
 };
 
-//filteredJobs
-//da mozam da pratam id na kompanija i da mi gi dade spored id na taa kompanija
-
 const filteredJobs = async (req, res) => {
   try {
-    //TODO: da go proveram ova dali sum go zaboravil
-    const { sort } = req.query;
-    // console.log(req.query);
     const jobs = await getFilteredJobs(req.query);
 
     let data = [];

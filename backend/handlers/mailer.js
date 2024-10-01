@@ -12,17 +12,4 @@ const sendMessage = async (req, res) => {
   }
 };
 
-const sendPasswordResetMail = async (req, res) => {
-  try {
-    const result = await mailer.sendMail(
-      req.body.to,
-      "PASSWORD_RESET",
-      req.body.message
-    );
-    return res.status(201).send(result);
-  } catch (err) {
-    return res.status(500).send("Internal server error");
-  }
-};
-
-module.exports = { sendMessage, sendPasswordResetMail };
+module.exports = { sendMessage };

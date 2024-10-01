@@ -158,18 +158,20 @@ const Register = () => {
 
     try {
       let imagePath = "";
-      let formData = new FormData();
-      formData.set("document", uploadImage);
-      formData.set("email", email);
-      const image = await fetch("/api/upload", {
-        method: "POST",
-        "Content-Type": "multipart/form-data",
-        body: formData,
-      });
-      if (image.ok) {
-        const data = await image.json();
+      if (uploadImage) {
+        let formData = new FormData();
+        formData.set("document", uploadImage);
+        formData.set("email", email);
+        const image = await fetch("/api/upload", {
+          method: "POST",
+          "Content-Type": "multipart/form-data",
+          body: formData,
+        });
+        if (image.ok) {
+          const data = await image.json();
 
-        imagePath = data.localhost;
+          imagePath = data.localhost;
+        }
       }
 
       const data = {

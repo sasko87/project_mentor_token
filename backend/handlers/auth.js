@@ -14,7 +14,7 @@ const {
   setNewPassword,
 } = require("../pkg/account");
 
-const { sendMail, sendPasswordResetMail } = require("../pkg/mailer");
+const { sendMail } = require("../pkg/mailer");
 
 const login = async (req, res) => {
   try {
@@ -29,7 +29,6 @@ const login = async (req, res) => {
       return res.status(400).send({ error: "Wrong password" });
     }
 
-    //TODO prati cel account bez pass
     const payload = {
       profileImage: account.profileImage,
       name: account.name,

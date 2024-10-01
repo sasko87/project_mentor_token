@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Search from "../Search/Search";
-import ProfileImg from "../../assets/Ellipse 3.png";
 import "./adminPageHeader.css";
 import defaultProfileImage from "../../lib/ProfileImage";
 import { Link } from "react-router-dom";
@@ -55,7 +54,7 @@ const AdminPageHeader = ({ user }) => {
       <div className="account-profile">
         <div className="account-profile-content" onClick={handleDropdown}>
           <img
-            src={accountData.profileImage}
+            src={accountData.profileImage || defaultProfileImage}
             alt="Profile Image"
             className="profile-image"
           />

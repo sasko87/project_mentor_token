@@ -4,19 +4,12 @@ const {
   deleteApplication,
   getFilteredApplications,
 } = require("../pkg/application/application");
-const {
-  validate,
-  ApplicationValidate,
-} = require("../pkg/application/validate");
+
 const { updateJob } = require("../pkg/job/job");
 
 const createNewApplication = async (req, res) => {
   try {
-    // console.log("ne application", req);
 
-    // await validate(req.body, ApplicationValidate);
-
-    // TODO: preraboti
     const data = {
       ...req.body,
     };
@@ -48,12 +41,11 @@ const deleteOneApplication = async (req, res) => {
     return res.status(err.status).send(err.error);
   }
 };
-//filteredApplications
-//da mozam da pratam id na kompanija i da mi gi dade spored id na taa kompanija
+
 
 const filteredApplications = async (req, res) => {
   try {
-    // console.log(req);
+  
     const applications = await getFilteredApplications(req.query);
     return res.status(200).send(applications);
   } catch (err) {
@@ -115,7 +107,6 @@ const rejectApplication = async (req, res) => {
       status: "REJECTED",
     };
 
-    // console.log(rejectedApplication);
     await updateApplication(rejectedApplication._id, { status: "REJECTED" });
 
     return res.status(200).send(rejectedApplication);

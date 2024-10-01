@@ -49,7 +49,7 @@ const {
   searchStartup,
 } = require("./handlers/account.js");
 
-const { sendMessage, sendPasswordResetMail } = require("./handlers/mailer.js");
+const { sendMessage } = require("./handlers/mailer.js");
 const { upload } = require("./handlers/storage");
 
 const app = express();
@@ -70,6 +70,7 @@ app.use(
       "/api/auth/register-check-existing-account",
       "/api/send-message",
       "/api/upload",
+      "/api/reset-password/:id/:token",
     ],
   })
 );
@@ -114,8 +115,6 @@ app.get("/api/search-mentor", searchMentor);
 app.get("/api/search-startup", searchStartup);
 app.post("/api/auth/forgot-password", forgotPassword);
 app.post("/api/reset-password/:id/:token", resetPassword);
-// app.get("/api/reset-password/:id/:token", resetPassTemplate);
-app.post("/api/reset-pass", sendPasswordResetMail);
 app.post("/api/auth/change-password", changePassword);
 
 app.listen(process.env.PORT || 10000, () =>

@@ -27,8 +27,6 @@ const DashboardStartup = () => {
         },
       });
 
-      //TODO nov endpoint get top 3
-      //ke preracunas na BE i samo ke pokazes na FE bez nisto drugo
       const allMentors = await fetch("/api/getAllMentors", {
         method: "GET",
         headers: {

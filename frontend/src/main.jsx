@@ -60,6 +60,10 @@ const router = createBrowserRouter([
         path: "/forgot-password",
         element: <ForgotPassword />,
       },
+      {
+        path: "/reset-password/:id/:token",
+        element: <ResetPassword />,
+      },
     ],
   },
 
@@ -107,11 +111,6 @@ const router = createBrowserRouter([
       {
         element: <AuthPagesLayouts />,
         children: [
-          {
-            path: "/reset-password/:id/:token",
-            element: <ResetPassword />,
-          },
-
           {
             path: "/change-password",
             element: <ChangePassword />,
