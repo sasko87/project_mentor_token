@@ -8,9 +8,7 @@ const AssignedJobs = ({ tabs, onClickFunction, selectedTab }) => {
   const navigate = useNavigate();
   const user = window.mentorToken.user;
   const handleViewJob = (id) => {
-    user.type === "startup"
-      ? navigate(`/jobs?` + new URLSearchParams({ _id: id }).toString())
-      : navigate(`/jobfeed?` + new URLSearchParams({ _id: id }).toString());
+    navigate(`/jobs?` + new URLSearchParams({ _id: id }).toString());
   };
   return (
     <div className="startup-jobs">
@@ -54,7 +52,11 @@ const AssignedJobs = ({ tabs, onClickFunction, selectedTab }) => {
                   <div className="job-title-container">
                     <h3
                       className="job-title"
-                      onClick={() => handleViewJob(job._id)}
+                      onClick={
+                        user.type === "startup"
+                          ? () => handleViewJob(job._id)
+                          : undefined
+                      }
                     >
                       {job.title}
                     </h3>

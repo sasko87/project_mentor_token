@@ -7,11 +7,9 @@ import FilterJobs from "../../components/FilterJobs/FilterJobs";
 import Title from "../../components/Title/Title";
 import LayoutIcon from "../../assets/admin-icons/layout-grid.png";
 import Button from "../../components/Button/Button";
-import ProfileImg from "../../assets/Ellipse 3.png";
 import JobCardRow from "../../components/JobCardRow/JobCardRow";
 import FilterIcon from "../../assets/admin-icons/filter-icon.png";
 import { useLocation } from "react-router-dom";
-import NoData from "../../components/NoData/NoData";
 
 const JobFeed = () => {
   const user = window.mentorToken.user;
@@ -65,7 +63,6 @@ const JobFeed = () => {
       });
       if (allJobs.ok) {
         let data = await allJobs.json();
-        console.log(data);
         if (sortFilter === "Oldest") {
           data = data.sort(
             (a, b) => new Date(a.createdAt) - new Date(b.createdAt)

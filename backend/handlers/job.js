@@ -195,11 +195,6 @@ const cancelJobOffer = async (req, res) => {
 
     await updateJob(canceledJob._id, { status: "CANCELED" });
 
-    // await updateJob(rejectedApplication.jobId._id, {
-    //   status: "REJECTED",
-    // });
-    // await
-
     return res.status(200).send(canceledJob);
   } catch (err) {
     console.log(err);

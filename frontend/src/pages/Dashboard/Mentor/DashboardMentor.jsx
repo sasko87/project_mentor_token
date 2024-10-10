@@ -117,10 +117,6 @@ const DashboardMentor = () => {
     }
   };
 
-  // const mentorSentApplications = sentApplications.filter(
-  //   (application) => application.status === "PENDING"
-  // );
-
   const doneJobs = jobs.filter((job) => job.status === "DONE");
   const inProgressJobs = jobs.filter((job) => job.status === "IN_PROGRESS");
   const rejectedJobs = jobs.filter((job) => job.status === "REJECTED");

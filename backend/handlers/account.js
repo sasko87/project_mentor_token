@@ -2,7 +2,6 @@ const {
   allMentors,
   accountById,
   updateAccount,
-  Account,
   allStartups,
   accountFilter,
 } = require("../pkg/account/index");

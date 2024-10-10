@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import "./contact.css";
 import Input from "../../components/Input/Input";
 import Textarea from "../../components/Textarea/Textarea";
-import Grid from "../../components/Grid/Grid";
-import Column from "../../components/Grid/Column";
 import Button from "../../components/Button/Button";
 import Section from "../../components/Section/Section";
 

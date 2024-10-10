@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
 import Section from "../../components/Section/Section";
-import Card from "../../components/Card/Card";
-import ProfileImg from "../../assets/Ellipse 3.png";
 import Button from "../../components/Button/Button";
 import "./mentors.css";
 import { useEffect } from "react";

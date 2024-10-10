@@ -13,7 +13,6 @@ const BestMentors = ({ mentors, icon }) => {
 
   // Najdi go mentorot so najmnogu zavrseni raboti vo poslednite 30 dena
   useEffect(() => {
-    // Find the mentor with the most jobs in the last 30 days
     if (mentors.length > 0) {
       const maxJobsIn30Days = Math.max(
         ...mentors.map((mentor) => mentor.doneJobsInLast30Days.length)

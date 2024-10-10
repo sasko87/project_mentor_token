@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Section from "../../components/Section/Section";
-import MyStats from "../MyStats/MyStats";
 import MentorInfo from "../../components/MentorInfo/MentorInfo";
 import { useParams } from "react-router-dom";
 import AssignedJobs from "../../components/AssignedJobs/AssignedJobs";

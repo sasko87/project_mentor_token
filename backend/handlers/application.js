@@ -9,14 +9,12 @@ const { updateJob } = require("../pkg/job/job");
 
 const createNewApplication = async (req, res) => {
   try {
-
     const data = {
       ...req.body,
     };
     const newApplication = await createApplication(data);
     return res.status(200).send(newApplication);
   } catch (error) {
-    // console.log("dderror", error);
     return res.status(400).send("error.error");
   }
 };
@@ -42,10 +40,8 @@ const deleteOneApplication = async (req, res) => {
   }
 };
 
-
 const filteredApplications = async (req, res) => {
   try {
-  
     const applications = await getFilteredApplications(req.query);
     return res.status(200).send(applications);
   } catch (err) {

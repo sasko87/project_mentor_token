@@ -21,44 +21,6 @@ const AdminNav = ({ items }) => {
             {item.name}
           </Link>
         ))}
-        {/* {user.type === "startup" && (
-      <>
-       
-        <Link to="/mentors" className="admin-nav-link">
-          <img src={ProfileIcon} className="admin-nav-icon" />
-          Mentors
-        </Link>
-
-        <Link to="/Jobs" className="admin-nav-link">
-          <img src={JobIcon} className="admin-nav-icon" />
-          Jobs
-        </Link>
-      </>
-    )}
-
-    {user.type === "mentor" && (
-      <div>
-        <Link to="/dashboard" className="admin-nav-link">
-          <img src={DashboardIcon} className="admin-nav-icon" />
-          Dashboard
-        </Link>
-        <Link to="/mystats" className="admin-nav-link">
-          <img src={ProfileIcon} className="admin-nav-icon" />
-          My Stats
-        </Link>
-
-        <Link to="/jobsfeed" className="admin-nav-link">
-          <img src={JobIcon} className="admin-nav-icon" />
-          Job Feed
-        </Link>
-      </>
-    )}
-  </div>
-  <div className="admin-nav-logout">
-    <Link to="/logout" className="admin-nav-link">
-      <img src={LogoutIcon} className="admin-nav-icon" />
-      Logout
-    </Link> */}
       </div>
     </nav>
   );

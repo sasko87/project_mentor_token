@@ -11,7 +11,6 @@ const {
   changePassword,
   forgotPassword,
   resetPassword,
-  resetPassTemplate,
   registerCheckExistingAccount,
 } = require("./handlers/auth");
 const {

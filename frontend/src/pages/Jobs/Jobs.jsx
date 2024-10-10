@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Button from "../../components/Button/Button";
 import Section from "../../components/Section/Section";
 import Modal from "../../components/Modal/Modal";
-import Input from "../../components/Input/Input";
 import JobsCard from "../../components/JobsCard/JobsCard";
 import "./jobs.css";
 import Textarea from "../../components/Textarea/Textarea";

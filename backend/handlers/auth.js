@@ -136,26 +136,6 @@ const forgotPassword = async (req, res) => {
     return res.status(500).send({ error: "Mail not sent. Try again later" });
   }
 };
-//TODO ova mislam ne mi treba da proveram
-const resetPassTemplate = async (req, res) => {
-  const { id, token } = req.params;
-
-  const user = await accountById(id);
-
-  if (!user) {
-    return res.status(400).send("User not registered!");
-  }
-
-  const secret = process.env.JWT_SECRET + user.password;
-  console.log("resetpasstemlata", user);
-
-  try {
-    const payload = jwt.verify(token, secret);
-    res.render("reset-password", { email: user.email });
-  } catch (err) {
-    return res.status(400).send(err);
-  }
-};
 
 const resetPassword = async (req, res) => {
   const { id, token } = req.params;
@@ -185,6 +165,5 @@ module.exports = {
   changePassword,
   forgotPassword,
   resetPassword,
-  resetPassTemplate,
   registerCheckExistingAccount,
 };
